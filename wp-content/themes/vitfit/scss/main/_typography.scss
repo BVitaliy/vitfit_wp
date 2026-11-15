@@ -1,0 +1,180 @@
+@use "../mixins" as *;
+
+// Ermilov is wide — headings are uppercase with a tight line-height,
+// letter-spacing 0. Each class = family + size + line-height (colour apart).
+%display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--clr-ink);
+  letter-spacing: 0;
+}
+
+.h1 {
+  @extend %display;
+  font-size: max(48px, #{rem(150)});
+  line-height: 0.9;
+
+  @include maxMedia(xl) {
+    font-size: clamp(52px, 9vw, 96px);
+  }
+
+  @include maxMedia(md) {
+    font-size: clamp(40px, 11.6vw, 58px);
+  }
+}
+
+.h2 {
+  @extend %display;
+  font-size: max(40px, #{rem(100)});
+  line-height: 0.95;
+
+  @include maxMedia(xl) {
+    font-size: clamp(40px, 7vw, 68px);
+  }
+
+  @include maxMedia(md) {
+    font-size: clamp(32px, 9.4vw, 44px);
+  }
+}
+
+.h3 {
+  @extend %display;
+  font-size: max(30px, #{rem(60)});
+  line-height: 1;
+
+  @include maxMedia(xl) {
+    font-size: 40px;
+  }
+
+  @include maxMedia(md) {
+    font-size: 30px;
+  }
+}
+
+.h4 {
+  @extend %display;
+  font-size: max(22px, #{rem(34)});
+  line-height: 1.05;
+
+  @include maxMedia(md) {
+    font-size: 22px;
+  }
+}
+
+.h5 {
+  @extend %display;
+  font-size: max(17px, #{rem(23)});
+  line-height: 1.1;
+
+  @include maxMedia(md) {
+    font-size: 18px;
+  }
+}
+
+.text-lg {
+  font-size: max(16px, #{rem(21)});
+  line-height: 1.4; // 2px tighter (manager)
+
+  @include maxMedia(md) {
+    font-size: 16px;
+  }
+}
+
+.text-md {
+  font-size: max(15px, #{rem(17)});
+  line-height: 1.3; // 17px / 22px (manager: content 2px tighter)
+}
+
+.text-sm {
+  font-size: max(13px, #{rem(14)});
+  line-height: 1.3;
+}
+
+// keeps "Vit-Fit" in one piece in titles (no break at the hyphen)
+.nowrap {
+  white-space: nowrap;
+}
+
+.clr-ink {
+  color: var(--clr-ink);
+}
+
+.clr-white {
+  color: var(--clr-white);
+}
+
+.clr-fl {
+  color: var(--fl);
+}
+
+// Ermilov metrics (upm 1000): content box 700 above / 155 below the baseline,
+// caps ~660 — so a box around a word has 40 above the caps and 155 below.
+// Й / Ї reach 840, above the line box.
+
+// a word of a title on a coloured "marker": inline, so it never changes the
+// line height; the extra top padding evens the space above caps / below the
+// baseline (0.155em each side)
+.mark {
+  padding: 0.115em 0.14em 0;
+  border-radius: 0.14em;
+  background: var(--fl);
+  color: var(--clr-ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+// outlined display text (decor)
+.outline-text {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+
+// media insert inside a title (ref. euduco.ua): a rectangle a bit taller than
+// the caps, centred on them (caps 0–0.66em above the baseline); optional tag
+.title-pill {
+  position: relative;
+  display: inline-block;
+  width: 1.9em;
+  height: 0.86em;
+  margin-inline: 0.08em;
+  border-radius: 0.1em;
+  vertical-align: -0.1em;
+  background: var(--fl-l);
+
+  img,
+  video {
+    @include cover;
+    border-radius: inherit;
+  }
+
+  picture {
+    height: 100%;
+  }
+
+  &__tag {
+    position: absolute;
+    right: -0.25em;
+    bottom: -0.16em;
+    padding: rem(6) rem(10);
+    border-radius: var(--rd-pill);
+    background: var(--fl);
+    font-family: var(--font-main);
+    font-size: max(11px, #{rem(13)});
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--clr-ink);
+    rotate: -6deg;
+
+    // phones: titles wrap tight, the tag would sit on the next word
+    @include maxMedia(md) {
+      display: none;
+    }
+  }
+}

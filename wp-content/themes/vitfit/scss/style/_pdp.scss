@@ -1,0 +1,756 @@
+@use "sass:math";
+@use "../mixins" as *;
+
+// ── Product detail page (product.php) ─────────────────────────────
+// Page colour = the flavour class on <main> (--fl / --fl-l). No frames: thumbs,
+// pills, boxes are told apart by fill only (manager).
+
+.pdp {
+  &__crumbs {
+    padding-top: var(--sp-sm);
+    margin-bottom: var(--sp-sm);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+    gap: var(--sp-lg);
+    align-items: start;
+
+    @include maxMedia(lg) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-md);
+    }
+  }
+
+  // ── gallery ──
+  &__gallery {
+    --thumb-h: max(90px, #{rem(120)});
+
+    // tablets landscape: the root is 16px, the column narrow
+    @include maxMedia(xl) {
+      --thumb-h: 90px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    min-width: 0;
+
+    @include minMedia(lg) {
+      position: sticky;
+      top: calc(var(--header-h) + #{rem(20)});
+    }
+  }
+
+  // ≥992 the big photo is limited by the screen height: photo + thumbs always fit under
+  // the header while the gallery sticks
+  &__main {
+    position: relative;
+    width: 100%;
+
+    @include minMedia(lg) {
+      height: clamp(#{rem(360)}, calc(100svh - var(--header-h) - #{rem(40)} - var(--thumb-h) - 10px), #{rem(800)});
+
+      .swiper-wrapper,
+      .pdp__slide {
+        height: 100%;
+      }
+
+      .pdp__slide {
+        aspect-ratio: auto;
+      }
+    }
+
+    border-radius: var(--rd-lg);
+    overflow: hidden;
+  }
+
+  &__slide {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1.02;
+    overflow: hidden;
+    background: #fff;
+
+    // any photo / video format shows whole, centred on white
+    img,
+    video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    // opens Fancybox
+    &--photo,
+    &--pack {
+      cursor: zoom-in;
+    }
+  }
+
+  // packshot placeholders (WP: client packshots on white, <img>)
+  &__bottle {
+    height: 84%;
+
+    &--turn {
+      rotate: -9deg;
+      scale: 0.94;
+    }
+
+    // the third packshot: the other way (WP: client packshots, whole in the frame)
+    &--label {
+      rotate: 9deg;
+      scale: 0.94;
+    }
+  }
+
+  &__play {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: max(72px, #{rem(96)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fl);
+    color: var(--clr-ink);
+    transition: background 0.3s, color 0.3s, opacity 0.3s;
+
+    svg {
+      width: 34%;
+      translate: 6% 0;
+    }
+
+    @include hover {
+      background: var(--clr-ink);
+      color: #fff;
+    }
+  }
+
+  &__slide--video.is-playing &__play {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__badge {
+    position: absolute;
+    z-index: 3;
+    top: rem(18);
+    left: rem(18);
+  }
+
+  &__arrows {
+    position: absolute;
+    z-index: 3;
+    right: rem(16);
+    bottom: rem(16);
+    display: flex;
+    gap: rem(8);
+
+    @include maxMedia(md) {
+      display: none;
+    }
+
+    // visible on white packshots and on photos alike
+    .btn-icon {
+      --bi-bg: var(--bg-2);
+    }
+
+    .btn-icon.swiper-button-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  }
+
+  &__thumbs {
+    width: 100%;
+
+    .swiper-slide {
+      width: calc((100% - #{rem(40)}) / 5);
+    }
+  }
+
+  &__thumb {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    border-radius: var(--rd-md);
+    overflow: hidden;
+    background: #fff;
+    cursor: pointer;
+
+    // a fixed height: the column's width doesn't push the thumbs off the screen
+    @include minMedia(lg) {
+      height: var(--thumb-h);
+      aspect-ratio: auto;
+    }
+    opacity: 0.55;
+    transition: opacity 0.3s, background 0.3s;
+
+    .bottle {
+      height: 82%;
+    }
+
+    &--photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    // the video thumb: play mark over the poster
+    &--video svg {
+      position: relative;
+      width: 30%;
+      padding: 7%;
+      border-radius: 50%;
+      background: var(--fl);
+      color: var(--clr-ink);
+    }
+
+    &.swiper-slide-thumb-active {
+      opacity: 1;
+      background: var(--fl-l);
+    }
+
+    @include hover {
+      opacity: 1;
+    }
+  }
+
+  // ── info ──
+  // one rhythm for the column: every group = label + content, the same gap (manager)
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+    min-width: 0;
+
+    > .pdp__group {
+      margin-top: rem(8);
+    }
+
+    // the same gap after the last group, with the accordion or without it
+    > .pdp__actions {
+      margin-top: rem(16);
+    }
+  }
+
+  // every child of the column takes its full width (manager: one width)
+  &__group,
+  &__lead {
+    width: 100%;
+  }
+
+  &__title {
+    @include maxMedia(md) {
+      font-size: clamp(30px, 10vw, 44px);
+    }
+  }
+
+  &__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(10);
+    font-size: max(13px, #{rem(15)});
+    color: var(--clr-ink);
+
+    > span:last-child {
+      color: var(--clr-muted);
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.3s;
+    }
+
+    @include hover {
+      > span:last-child {
+        text-decoration-color: currentColor;
+      }
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: #{rem(18)} var(--sp-sm);
+  }
+
+  &__option {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: rem(10);
+    font-size: max(11px, #{rem(13)});
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: rem(14) rem(28);
+  }
+}
+
+// ── stars: one element, the fill width = rating (--rate: 96% = 4,8) ──
+.stars {
+  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 24'%3E%3Cpath d='M12 1.6l3.1 6.4 7 .9-5.1 4.9 1.3 6.9L12 17.4l-6.3 3.3 1.3-6.9-5.1-4.9 7-.9z'/%3E%3C/svg%3E");
+  display: inline-block;
+  flex: none;
+  width: 5.4em;
+  height: 1em;
+  font-size: max(15px, #{rem(18)});
+  background: linear-gradient(90deg, var(--c-yellow) var(--rate, 100%), rgba(22, 17, 14, 0.14) var(--rate, 100%));
+  -webkit-mask: var(--star) 0 0 / 1.08em 1em repeat-x;
+  mask: var(--star) 0 0 / 1.08em 1em repeat-x;
+}
+
+// ── taste profile: 5 segments per row, filled up to data-v ──
+.taste {
+  &__list {
+    display: grid;
+    gap: rem(10);
+
+    li {
+      display: grid;
+      grid-template-columns: 9.5em 1fr;
+      align-items: center;
+      gap: rem(14);
+      font-size: max(15px, #{rem(17)});
+      color: var(--clr-text);
+
+      @include maxMedia(md) {
+        grid-template-columns: 7.5em 1fr;
+      }
+    }
+  }
+
+  &__bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: rem(5);
+
+    i {
+      height: rem(8);
+      border-radius: rem(4);
+      background: var(--bg-2);
+    }
+
+    @for $v from 1 through 5 {
+      &[data-v="#{$v}"] i:nth-child(-n + #{$v}) {
+        background: var(--fl);
+      }
+    }
+  }
+}
+
+// ── perks: a plain list in the body text, small icon in front ──
+.perks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: rem(12) rem(24);
+  width: 100%;
+
+  @include maxMedia(md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+    font-size: max(15px, #{rem(17)});
+    line-height: 1.3;
+    color: var(--clr-text);
+  }
+
+  &__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: max(29px, #{rem(36)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fl-l);
+    color: var(--clr-ink);
+
+    svg {
+      width: rem(18);
+      height: rem(18);
+    }
+  }
+}
+
+// ── characteristics list (details aside) ──
+.specs {
+  display: grid;
+  width: 100%;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: rem(16);
+    padding: rem(14) rem(18);
+    border-radius: var(--rd-sm);
+    font-size: max(15px, #{rem(17)});
+
+    &:nth-child(odd) {
+      background: var(--bg-2);
+    }
+  }
+
+  dt {
+    color: var(--clr-muted);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 700;
+    color: var(--clr-ink);
+    text-align: right;
+  }
+}
+
+// ── reviews ──
+.reviews {
+  .section-head__btn {
+    flex: none;
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    gap: rem(16);
+
+    @include maxMedia(xl) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(10);
+    padding: rem(34);
+    border-radius: var(--rd-lg);
+    background: var(--bg-2);
+
+    @include maxMedia(xl) {
+      padding: 26px;
+    }
+  }
+
+  &__score {
+    font-family: var(--font-display);
+    font-size: max(64px, #{rem(96)});
+    line-height: 0.9;
+    color: var(--clr-ink);
+  }
+
+  &__count {
+    font-size: max(13px, #{rem(15)});
+    color: var(--clr-ink);
+  }
+
+  &__bars {
+    display: grid;
+    gap: rem(8);
+    width: 100%;
+    margin-top: auto;
+    padding-top: rem(16);
+    font-size: max(11px, #{rem(13)});
+    color: var(--clr-ink);
+
+    li {
+      display: grid;
+      grid-template-columns: 1em 1fr 2.4em;
+      align-items: center;
+      gap: rem(10);
+    }
+
+    li > span:last-child {
+      text-align: right;
+      color: var(--clr-muted);
+    }
+  }
+
+  &__bar {
+    height: rem(6);
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--clr-ink) var(--p), rgba(255, 255, 255, 0.7) var(--p));
+  }
+
+  // 3 cards next to the summary ≥1200; the slider is clipped to its column there
+  &__slider {
+    @include minMedia(xl) {
+      overflow: hidden;
+    }
+
+    .swiper-slide {
+      height: auto;
+      width: calc((100% - 2rem) / 3);
+
+      @include maxMedia(xl) {
+        width: min(380px, 82vw);
+      }
+    }
+
+    .grid-slider__pagination {
+      @include minMedia(xl) {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: rem(14);
+  padding: rem(34);
+  border-radius: var(--rd-lg);
+  background: #fff;
+
+  @include maxMedia(xl) {
+    padding: 26px;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+  }
+
+  &__avatar {
+    display: grid;
+    place-items: center;
+    width: max(37px, #{rem(46)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fl);
+    font-family: var(--font-display);
+    font-size: max(15px, #{rem(18)});
+    color: var(--clr-ink);
+  }
+
+  &__name {
+    display: block;
+    font-size: max(14px, #{rem(16)});
+    color: var(--clr-ink);
+  }
+
+  &__date {
+    font-size: max(11px, #{rem(13)});
+    color: var(--clr-muted);
+  }
+
+  &__meta {
+    margin-top: auto;
+    font-size: max(11px, #{rem(12)});
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+  }
+}
+
+// ── rating input (review popup): DOM 5 → 1, shown 1 → 5 ──
+.rate {
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  &__stars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    gap: rem(4);
+
+    label {
+      cursor: pointer;
+      color: rgba(22, 17, 14, 0.18);
+      transition: color 0.2s, scale 0.2s;
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    svg {
+      display: block;
+      width: max(27px, #{rem(34)});
+      height: max(27px, #{rem(34)});
+    }
+
+    label:has(input:checked),
+    label:has(input:checked) ~ label {
+      color: var(--c-yellow);
+    }
+
+    label:has(input:focus-visible) {
+      outline: 2px solid var(--clr-ink);
+      outline-offset: 2px;
+      border-radius: rem(4);
+    }
+  }
+
+  @include minMedia(xl) {
+    &__stars:hover label {
+      color: rgba(22, 17, 14, 0.18);
+    }
+
+    &__stars label:hover,
+    &__stars label:hover ~ label {
+      color: var(--c-yellow);
+    }
+  }
+
+  &.is-error .field__label {
+    color: #d8344a;
+  }
+}
+
+// ── product question form ──
+.ask {
+  &__box {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--sp-lg);
+    padding: var(--sp-md);
+    border-radius: var(--rd-lg);
+    background: var(--bg-2); // beige, as every form box (manager)
+
+    @include maxMedia(lg) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--sp-sm);
+    }
+
+    @include maxMedia(md) {
+      padding: 28px 20px;
+    }
+  }
+
+  &__text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+  }
+
+  // on the beige box: white fields with a slightly darker line (the checkbox shows too)
+  --field-line: #e7dac6;
+
+  .field__input {
+    background: #fff;
+
+    // the same focus / error fill as every form
+    &:focus {
+      background: var(--fl-l);
+    }
+
+    &.is-error {
+      background: #fdeef0;
+    }
+  }
+}
+
+// ── "Спробуйте також": 4 cards ≥1200 (clipped to the container), 290px below ──
+.related__slider {
+  @include minMedia(xl) {
+    overflow: hidden;
+  }
+
+  .swiper-slide {
+    height: auto;
+    width: calc((100% - 3rem) / 4);
+
+    @include maxMedia(xl) {
+      width: 290px;
+    }
+  }
+
+  .grid-slider__pagination {
+    @include minMedia(xl) {
+      display: none !important;
+    }
+  }
+}
+
+// Fancybox: the SVG packshot placeholders full size (WP: plain images)
+.pdp-zoom {
+  display: grid;
+  place-items: center;
+  width: min(80vw, 80vh);
+  aspect-ratio: 1;
+  padding: 0 !important;
+  border-radius: var(--rd-lg);
+  background: #fff;
+  overflow: hidden;
+
+  .bottle {
+    height: 84%;
+  }
+}
+
+// Fancybox over the header / modals, in the site's ink
+.fancybox__container {
+  --fancybox-bg: rgba(22, 17, 14, 0.92);
+  z-index: 1200;
+}
+
+// the product accordion in the info column
+.pdp__faq {
+  gap: rem(8);
+
+  .h5 {
+    font-size: max(16px, #{rem(19)});
+  }
+
+  // compact: the column is long enough without tall rows
+  .faq__head {
+    padding: rem(12) rem(12) rem(12) rem(24);
+
+    @include maxMedia(md) {
+      padding: 10px 10px 10px 16px;
+    }
+  }
+
+  .faq__icon {
+    width: max(30px, #{rem(36)});
+  }
+
+  .faq__inner .faq__content {
+    padding: rem(4) rem(24) rem(20);
+
+    @include maxMedia(md) {
+      padding: 2px 16px 16px;
+    }
+  }
+}

@@ -1,0 +1,290 @@
+@use "../mixins" as *;
+
+// ── Rich text (CMS / WYSIWYG output) — as reatiss ──────────────────
+// Styles bare tags so the WordPress editor output (the_content, ACF WYSIWYG)
+// works without classes: text page, SEO block, later the blog article.
+// Size comes from the text-* class on the wrapper. :where() keeps specificity
+// at zero so blocks can override; only class-less tags are styled, component
+// markup inside the content keeps its own look. No frames (manager): table
+// rows and quotes are told apart by fill.
+.rich-text {
+  color: var(--clr-text);
+
+  > * + * {
+    margin-top: 1em;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  // big blocks open a new part
+  > * + :is(figure, blockquote, table, .article-slider, .article-cta, .article-video, .article-share, .article-table) {
+    margin-top: var(--sp-sm);
+  }
+
+  :where(h2, h3, h4) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+  }
+
+  :where(h2) {
+    font-size: max(24px, #{rem(40)});
+
+    @include maxMedia(md) {
+      font-size: 22px;
+    }
+  }
+
+  :where(h3) {
+    font-size: max(20px, #{rem(28)});
+
+    @include maxMedia(md) {
+      font-size: 18px;
+    }
+  }
+
+  :where(h4) {
+    font-size: max(17px, #{rem(21)});
+  }
+
+  // headings open a new part: more air above, less to their text
+  > :where(h2, h3, h4) {
+    margin-top: var(--sp-sm);
+  }
+
+  > :where(h2, h3, h4) + * {
+    margin-top: 0.8em;
+  }
+
+  > :where(h2, h3, h4):first-child {
+    margin-top: 0;
+  }
+
+  :where(a:not([class])) {
+    color: var(--clr-ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--fl);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.3s;
+
+    @include hover {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  :where(strong, b) {
+    font-weight: 700;
+    color: var(--clr-ink);
+  }
+
+  :where(ul:not([class]), ol:not([class])) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  :where(ul:not([class]) > li) {
+    position: relative;
+    padding-left: 1.4em;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.2em;
+      top: calc(0.715em - #{rem(3.5)}); // centred on the first line
+      width: rem(7);
+      height: rem(7);
+      border-radius: 50%;
+      background: var(--fl);
+    }
+  }
+
+  :where(ol:not([class])) {
+    counter-reset: rt;
+  }
+
+  :where(ol:not([class]) > li) {
+    position: relative;
+    padding-left: 2em;
+    counter-increment: rt;
+
+    &::before {
+      content: counter(rt);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: var(--font-display);
+      color: var(--clr-ink);
+    }
+  }
+
+  // a quote: beige box, the quote icon + the display face
+  :where(blockquote) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: rem(24);
+    margin-inline: 0;
+    padding: var(--sp-sm);
+    border-radius: var(--rd-lg);
+    background: var(--bg-2);
+    font-family: var(--font-display);
+    font-size: max(18px, #{rem(30)});
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+
+    @include maxMedia(md) {
+      gap: 14px;
+      padding: 22px;
+      font-size: 19px;
+    }
+
+    &::before {
+      content: "";
+      width: max(28px, #{rem(44)});
+      aspect-ratio: 1.2;
+      background: var(--fl);
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 20'%3E%3Cpath d='M0 20V11C0 4.8 3.4 1 9.6 0l1 3.2C7.4 4 5.8 6 5.6 8.6H10.4V20H0Zm13.6 0V11c0-6.2 3.4-10 9.6-11l.8 3.2c-3.2.8-4.8 2.8-5 5.4H24V20H13.6Z'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 20'%3E%3Cpath d='M0 20V11C0 4.8 3.4 1 9.6 0l1 3.2C7.4 4 5.8 6 5.6 8.6H10.4V20H0Zm13.6 0V11c0-6.2 3.4-10 9.6-11l.8 3.2c-3.2.8-4.8 2.8-5 5.4H24V20H13.6Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    > * + * {
+      margin-top: 0.6em;
+    }
+  }
+
+  :where(iframe) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: 0;
+    border-radius: var(--rd-lg);
+  }
+
+  // ── editor images ──
+  // Classic editor / ACF WYSIWYG: <img class="alignnone size-…"> (often in a
+  // <p>), [caption] → figure.wp-caption, [gallery] → div.gallery (with
+  // add_theme_support('html5', ['gallery', 'caption'])); Gutenberg
+  // figure.wp-block-image / .wp-block-gallery are covered too.
+  :where(img) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :where(p > img, p > a > img, figure img, .wp-caption img, .gallery img) {
+    border-radius: var(--rd-md);
+  }
+
+  :where(figure) {
+    margin: 0;
+  }
+
+  :where(figure img, .wp-caption img, .gallery img) {
+    display: block;
+    width: 100%;
+  }
+
+  :where(.wp-caption) {
+    max-width: 100%; // WP sets an inline width in px
+  }
+
+  :where(.aligncenter) {
+    display: block;
+    margin-inline: auto;
+  }
+
+  :where(figcaption, .wp-caption-text) {
+    margin-top: rem(10);
+    font-size: max(13px, #{rem(14)});
+    color: var(--clr-text);
+  }
+
+  // galleries: 2 columns by default, the editor's column count where set
+  :where(.gallery, .wp-block-gallery) {
+    --gallery-cols: 2;
+    display: grid;
+    grid-template-columns: repeat(var(--gallery-cols), minmax(0, 1fr));
+    gap: rem(20);
+
+    @include maxMedia(md) {
+      --gallery-cols: 1;
+      gap: 12px;
+    }
+  }
+
+  :where(.gallery-columns-1, .wp-block-gallery.columns-1) {
+    --gallery-cols: 1;
+  }
+
+  @include minMedia(md) {
+    :where(.gallery-columns-3, .gallery-columns-4, .wp-block-gallery.columns-3, .wp-block-gallery.columns-4) {
+      --gallery-cols: 3;
+    }
+  }
+
+  @include minMedia(xl) {
+    :where(.gallery-columns-4, .wp-block-gallery.columns-4) {
+      --gallery-cols: 4;
+    }
+  }
+
+  // the shortcode's clearing <br>s and WP's default gallery <style>
+  // (integration: add_filter('use_default_gallery_style', '__return_false'))
+  .gallery br {
+    display: none;
+  }
+
+  .gallery .gallery-item {
+    float: none !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  .gallery img {
+    border: 0 !important;
+  }
+
+  // ── tables: fill rows, no grid lines ──
+  :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+
+  :where(th, td) {
+    padding: rem(12) rem(14);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  :where(th) {
+    background: var(--bg-2);
+    color: var(--clr-ink);
+    font-weight: 700;
+  }
+
+  :where(tr:nth-child(even) td) {
+    background: color-mix(in srgb, var(--bg-2) 40%, transparent);
+  }
+
+  // phones: the table scrolls sideways instead of squeezing the columns
+  @include maxMedia(md) {
+    :where(table) {
+      display: block;
+      overflow-x: auto;
+    }
+
+    :where(th, td) {
+      min-width: 160px;
+    }
+  }
+}

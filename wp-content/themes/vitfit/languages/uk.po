@@ -1,0 +1,972 @@
+# Ukrainian translation of the VIT-FIT theme (front-end strings + admin: ACF labels, CPT labels, settings).
+# New strings: add here, then run `wp i18n make-mo uk.po . && wp i18n make-php uk.po .` in languages/.
+msgid ""
+msgstr ""
+"Project-Id-Version: VIT-FIT 1.0.0\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Domain: vitfit\n"
+
+#, php-format
+msgid "%s (copy)"
+msgstr "%s (копія)"
+
+#, php-format
+msgid "%s (opens in a new tab)"
+msgstr "%s (відкривається в новій вкладці)"
+
+msgid "*Text* = accent that never wraps."
+msgstr "*Текст* — акцент, що не переноситься."
+
+msgid "1000×1235 px"
+msgstr "1000×1235 px"
+
+msgid "1080×1350 px"
+msgstr "1080×1350 px"
+
+msgid "1080×1350 px — the same on every screen"
+msgstr "1080×1350 px — однакове на всіх екранах"
+
+msgid "1080×1920 px"
+msgstr "1080×1920 px"
+
+msgid "1200×1200 px"
+msgstr "1200×1200 px"
+
+msgid "1920×1080 px"
+msgstr "1920×1080 px"
+
+msgid "400×240 px"
+msgstr "400×240 px"
+
+msgid "404"
+msgstr "404"
+
+msgid "540×620 px"
+msgstr "540×620 px"
+
+msgid "640×800 px (4:5)"
+msgstr "640×800 px (4:5)"
+
+msgid "750 px wide (optional)"
+msgstr "750 px завширшки (необов’язково)"
+
+msgid "750 px wide (optional). The main one = Featured image, 1200×900 px."
+msgstr "750 px завширшки (необов’язково). Основне — «Зображення запису», 1200×900 px."
+
+msgid "770×1119 px"
+msgstr "770×1119 px"
+
+msgid "A preset of the design or own colours."
+msgstr "Готовий набір дизайну або свої кольори."
+
+msgid "About the brand"
+msgstr "Про бренд"
+
+msgid "Add block"
+msgstr "Додати блок"
+
+msgid "Add chip"
+msgstr "Додати плашку"
+
+msgid "Add network"
+msgstr "Додати мережу"
+
+msgid "Add number"
+msgstr "Додати цифру"
+
+msgid "Add perk"
+msgstr "Додати перевагу"
+
+msgid "Add post"
+msgstr "Додати пост"
+
+msgid "Add product"
+msgstr "Додати товар"
+
+msgid "Add question"
+msgstr "Додати питання"
+
+msgid "Add shop"
+msgstr "Додати магазин"
+
+msgid "Add slide"
+msgstr "Додати слайд"
+
+msgid "Add step"
+msgstr "Додати крок"
+
+msgid "Add tile"
+msgstr "Додати плитку"
+
+msgid "Add, reorder, hide or remove blocks. Hidden and removed blocks leave no gap."
+msgstr "Додавайте, змінюйте порядок, приховуйте чи видаляйте блоки. Приховані й видалені блоки не лишають відступів."
+
+msgid "Address"
+msgstr "Адреса"
+
+msgid "Automatic list only. Empty — all."
+msgstr "Лише для автоматичного списку. Порожньо — усі."
+
+msgid "B2B"
+msgstr "B2B"
+
+msgid "Back tape: text"
+msgstr "Задня стрічка: текст"
+
+msgid "Badge"
+msgstr "Бейдж"
+
+msgid "Become a partner"
+msgstr "Стати партнером"
+
+msgid "Benefits"
+msgstr "Переваги"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Blog card"
+msgstr "Картка в блозі"
+
+msgid "Blog posts"
+msgstr "Статті блогу"
+
+msgid "Blue"
+msgstr "Блакитний"
+
+msgid "Bottle / colour"
+msgstr "Пляшка / колір"
+
+msgid "Bottle shape (no packshot)"
+msgstr "Форма пляшки (без пекшота)"
+
+msgid "Breadcrumbs"
+msgstr "Хлібні крихти"
+
+msgid "Bubbles"
+msgstr "Бульбашки"
+
+msgid "Button"
+msgstr "Кнопка"
+
+msgid "Button (profile link)"
+msgstr "Кнопка (посилання на профіль)"
+
+msgid "Button colour"
+msgstr "Колір кнопки"
+
+msgid "Button label"
+msgstr "Текст кнопки"
+
+msgid "Can"
+msgstr "Банка"
+
+msgid "Card colour"
+msgstr "Колір картки"
+
+msgid "Card hover"
+msgstr "Наведення на картку"
+
+msgid "Card link label"
+msgstr "Текст посилання картки"
+
+msgid "Catalog categories"
+msgstr "Категорії каталогу"
+
+msgid "Catalog category"
+msgstr "Категорія каталогу"
+
+msgid "Chips"
+msgstr "Плашки"
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "Clock"
+msgstr "Годинник"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Close search"
+msgstr "Закрити пошук"
+
+msgid "Collapse"
+msgstr "Згорнути"
+
+msgid "Colour"
+msgstr "Колір"
+
+msgid "Colours"
+msgstr "Кольори"
+
+msgid "Contacts"
+msgstr "Контакти"
+
+msgid "Copyright"
+msgstr "Копірайт"
+
+msgid "Corner popup"
+msgstr "Кутовий попап"
+
+msgid "Creating posts through the REST API is disabled."
+msgstr "Створення записів через REST API вимкнено."
+
+msgid "Custom link / #anchor"
+msgstr "Довільне посилання / #якір"
+
+msgid "Delay, s"
+msgstr "Затримка, с"
+
+msgid "Digits count up."
+msgstr "Цифри анімуються."
+
+msgid "Drink"
+msgstr "Напій"
+
+msgid "Drop"
+msgstr "Крапля"
+
+msgid "Duplicate"
+msgstr "Дублювати"
+
+#, php-format
+msgid "Duplicate “%s”"
+msgstr "Дублювати «%s»"
+
+msgid "E-mail"
+msgstr "E-mail"
+
+msgid "E.g. «0,5 л»"
+msgstr "Напр. «0,5 л»"
+
+msgid "E.g. «6 шт». Empty — not shown."
+msgstr "Напр. «6 шт». Порожньо — не показується."
+
+msgid "E.g. «Sweet Cherry · 0,5 л»"
+msgstr "Напр. «Sweet Cherry · 0,5 л»"
+
+msgid "E.g. «Хіт»"
+msgstr "Напр. «Хіт»"
+
+msgid "Empty — all by «Order»."
+msgstr "Порожньо — усі за «Порядком»."
+
+msgid "Empty — all flavours by their «Order»."
+msgstr "Порожньо — усі смаки за «Порядком»."
+
+msgid "Empty — from the flavour's products, e.g. «ПЕТ 0,5 · Банка 0,33»."
+msgstr "Порожньо — з товарів смаку, напр. «ПЕТ 0,5 · Банка 0,33»."
+
+msgid "Empty — no popup."
+msgstr "Порожньо — попапа немає."
+
+msgid "Empty — no promo in the dropdown."
+msgstr "Порожньо — без промо у випадному меню."
+
+msgid "Empty — no sticker."
+msgstr "Порожньо — без стікера."
+
+msgid "Empty — no toggle."
+msgstr "Порожньо — без кнопки."
+
+msgid "Empty — no top bar."
+msgstr "Порожньо — без смуги."
+
+msgid "Empty — not shown."
+msgstr "Порожньо — не показується."
+
+msgid "Empty — the first four by «Order»."
+msgstr "Порожньо — перші чотири за «Порядком»."
+
+msgid "Empty — the first product of the flavour."
+msgstr "Порожньо — перший товар смаку."
+
+msgid "Empty — the profile."
+msgstr "Порожньо — профіль."
+
+msgid "Empty — the three latest."
+msgstr "Порожньо — три останні."
+
+msgid "Empty — «Updated {date}»."
+msgstr "Порожньо — «Оновлено {дата}»."
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Find a flavour…"
+msgstr "Знайти смак…"
+
+msgid "First slide title tag"
+msgstr "Тег заголовка першого слайда"
+
+msgid "Flavour"
+msgstr "Смак"
+
+msgid "Flavour (colours + front bottle)"
+msgstr "Смак (кольори + пляшка спереду)"
+
+msgid "Flavour of the bottle behind"
+msgstr "Смак пляшки позаду"
+
+msgid "Flavours"
+msgstr "Смаки"
+
+msgid "Footer"
+msgstr "Футер"
+
+msgid "Footer — column 1 (title = menu name)"
+msgstr "Футер — колонка 1 (заголовок = назва меню)"
+
+msgid "Footer — column 2 (title = menu name)"
+msgstr "Футер — колонка 2 (заголовок = назва меню)"
+
+msgid "Footer — column 3 (title = menu name)"
+msgstr "Футер — колонка 3 (заголовок = назва меню)"
+
+msgid "Footer — legal links"
+msgstr "Футер — правова інформація"
+
+msgid "Formats (text)"
+msgstr "Формати (текст)"
+
+msgid "Front tape: advantages"
+msgstr "Передня стрічка: переваги"
+
+msgid "Full video (popup)"
+msgstr "Повне відео (у попапі)"
+
+msgid "Fullscreen video"
+msgstr "Відео на весь екран"
+
+msgid "Glass"
+msgstr "Скло"
+
+msgid "Glass bottle"
+msgstr "Скляна пляшка"
+
+msgid "Great"
+msgstr "Чудово"
+
+msgid "Green"
+msgstr "Зелений"
+
+msgid "Growth"
+msgstr "Зростання"
+
+msgid "Header"
+msgstr "Шапка"
+
+msgid "Header button"
+msgstr "Кнопка в шапці"
+
+msgid "Heart"
+msgstr "Серце"
+
+msgid "Hero slider"
+msgstr "Головний слайдер"
+
+msgid "Hide block"
+msgstr "Приховати блок"
+
+msgid "Higher = earlier in «Popular» sorting."
+msgstr "Більше — вище в сортуванні «Популярні»."
+
+msgid "Hit"
+msgstr "Хіт"
+
+msgid "Home"
+msgstr "Головна"
+
+msgid "Home page"
+msgstr "На головну"
+
+msgid "Hover photo"
+msgstr "Фото при наведенні"
+
+msgid "Hover video"
+msgstr "Відео при наведенні"
+
+msgid "Hover video poster"
+msgstr "Постер відео"
+
+msgid "I agree to the processing of personal data"
+msgstr "Погоджуюсь на обробку персональних даних"
+
+#, php-format
+msgid "I agree to the processing of personal data under the <a href=\"%s\">privacy policy</a>"
+msgstr "Погоджуюсь на обробку персональних даних згідно з <a href=\"%s\">політикою конфіденційності</a>"
+
+msgid "Icon"
+msgstr "Іконка"
+
+msgid "Image"
+msgstr "Зображення"
+
+msgid "Image for phones"
+msgstr "Зображення для телефонів"
+
+msgid "Instagram"
+msgstr "Instagram"
+
+msgid "Instagram post"
+msgstr "Пост в Instagram"
+
+msgid "Item not found."
+msgstr "Запис не знайдено."
+
+msgid "Label"
+msgstr "Етикетка"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Lead"
+msgstr "Лід"
+
+msgid "Leaf"
+msgstr "Листок"
+
+msgid "Learn more"
+msgstr "Детальніше"
+
+msgid "Legal information"
+msgstr "Правова інформація"
+
+msgid "Light background"
+msgstr "Світлий фон"
+
+msgid "Line break = new line. *Word* = colour marker."
+msgstr "Перенос рядка = новий рядок. *Слово* — кольоровий маркер."
+
+msgid "Line under the title"
+msgstr "Рядок під заголовком"
+
+msgid "Link"
+msgstr "Посилання"
+
+msgid "Link on the right"
+msgstr "Посилання праворуч"
+
+msgid "Link type"
+msgstr "Тип посилання"
+
+msgid "Live<br>kombucha"
+msgstr "Жива<br>комбуча"
+
+msgid "Logo"
+msgstr "Логотип"
+
+msgid "Looks like this bottle is already empty. Go back to the home page or pick your flavour in the catalog."
+msgstr "Схоже, ця пляшка вже порожня. Поверніться на головну або оберіть свій смак у каталозі."
+
+msgid "Loop video (desktop)"
+msgstr "Фонове відео (десктоп)"
+
+msgid "Loop video (phones)"
+msgstr "Фонове відео (телефони)"
+
+msgid "MP4 540×620, no sound"
+msgstr "MP4 540×620, без звуку"
+
+msgid "MP4 H.264, no sound, ≤ 1920 px, ≤ 5 MB"
+msgstr "MP4 H.264, без звуку, ≤ 1920 px, ≤ 5 МБ"
+
+msgid "MP4. Empty — no button."
+msgstr "MP4. Порожньо — без кнопки."
+
+msgid "Main"
+msgstr "Основний"
+
+msgid "Main banner"
+msgstr "Головний банер"
+
+msgid "Main menu"
+msgstr "Головне меню"
+
+msgid "Main menu (header and mobile menu; sub-items = dropdown)"
+msgstr "Головне меню (шапка і мобільне меню; підпункти = випадне меню)"
+
+msgid "Marker colour"
+msgstr "Колір маркера"
+
+msgid "Marketing"
+msgstr "Маркетинг"
+
+msgid "Max questions"
+msgstr "Максимум питань"
+
+msgid "Megaphone"
+msgstr "Мегафон"
+
+msgid "Menu"
+msgstr "Меню"
+
+msgid "Menu dropdown: promo product"
+msgstr "Випадне меню: промо-товар"
+
+msgid "Menu dropdown: promo title"
+msgstr "Випадне меню: заголовок промо"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid "Network"
+msgstr "Мережа"
+
+msgid "New"
+msgstr "Новинка"
+
+msgid "New tab"
+msgstr "Нова вкладка"
+
+msgid "None"
+msgstr "Немає"
+
+msgid "Nothing"
+msgstr "Нічого"
+
+msgid "Nothing found"
+msgstr "Нічого не знайдено"
+
+msgid "Nothing found in Trash"
+msgstr "У кошику нічого не знайдено"
+
+msgid "Nothing found. Try another word."
+msgstr "Нічого не знайдено. Спробуйте інше слово."
+
+msgid "Number"
+msgstr "Число"
+
+msgid "Numbers"
+msgstr "Цифри"
+
+msgid "One line per row. *Line* = accent colour."
+msgstr "Кожен рядок — окремо. *Рядок* — акцентний колір."
+
+msgid "One per line."
+msgstr "Кожна з нового рядка."
+
+msgid "Opens by itself once per session."
+msgstr "Відкривається сам раз за сесію."
+
+msgid "Opens in a new tab. Empty — the tile is not a link."
+msgstr "Відкривається в новій вкладці. Порожньо — плитка без посилання."
+
+msgid "Optional"
+msgstr "Необов’язково"
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "Other (own icon)"
+msgstr "Інша (своя іконка)"
+
+msgid "Our advantages"
+msgstr "Наші переваги"
+
+msgid "Own colours"
+msgstr "Свої кольори"
+
+msgid "Own icon"
+msgstr "Своя іконка"
+
+msgid "PET"
+msgstr "ПЕТ"
+
+msgid "PET bottle"
+msgstr "ПЕТ-пляшка"
+
+msgid "PNG/WebP without background, ~800×1880 px"
+msgstr "PNG/WebP без фону, ~800×1880 px"
+
+msgid "PNG/WebP without background, ~800×1880 px. Empty — the drawn bottle in the flavour colours."
+msgstr "PNG/WebP без фону, ~800×1880 px. Порожньо — намальована пляшка в кольорах смаку."
+
+msgid "Pack"
+msgstr "Упаковка"
+
+msgid "Pack size"
+msgstr "Кількість у паку"
+
+#, php-format
+msgid "Pack · %s"
+msgstr "Пак · %s"
+
+msgid "Packshot"
+msgstr "Пекшот"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Page *not found*"
+msgstr "Сторінку *не знайдено*"
+
+msgid "Page blocks"
+msgstr "Блоки сторінки"
+
+msgid "Page builder"
+msgstr "Конструктор сторінки"
+
+msgid "Page of the site"
+msgstr "Сторінка сайту"
+
+msgid "Paragraph (no heading)"
+msgstr "Абзац (не заголовок)"
+
+msgid "Perks"
+msgstr "Переваги"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Photo"
+msgstr "Фото"
+
+msgid "Photo card"
+msgstr "Картка з фото"
+
+msgid "Photo colour"
+msgstr "Колір фото"
+
+msgid "Photo for phones"
+msgstr "Фото для телефонів"
+
+msgid "Photo label"
+msgstr "Підпис фото"
+
+msgid "Pink"
+msgstr "Рожевий"
+
+msgid "Please fill in all the required fields"
+msgstr "Заповніть, будь ласка, усі обов’язкові поля"
+
+msgid "Popularity"
+msgstr "Популярність"
+
+msgid "Popup"
+msgstr "Попап"
+
+msgid "Popups"
+msgstr "Попапи"
+
+msgid "Post link"
+msgstr "Посилання на пост"
+
+msgid "Poster (desktop)"
+msgstr "Постер (десктоп)"
+
+msgid "Poster (phones)"
+msgstr "Постер (телефони)"
+
+msgid "Posts"
+msgstr "Пости"
+
+msgid "Product"
+msgstr "Товар"
+
+msgid "Product cards"
+msgstr "Картки товарів"
+
+msgid "Product name, e.g. Apple & Pear"
+msgstr "Назва товару, напр. Apple & Pear"
+
+msgid "Products"
+msgstr "Товари"
+
+msgid "Promo popup"
+msgstr "Промо-попап"
+
+msgid "Purple"
+msgstr "Фіолетовий"
+
+msgid "Question"
+msgstr "Питання"
+
+msgid "Questions"
+msgstr "Питання"
+
+msgid "Read more"
+msgstr "Читати більше"
+
+msgid "Repeated along the tape."
+msgstr "Повторюється вздовж стрічки."
+
+msgid "Round sticker: centre"
+msgstr "Круглий стікер: центр"
+
+msgid "Round sticker: text"
+msgstr "Круглий стікер: текст"
+
+msgid "SEO text"
+msgstr "SEO-текст"
+
+msgid "SVG (recoloured by the header / footer) or PNG, ~200×64 px. Empty — the text logo."
+msgstr "SVG (перефарбовується шапкою / футером) або PNG, ~200×64 px. Порожньо — текстовий логотип."
+
+msgid "SVG / PNG, ~240×80 px. Empty — the name as text."
+msgstr "SVG / PNG, ~240×80 px. Порожньо — назва текстом."
+
+msgid "SVG 24×24"
+msgstr "SVG 24×24"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search…"
+msgstr "Пошук…"
+
+msgid "Second link"
+msgstr "Друге посилання"
+
+msgid "Send"
+msgstr "Надіслати"
+
+msgid "Shop"
+msgstr "Магазин"
+
+msgid "Shop name"
+msgstr "Назва магазину"
+
+msgid "Shop type"
+msgstr "Тип магазину"
+
+msgid "Shop types"
+msgstr "Типи магазинів"
+
+msgid "Shops"
+msgstr "Магазини"
+
+msgid "Short MP4 loop, no sound"
+msgstr "Коротке MP4, без звуку"
+
+msgid "Short description (cards)"
+msgstr "Короткий опис (картки)"
+
+msgid "Site Settings"
+msgstr "Налаштування сайту"
+
+msgid "Slides"
+msgstr "Слайди"
+
+msgid "Snowflake"
+msgstr "Сніжинка"
+
+msgid "Social networks"
+msgstr "Соцмережі"
+
+msgid "Steps (exactly 4 — the animation has four stages)"
+msgstr "Кроки (рівно 4 — у анімації чотири етапи)"
+
+msgid "Story: how it is made"
+msgstr "Історія: як народжується комбуча"
+
+msgid "Suffix"
+msgstr "Суфікс"
+
+msgid "Tag: bold word"
+msgstr "Плашка: жирне слово"
+
+msgid "Tag: text"
+msgstr "Плашка: текст"
+
+msgid "Tea"
+msgstr "Чай"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text on the right"
+msgstr "Текст праворуч"
+
+msgid "Text page"
+msgstr "Текстова сторінка"
+
+msgid "Text under the logo"
+msgstr "Текст під логотипом"
+
+msgid "Text under «Read more»"
+msgstr "Текст під «Читати більше»"
+
+msgid "Thank you!"
+msgstr "Дякуємо!"
+
+msgid "The header shows Instagram and TikTok; the footer and popups — all."
+msgstr "У шапці — Instagram і TikTok; у футері та попапах — усі."
+
+msgid "This SVG could not be processed: it contains disallowed elements or is damaged."
+msgstr "Цей SVG не вдалося обробити: він містить заборонені елементи або пошкоджений."
+
+msgid "This SVG could not be processed: it contains disallowed elements or is damaged. Export it without scripts and try again."
+msgstr "Цей SVG не вдалося обробити: він містить заборонені елементи або пошкоджений. Експортуйте його без скриптів і спробуйте ще раз."
+
+msgid "Tile colour"
+msgstr "Колір плитки"
+
+msgid "Tiles"
+msgstr "Плитки"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Title photo"
+msgstr "Фото в заголовку"
+
+msgid "Title tag"
+msgstr "Тег заголовка"
+
+msgid "Title video"
+msgstr "Відео в заголовку"
+
+msgid "Title video poster"
+msgstr "Постер відео"
+
+msgid "Title: line 1"
+msgstr "Заголовок: рядок 1"
+
+msgid "Title: line 2 (outlined)"
+msgstr "Заголовок: рядок 2 (контурний)"
+
+msgid "Title: row 1"
+msgstr "Заголовок: рядок 1"
+
+msgid "Title: row 2 (after the video)"
+msgstr "Заголовок: рядок 2 (після відео)"
+
+msgid "Title: row 3 (before the photo)"
+msgstr "Заголовок: рядок 3 (перед фото)"
+
+msgid "Top bar: ending (hidden on phones)"
+msgstr "Верхня смуга: закінчення (ховається на телефонах)"
+
+msgid "Top bar: link"
+msgstr "Верхня смуга: посилання"
+
+msgid "Top bar: text"
+msgstr "Верхня смуга: текст"
+
+msgid "Topic"
+msgstr "Тема звернення"
+
+msgid "Truck"
+msgstr "Вантажівка"
+
+msgid "USP tapes"
+msgstr "Бігучі стрічки"
+
+#, php-format
+msgid "Updated %s"
+msgstr "Оновлено %s"
+
+msgid "User registration through the API is disabled."
+msgstr "Реєстрацію через API вимкнено."
+
+msgid "VIT-FIT — home"
+msgstr "VIT-FIT — на головну"
+
+msgid "Vertical MP4, 1080×1920"
+msgstr "Вертикальне MP4, 1080×1920"
+
+msgid "Video"
+msgstr "Відео"
+
+msgid "Video colour"
+msgstr "Колір відео"
+
+msgid "Video label"
+msgstr "Підпис відео"
+
+msgid "Visible text"
+msgstr "Видимий текст"
+
+#, php-format
+msgid "Vit-Fit at %s"
+msgstr "Vit-Fit у %s"
+
+msgid "Vit-Fit page in the shop"
+msgstr "Сторінка Vit-Fit у магазині"
+
+msgid "Volume"
+msgstr "Об’єм"
+
+msgid "Watch the video"
+msgstr "Дивитись відео"
+
+msgid "Website development:"
+msgstr "Розробка сайту:"
+
+msgid "Website development: Redstone"
+msgstr "Розробка сайту: Redstone"
+
+msgid "Where to buy"
+msgstr "Де купити"
+
+msgid "Write to us"
+msgstr "Написати нам"
+
+msgid "Yellow"
+msgstr "Жовтий"
+
+msgid "You are not allowed to do this."
+msgstr "У вас немає прав на цю дію."
+
+msgid "day of<br>fermentation"
+msgstr "день<br>ферментації"
+
+msgid "hidden"
+msgstr "приховано"
+
+msgid "https://… or #where"
+msgstr "https://… або #where"
+
+msgid "{year} = the current year."
+msgstr "{year} — поточний рік."
+
+msgid "«Become a partner»: CF7 form"
+msgstr "«Стати партнером»: форма CF7"
+
+msgid "«Become a partner»: bottle"
+msgstr "«Стати партнером»: пляшка"
+
+msgid "«Become a partner»: perks"
+msgstr "«Стати партнером»: переваги"
+
+msgid "«Become a partner»: title"
+msgstr "«Стати партнером»: заголовок"
+
+msgid "«Learn more» product"
+msgstr "Товар для «Детальніше»"
+
+msgid "«Thank you»: bottle"
+msgstr "«Дякуємо»: пляшка"
+
+msgid "«Thank you»: button"
+msgstr "«Дякуємо»: кнопка"
+
+msgid "«Thank you»: text"
+msgstr "«Дякуємо»: текст"
+
+msgid "«Thank you»: title"
+msgstr "«Дякуємо»: заголовок"
+
+msgid "«Write to us»: CF7 form"
+msgstr "«Написати нам»: форма CF7"
+
+msgid "«Write to us»: bottle"
+msgstr "«Написати нам»: пляшка"
+
+msgid "«Write to us»: text"
+msgstr "«Написати нам»: текст"
+
+msgid "«Write to us»: title"
+msgstr "«Написати нам»: заголовок"
+
+msgid "— block default —"
+msgstr "— як у блоці —"
+
+msgid "— none —"
+msgstr "— без іконки —"

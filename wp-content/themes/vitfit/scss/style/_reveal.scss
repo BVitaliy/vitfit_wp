@@ -1,0 +1,65 @@
+@use "../mixins" as *;
+
+// Pre-hide for app-animations.js / app-titles.js (3s CSS fail-safe).
+html.js:not(.is-reduced) {
+  [data-reveal] {
+    opacity: 0;
+    animation: reveal-failsafe 0.01s 3s forwards;
+  }
+
+  .js-split-title {
+    visibility: hidden;
+    animation: reveal-vis 0.01s 3s forwards;
+  }
+
+  .js-split-title.is-split {
+    visibility: visible;
+    animation: none;
+  }
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal-vis {
+  to {
+    visibility: visible;
+  }
+}
+
+// line masks made by app-titles.js (SplitText mask: "lines"): the clip box
+// grows upward so the breve of Й / Ї and the .mark are not cut; the negative
+// margin keeps the line where it was (the title is a BFC, so the first
+// line's margin doesn't leak out of it)
+main .h2 {
+  display: flow-root;
+}
+
+.split-line-inner-mask {
+  padding-top: 0.22em;
+  margin-top: -0.22em;
+}
+
+// rotating stickers
+.js-spin svg {
+  animation: spin 18s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

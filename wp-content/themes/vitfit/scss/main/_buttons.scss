@@ -1,0 +1,223 @@
+@use "../mixins" as *;
+
+// One button style (manager: fewer styles, no black button): a colour pill in
+// the block's flavour (--fl, pink by default) with an ink arrow tile.
+// Hover: ink floods in from the tile, the label turns white, the arrow ↗.
+// .btn--light — white, for dark blocks. Secondary actions are .link-arrow.
+.btn {
+  --btn-bg: var(--fl);
+  --btn-fg: var(--clr-ink);
+  --btn-tile: var(--clr-ink);
+  --btn-tile-fg: #fff;
+  --btn-hover-bg: var(--clr-ink);
+  --btn-hover-fg: #fff;
+
+  display: inline-flex;
+  align-items: center;
+  gap: rem(18);
+  min-height: max(52px, #{rem(64)});
+  padding: rem(6) rem(6) rem(6) rem(30);
+  border-radius: var(--rd-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  // buttons and tabs in Ermilov, Noto only for content / links / placeholders (manager)
+  font-family: var(--font-display);
+  font-size: max(14px, #{rem(15)});
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  // plain colour swap (manager: no text shift; the growing circle left a rim)
+  transition: background-color 0.4s var(--ease-out), color 0.4s var(--ease-out);
+
+  &__tile {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: max(40px, #{rem(52)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--btn-tile);
+    color: var(--btn-tile-fg);
+    transition: background-color 0.4s var(--ease-out), color 0.4s, transform 0.4s var(--ease-out);
+
+    svg {
+      width: 42%;
+      height: auto;
+      transition: transform 0.45s var(--ease-out);
+    }
+  }
+
+  @include hover {
+    background: var(--btn-hover-bg);
+    color: var(--btn-hover-fg);
+
+    .btn__tile {
+      background: var(--btn-bg);
+      color: var(--clr-ink);
+
+      svg {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  &:active .btn__tile {
+    transform: scale(0.92);
+  }
+
+  // white button for dark blocks
+  &--light {
+    --btn-bg: #fff;
+  }
+
+  // compact, no tile (header CTA)
+  &--plain {
+    padding-inline: rem(30);
+  }
+
+  @include maxMedia(xl) {
+    min-height: 48px;
+    padding: 4px 4px 4px 22px;
+    gap: 14px;
+    font-size: 13px;
+
+    .btn__tile {
+      width: 40px;
+    }
+  }
+
+  @include maxMedia(md) {
+    min-height: 44px;
+    padding-left: 18px;
+    gap: 12px;
+    font-size: 12px;
+
+    .btn__tile {
+      width: 36px;
+    }
+  }
+}
+
+// on dark blocks the hover goes white, not ink
+.b2b .btn,
+.footer .btn,
+.el-row--dark .btn,
+.reel .btn {
+  --btn-hover-bg: #fff;
+  --btn-hover-fg: var(--clr-ink);
+}
+
+// round icon button (search, socials, close, slider arrows) — filled, no ring
+.btn-icon {
+  --bi-bg: rgba(22, 17, 14, 0.06);
+  --bi-fg: var(--clr-ink);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: max(42px, #{rem(50)});
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--bi-bg);
+  color: var(--bi-fg);
+  transition: background 0.35s var(--ease-out), color 0.35s, transform 0.35s var(--ease-out);
+
+  svg {
+    width: 42%;
+    height: auto;
+  }
+
+  @include hover {
+    --bi-bg: var(--fl);
+    transform: rotate(-8deg);
+  }
+
+  &--light {
+    --bi-bg: rgba(255, 255, 255, 0.1);
+    --bi-fg: #fff;
+
+    @include hover {
+      --bi-bg: var(--fl);
+      --bi-fg: var(--clr-ink);
+    }
+  }
+
+  &--solid {
+    --bi-bg: #fff;
+  }
+}
+
+// secondary action: "Весь каталог →" — label + flavour circle
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-size: max(14px, #{rem(15)});
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-ink);
+  white-space: nowrap;
+
+  &__text {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat;
+    padding-bottom: 2px;
+    transition: background-size 0.5s var(--ease-out);
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: max(29px, #{rem(36)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fl);
+    transition: transform 0.5s var(--ease-out);
+
+    svg {
+      width: rem(14);
+    }
+  }
+
+  // bigger, next to a .btn (hero, FAQ)
+  &--lg {
+    font-size: max(14px, #{rem(15)});
+
+    .link-arrow__icon {
+      width: max(40px, #{rem(52)});
+      background: rgba(22, 17, 14, 0.08);
+
+      @include maxMedia(md) {
+        width: 36px;
+      }
+    }
+
+    @include maxMedia(md) {
+      font-size: 12px;
+    }
+  }
+
+  @include hover {
+    .link-arrow__text {
+      background-size: 100% 1.5px;
+    }
+
+    .link-arrow__icon {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+// tabs / pills / chips / badges — the same display face as the buttons (manager)
+.cats__link,
+.filter-pill span,
+.form__topics span,
+.chip,
+.badge,
+.flavor-chip {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}

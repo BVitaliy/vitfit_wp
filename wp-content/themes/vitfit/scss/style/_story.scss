@@ -1,0 +1,445 @@
+@use "../mixins" as *;
+
+// Scroll story (app-story.js). ≥1200: steps on the left scroll by, the bottle
+// stage is sticky on the right. Below 1200: the stage sticks under the header
+// as a "window" and the steps slide up beneath it.
+.story {
+  --story-bg: var(--bg);
+  position: relative;
+  background: var(--story-bg);
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-xs);
+    text-align: center;
+    padding-bottom: var(--sp-head);
+  }
+
+  &__title {
+    max-width: 10em;
+  }
+
+  &__lead {
+    max-width: rem(760);
+  }
+
+  &__track {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    max-width: calc(var(--container) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+
+    @include maxMedia(xl) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // ── sticky stage ──
+  &__stage {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+
+    // phones / tablets: the stage sticks from the very top (behind the header,
+    // which has its own room in the padding) and fades out at both edges
+    @include maxMedia(xl) {
+      grid-column: 1;
+      top: 0;
+      z-index: 2;
+      height: calc(46svh + var(--header-h));
+      min-height: 360px;
+      margin-inline: calc(var(--gutter) * -1);
+      padding: var(--header-h) var(--gutter) 0;
+      background: var(--story-bg);
+      grid-template-columns: 1fr;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+      }
+
+      // the top: fades in under the header
+      &::before {
+        top: 0;
+        height: calc(var(--header-h) * 0.6);
+        background: linear-gradient(var(--story-bg), transparent);
+        z-index: 1;
+      }
+
+      // the bottom: where the steps slide under — longer, softer
+      &::after {
+        top: 100%;
+        height: 70px;
+        background: linear-gradient(var(--story-bg) 15%, transparent);
+      }
+    }
+  }
+
+  &__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    overflow: visible;
+
+    > * {
+      grid-area: 1 / 1;
+    }
+  }
+
+  // colour disc behind the bottle — its colour / size follow the steps (app-story.js)
+  &__disc {
+    width: min(76%, 74svh);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.75), transparent 46%),
+      var(--disc, #e9b65a);
+
+    @include maxMedia(xl) {
+      width: 38svh;
+    }
+  }
+
+  // micro-bubbles rising around the bottle (fermentation onwards)
+  &__fizz {
+    position: relative;
+    width: 60%;
+    height: 90%;
+    opacity: var(--fizz, 0);
+    transition: opacity 0.6s;
+    pointer-events: none;
+
+    i {
+      position: absolute;
+      bottom: 0;
+      width: rem(12);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 30%, #fff 0 18%, rgba(255, 255, 255, 0.25) 20%);
+      box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.8);
+      animation: st-fizz 5s linear infinite;
+
+      @for $i from 1 through 8 {
+        &:nth-child(#{$i}) {
+          left: #{($i * 37) % 100 * 1%};
+          scale: #{0.6 + ($i % 3) * 0.45};
+          animation-delay: #{-$i * 0.7}s;
+          animation-duration: #{4 + ($i % 4)}s;
+        }
+      }
+    }
+  }
+
+  // sparks when the bottle is ready
+  &__sparks {
+    position: relative;
+    width: 70%;
+    height: 80%;
+    pointer-events: none;
+
+    svg {
+      position: absolute;
+      width: rem(46);
+      min-width: max(21px, #{rem(26)});
+      color: var(--clr-ink);
+      scale: 0;
+
+      &:nth-child(1) { left: 12%; top: 18%; color: var(--c-yellow); }
+      &:nth-child(2) { right: 8%; top: 30%; }
+      &:nth-child(3) { left: 4%; bottom: 26%; width: rem(30); }
+      &:nth-child(4) { right: 16%; bottom: 14%; color: var(--c-pink); }
+    }
+  }
+
+  &__float {
+    position: relative;
+    z-index: 2;
+    animation: st-sway 7s ease-in-out infinite;
+  }
+
+  &__bottle {
+    display: block;
+    height: 98svh;
+    width: auto;
+    overflow: visible;
+    filter: drop-shadow(rem(24) rem(40) rem(40) rgba(22, 17, 14, 0.18));
+
+    @include maxMedia(xl) {
+      height: 46svh;
+    }
+  }
+
+  &__wave {
+    animation: st-wave 2.6s linear infinite;
+  }
+
+  // yeast specks drift slowly in the liquid
+  &__specks circle {
+    animation: st-speck 9s ease-in-out infinite alternate;
+    animation-delay: var(--d);
+  }
+
+  &__bubbles circle {
+    animation: st-rise var(--t) linear infinite;
+    animation-delay: var(--d);
+  }
+
+  &__fact {
+    position: absolute;
+    z-index: 3;
+    left: 4%;
+    top: 30%;
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+    padding: rem(12) rem(22) rem(12) rem(12);
+    border-radius: var(--rd-pill);
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(22, 17, 14, 0.1);
+    font-size: max(11px, #{rem(13)});
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+
+    b {
+      display: grid;
+      place-items: center;
+      min-width: max(43px, #{rem(54)});
+      height: max(43px, #{rem(54)});
+      padding-inline: rem(8);
+      border-radius: 50%;
+      background: var(--clr-ink);
+      color: var(--c-yellow);
+      font-family: var(--font-display);
+      font-size: max(19px, #{rem(22)});
+      letter-spacing: 0;
+    }
+
+    @include maxMedia(xl) {
+      left: 0;
+      top: auto;
+      bottom: 12%;
+      font-size: 11px;
+
+      b {
+        min-width: 42px;
+        height: 42px;
+        font-size: 17px;
+      }
+    }
+  }
+
+  &__progress {
+    display: flex;
+    flex-direction: column;
+    gap: rem(18);
+    padding-right: rem(10);
+    counter-reset: none;
+
+    // each item is a button that scrolls to its step
+    button {
+      display: flex;
+      align-items: center;
+      gap: rem(14);
+      text-align: left;
+      color: inherit;
+      font: inherit;
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: rem(14);
+      font-size: max(12px, #{rem(14)});
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--clr-ink);
+      opacity: 0.3;
+      transition: opacity 0.4s;
+
+      span {
+        display: grid;
+        place-items: center;
+        width: max(34px, #{rem(42)});
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        font-size: max(11px, #{rem(13)});
+        transition: background 0.4s, color 0.4s;
+      }
+
+      &.is-active {
+        opacity: 1;
+
+        span {
+          background: var(--clr-ink);
+          color: #fff;
+        }
+      }
+
+      &.is-past {
+        opacity: 0.6;
+      }
+
+      @include hover {
+        opacity: 1;
+      }
+    }
+
+    @include maxMedia(xl) {
+      position: absolute;
+      right: var(--gutter);
+      top: 50%;
+      gap: 8px;
+      transform: translateY(-50%);
+
+      li {
+        font-size: 0;
+        gap: 0;
+
+        span {
+          width: 30px;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+
+  // ── steps ──
+  &__steps {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+    min-height: 100svh;
+    max-width: rem(640);
+    padding-block: rem(60);
+    opacity: 0.25;
+    transition: opacity 0.6s;
+
+    &.is-active {
+      opacity: 1;
+    }
+
+    @include maxMedia(xl) {
+      min-height: 62svh;
+      justify-content: flex-start;
+      padding-block: 40px;
+      max-width: 620px;
+    }
+  }
+
+  &__num {
+    font-family: var(--font-display);
+    font-size: max(64px, #{rem(140)});
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--clr-ink);
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: rem(8);
+      padding: rem(8) rem(16) rem(8) rem(10);
+      border-radius: var(--rd-pill);
+      background: rgba(255, 255, 255, 0.7);
+      font-size: max(12px, #{rem(14)});
+      font-weight: 600;
+      color: var(--clr-ink);
+    }
+
+    svg {
+      flex: none;
+      width: rem(20);
+      height: rem(20);
+    }
+  }
+
+  &__btn {
+    margin-top: var(--sp-2xs);
+  }
+}
+
+@keyframes st-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(-300px);
+    opacity: 0;
+  }
+}
+
+@keyframes st-wave {
+  to {
+    transform: translateX(70px);
+  }
+}
+
+@keyframes st-sway {
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+@keyframes st-fizz {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-80svh);
+    opacity: 0;
+  }
+}
+
+@keyframes st-speck {
+  to {
+    transform: translate(6px, -14px);
+  }
+}

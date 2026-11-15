@@ -1,0 +1,206 @@
+@use "../mixins" as *;
+
+// ── Inner pages: breadcrumbs, page top, page banner, text page, rich text ──
+
+// The page background runs under the transparent header (as the home hero does):
+// otherwise that strip shows whatever is behind <main> — the sticky footer.
+main.page,
+main.elements {
+  margin-top: calc(var(--header-h) * -1);
+  padding-top: var(--header-h);
+}
+
+.breadcrumbs {
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: rem(6) rem(10);
+    font-size: max(12px, #{rem(14)});
+    color: var(--clr-muted);
+  }
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(10);
+
+    // separator: a small dot in the block's colour
+    & + li::before {
+      content: "";
+      width: rem(5);
+      height: rem(5);
+      border-radius: 50%;
+      background: var(--fl);
+    }
+  }
+
+  a {
+    color: var(--clr-ink);
+    font-weight: 600;
+    transition: color 0.3s;
+
+    @include hover {
+      color: var(--clr-muted);
+    }
+  }
+
+  [aria-current] {
+    color: var(--clr-muted);
+  }
+
+  // on a photo / video banner
+  &--light {
+    ol,
+    [aria-current] {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    a {
+      color: #fff;
+    }
+  }
+}
+
+// title block at the top of a page without a banner
+.page-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  padding-top: var(--sp-sm);
+  margin-bottom: var(--sp-head);
+
+  &__title {
+    max-width: 14em;
+
+    // phones: long Ukrainian words (КОНФІДЕНЦІЙНОСТІ) must fit the wide display face
+    @include maxMedia(md) {
+      font-size: clamp(22px, 6.6vw, 40px);
+    }
+  }
+
+  &__lead {
+    max-width: rem(760);
+  }
+
+  &__row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-xs) var(--sp-sm);
+
+    @include maxMedia(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+// ── page banner: photo (desktop / phone crops) or a background video ──
+// The page starts with it: it slides under the transparent header like the hero.
+.page-banner {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  margin-top: calc(var(--header-h) * -1);
+  min-height: max(560px, min(100svh, #{rem(900)}));
+  padding: calc(var(--header-h) + var(--sp-sm)) 0 var(--sp-md);
+  border-radius: 0 0 var(--rd-lg) var(--rd-lg);
+  overflow: hidden;
+  color: #fff;
+
+  @include maxMedia(md) {
+    min-height: 520px;
+  }
+
+  // the media drifts on scroll (app-parallax.js): its layer is taller than the
+  // banner by --parallax-room
+  --parallax-room: #{rem(160)};
+
+  @include maxMedia(xl) {
+    --parallax-room: 100px;
+  }
+
+  @include maxMedia(md) {
+    --parallax-room: 70px;
+  }
+
+  &__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  &__layer {
+    position: absolute;
+    inset: calc(var(--parallax-room) * -0.5) 0;
+  }
+
+  &__layer picture,
+  &__layer img,
+  &__video {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__layer img,
+  &__video {
+    @include cover;
+  }
+
+  // readable text over any picture
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(22, 17, 14, 0.35) 0%, rgba(22, 17, 14, 0) 35%, rgba(22, 17, 14, 0.65) 100%);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+    align-self: stretch;
+
+    // breadcrumbs right under the header, the title and lead at the bottom (manager)
+    > .breadcrumbs {
+      margin-bottom: auto;
+    }
+  }
+
+  &__title {
+    color: #fff;
+    max-width: 12em;
+  }
+
+  &__lead {
+    max-width: rem(640);
+    color: rgba(255, 255, 255, 0.88);
+  }
+}
+
+// ── text page (privacy, terms…): centred column of editor output ──
+// centred narrow column (privacy, cookies): the head and the text share one axis
+.text-page {
+  .page-top {
+    align-items: center;
+    text-align: center;
+  }
+
+  .page-top__title {
+    max-width: 16em;
+  }
+
+  .breadcrumbs ol {
+    justify-content: center;
+  }
+
+  &__body {
+    max-width: rem(820);
+    margin-inline: auto;
+  }
+}

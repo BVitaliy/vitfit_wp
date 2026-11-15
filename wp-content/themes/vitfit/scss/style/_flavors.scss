@@ -1,0 +1,27 @@
+@use "sass:map";
+
+// The nine flavours. fl = vivid accent, fl-l = light background,
+// liquid / label = bottle colours. The five brand colours come from the
+// palette; Original, Strawberry & Lime, Grape & Apple and Mojito extend it.
+$flavors: (
+  original: (fl: #e9a23b, fl-l: #f8e6bf, liquid: #d6943a, label: #f6e4bd, leaf: #63b648),
+  apple-pear: (fl: #63b648, fl-l: #e0f499, liquid: #e4d03e, label: #eef8b9, leaf: #63b648),
+  sweet-cherry: (fl: #f15f86, fl-l: #ffb8cb, liquid: #c4183e, label: #ffd3de, leaf: #63b648),
+  berry: (fl: #c41ba3, fl-l: #dca7da, liquid: #b1166f, label: #f1c7e7, leaf: #63b648),
+  elderberry: (fl: #64c8ec, fl-l: #abdeff, liquid: #5a1a4b, label: #cfeaff, leaf: #3d8fc4),
+  strawberry-lime: (fl: #f2546a, fl-l: #e0f499, liquid: #e24359, label: #ffdfe4, leaf: #8cc63f),
+  grape-apple: (fl: #9147c6, fl-l: #dccbf4, liquid: #6e2b88, label: #e7dcf8, leaf: #63b648),
+  mojito: (fl: #2fbf9e, fl-l: #c3f1e0, liquid: #bfe38e, label: #d9f7eb, leaf: #2fbf9e),
+  gold-apricot: (fl: #ffc421, fl-l: #fdf499, liquid: #f39a1e, label: #ffe9a6, leaf: #63b648),
+);
+
+@each $slug, $c in $flavors {
+  .fl--#{$slug} {
+    --fl: #{map.get($c, fl)};
+    --fl-l: #{map.get($c, fl-l)};
+    --b-liquid: #{map.get($c, liquid)};
+    --b-label: #{map.get($c, label)};
+    --b-fl: #{map.get($c, fl)};
+    --b-leaf: #{map.get($c, leaf)};
+  }
+}

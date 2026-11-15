@@ -1,0 +1,298 @@
+@use "../mixins" as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-xs);
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem(16);
+    width: 100%;
+
+    @include maxMedia(md) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  &__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    span {
+      display: inline-block;
+      padding: rem(10) rem(18);
+      border-radius: var(--rd-pill);
+      background: var(--field-line, var(--bg-2));
+      font-size: max(12px, #{rem(14)});
+      font-weight: 600;
+      color: var(--clr-ink);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+    input:checked + span {
+      background: var(--fl);
+    }
+
+    input:focus-visible + span {
+      outline: 2px solid var(--clr-ink);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: rem(8);
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+
+  // labels and the consent line: one weight, the content grey (manager)
+  &__label {
+    font-size: max(12px, #{rem(14)});
+    font-weight: 500;
+    color: var(--clr-text);
+  }
+
+  // fields (manager, round 2): a 2px line in the tabs' colour, the active one gets a fill
+  &__input {
+    width: 100%;
+    min-height: max(45px, #{rem(56)});
+    padding: rem(12) rem(22);
+    border: 2px solid var(--field-line, var(--bg-2));
+    border-radius: var(--rd-pill);
+    background: transparent;
+    color: var(--clr-ink);
+    outline: 0;
+    transition: background-color 0.3s, border-color 0.3s;
+    appearance: none;
+
+    &::placeholder {
+      color: var(--clr-muted);
+      opacity: 1;
+    }
+
+    &:focus {
+      border-color: var(--fl);
+      background: var(--fl-l);
+    }
+
+    &.is-error {
+      border-color: #e0566b;
+      background: #fdeef0;
+    }
+  }
+
+  textarea.field__input {
+    min-height: rem(110);
+    border-radius: var(--rd-sm);
+    resize: vertical;
+  }
+
+  &__select {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: rem(22);
+      top: 50%;
+      width: rem(8);
+      height: rem(8);
+      border-right: 2px solid var(--clr-ink);
+      border-bottom: 2px solid var(--clr-ink);
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
+      transition: transform 0.3s var(--ease-out);
+    }
+
+    select {
+      padding-right: rem(48);
+      cursor: pointer;
+    }
+  }
+
+}
+
+.check {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: rem(12);
+  font-size: max(12px, #{rem(14)});
+  font-weight: 500;
+  color: var(--clr-text);
+  cursor: pointer;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &__box {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: max(19px, #{rem(24)});
+    height: max(19px, #{rem(24)});
+    border: 2px solid var(--field-line, var(--bg-2));
+    border-radius: rem(8);
+    background: transparent;
+    color: transparent;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+
+    svg {
+      width: 70%;
+    }
+  }
+
+  input:checked + &__box {
+    border-color: var(--clr-ink);
+    background: var(--clr-ink);
+    color: #fff;
+  }
+
+  input.is-error + &__box {
+    border-color: #e0566b;
+    background: #fdeef0;
+  }
+
+  input:focus-visible + &__box {
+    outline: 2px solid var(--clr-ink);
+    outline-offset: 2px;
+  }
+}
+
+// ── custom dropdown (app-select.js) over the native select ──
+.cselect {
+  // the native select stays for the form, out of sight
+  > select {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    padding-right: rem(48);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  &__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.is-empty &__value {
+    color: var(--clr-muted);
+  }
+
+  // validation of the hidden select shows on the button
+  > select.is-error ~ .cselect__btn {
+    border-color: #e0566b;
+    background: #fdeef0;
+  }
+
+  &.is-open::after {
+    transform: translateY(-30%) rotate(-135deg);
+  }
+
+  &.is-open &__btn {
+    border-color: var(--fl);
+    background: var(--fl-l);
+  }
+
+  &__list {
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    top: calc(100% + #{rem(6)});
+    max-height: rem(280);
+    padding: rem(6);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: var(--rd-md);
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(22, 17, 14, 0.14);
+    opacity: 0;
+    translate: 0 -6px;
+    visibility: hidden;
+    transition: opacity 0.25s, translate 0.35s var(--ease-out), visibility 0s 0.35s;
+  }
+
+  &.is-up &__list {
+    top: auto;
+    bottom: calc(100% + #{rem(6)});
+    translate: 0 6px;
+  }
+
+  &.is-open &__list {
+    opacity: 1;
+    translate: 0 0;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  &__opt {
+    position: relative;
+    padding: rem(11) rem(40) rem(11) rem(14);
+    border-radius: var(--rd-sm);
+    font-size: max(13px, #{rem(15)});
+    color: var(--clr-ink);
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &.is-active {
+      background: var(--fl-l);
+    }
+
+    // the chosen one: a dot in the flavour colour
+    &[aria-selected="true"] {
+      font-weight: 500;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: rem(16);
+        top: 50%;
+        width: rem(8);
+        height: rem(8);
+        margin-top: rem(-4);
+        border-radius: 50%;
+        background: var(--fl);
+      }
+    }
+  }
+}
+
+// "fill in the required fields" — above the submit button (app-form.js adds it)
+.form__error {
+  font-size: max(12px, #{rem(14)});
+  font-weight: 500;
+  color: #d8344a;
+}

@@ -1,0 +1,138 @@
+@use "../mixins" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+body {
+  margin: 0;
+  min-width: rem(320);
+  background: var(--bg);
+  color: var(--clr-text);
+  font-family: var(--font-main);
+  font-size: max(15px, #{rem(17)});
+  line-height: 1.3; // 17px / 22px (manager, round 3: 2px tighter again)
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  display: block;
+  overflow-x: clip; // keeps position: sticky working (hidden would break it)
+  background: var(--page-bg);
+
+  @include minMedia(xl) {
+    position: relative;
+    z-index: 1; // over the sticky footer reveal
+  }
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+picture {
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--c-pink);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--clr-ink);
+  outline-offset: 3px;
+}
+
+@media (min-width: 1200px) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #cfc4b6 transparent;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// only <html> (it goes to the viewport): with <body> hidden too, body became the scroll
+// box — the sticky header and the story stage jumped / hid while search / popups were open
+html.is-scroll-locked {
+  overflow: hidden;
+}
+
+body.is-scroll-pinned {
+  position: fixed;
+  inset-inline: 0;
+}
+
+// see app-global.js: no hovers while the page scrolls (≥1200)
+@media (min-width: 1200px) {
+  html.is-scrolling main {
+    pointer-events: none;
+  }
+}

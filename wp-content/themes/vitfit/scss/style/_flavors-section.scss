@@ -1,0 +1,324 @@
+@use "../mixins" as *;
+
+// Nine flavours. ≥1200 the block is pinned and the track scrolls sideways;
+// the section background follows the flavour in the centre (--flv-bg).
+.flavors {
+  --flv-bg: var(--c-yellow-l);
+  // full bleed, no frame around the block (manager)
+  background: var(--flv-bg);
+  transition: background-color 0.9s ease;
+  overflow: hidden;
+
+  @include maxMedia(xl) {
+    padding-block: var(--sp-lg);
+  }
+
+  &__pin {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+    padding-block: rem(40);
+
+    // ≥1200 the title + cards + bar sit in the middle of the screen (equal room above
+    // and below); the stage is at most half the screen high (--flv-stage, app-flavors.js)
+    @include minMedia(xl) {
+      justify-content: center;
+    }
+
+    // low screens: the section title follows the screen height
+    @media (min-width: 1200px) and (max-height: 860px) {
+      .flavors__head .h2 {
+        font-size: max(40px, min(#{rem(100)}, 10.5vh));
+      }
+
+      .flavor__name {
+        font-size: max(26px, min(#{rem(48)}, 5vh));
+      }
+    }
+
+    // title → disc: the common section gap (manager). The disc is centred on its stage
+    // and may be taller than it — app-flavors.js measures that overflow into --flv-extra,
+    // so the cards move down by it, not the disc
+    > .flavors__head {
+      margin-bottom: calc(var(--sp-head) - var(--sp-sm) + var(--flv-extra, 0px));
+
+      // low screens: a smaller title gap, more room for the disc
+      @media (min-width: 1200px) and (max-height: 860px) {
+        margin-bottom: calc(var(--sp-head) * 0.6 - var(--sp-sm) + var(--flv-extra, 0px));
+      }
+    }
+
+    @include minMedia(xl) {
+      height: 100svh;
+      min-height: 560px;
+    }
+
+    @include maxMedia(xl) {
+      padding: 0;
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-sm);
+
+    @include maxMedia(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+
+  &__side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: rem(16);
+    max-width: rem(440);
+    text-align: right;
+
+    @include maxMedia(md) {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  &__counter {
+    // phones: no counter (manager)
+    @include maxMedia(xl) {
+      display: none;
+    }
+
+    font-family: var(--font-display);
+    font-size: max(17px, #{rem(20)});
+    color: var(--clr-ink);
+
+    b {
+      font-size: 2.2em;
+      font-weight: 700;
+    }
+  }
+
+  &__viewport {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+
+    @include minMedia(xl) {
+      flex: none;
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: rem(24);
+  }
+
+  &__slider {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    overflow: visible;
+
+    @include minMedia(xl) {
+      flex: none;
+    }
+
+    // the first and the last flavour can reach the centre of the screen
+    @include minMedia(xl) {
+      padding-inline: calc(50vw - #{rem(235)});
+    }
+
+    @include maxMedia(xl) {
+      padding-inline: var(--gutter);
+    }
+  }
+
+  &__track {
+    @include minMedia(xl) {
+      gap: rem(20);
+      will-change: transform;
+    }
+  }
+
+  &__bar {
+    height: 3px;
+    margin-inline: var(--gutter);
+    border-radius: 3px;
+    background: rgba(22, 17, 14, 0.12);
+    overflow: hidden;
+
+    @include minMedia(xl) {
+      width: min(calc(100% - var(--gutter) * 2), var(--container));
+      margin-inline: auto;
+    }
+
+    i {
+      display: block;
+      height: 100%;
+      background: var(--clr-ink);
+      transform: scaleX(var(--p, 0.11));
+      transform-origin: 0 50%;
+      transition: transform 0.3s;
+    }
+  }
+}
+
+// a flavour = bottle on its colour disc + text, straight on the section colour
+// (no card box). The one in the centre is active, the others step back.
+.flavor {
+  position: relative;
+  flex: none;
+  display: grid;
+  grid-template-rows: 1fr auto;
+
+  // ≥1200: the stage is at most half the screen high, less when the screen is low
+  // (--flv-stage, app-flavors.js); the card is as tall as its content
+  @include minMedia(xl) {
+    grid-template-rows: var(--flv-stage, 50svh) auto;
+  }
+  width: rem(560);
+  padding: 0 rem(10);
+  // the inactive ones only fade (the disc shrinks) — no card scale, the names stay on one line
+  opacity: 0.5;
+  transition: opacity 0.6s;
+
+  @include maxMedia(xl) {
+    width: min(76vw, 360px);
+    height: auto;
+    min-height: 540px;
+  }
+
+  &.is-active {
+    opacity: 1;
+  }
+
+  &__num {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: rem(10);
+    font-family: var(--font-display);
+    font-size: rem(34);
+    line-height: 1;
+    color: var(--clr-ink);
+
+    small {
+      font-size: 0.5em;
+      opacity: 0.45;
+    }
+
+    // phones: no numbers on the slides (manager)
+    @include maxMedia(xl) {
+      display: none;
+    }
+  }
+
+  &__stage {
+    position: relative;
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr); // a taller bottle overflows evenly, centred
+    place-items: center;
+    min-height: 0;
+
+  }
+
+  &__ring {
+    position: absolute;
+    width: 70%;
+    aspect-ratio: 1;
+
+    // low screens: app-flavors.js may make it smaller so it fits (--flv-ring)
+    @include minMedia(xl) {
+      width: var(--flv-ring, 70%);
+    }
+
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.7), transparent 45%),
+      var(--fl);
+    scale: 0.86;
+    transition: scale 0.9s var(--ease-back);
+  }
+
+  // bigger than the disc on purpose — the bottle may break out of it (manager)
+  &__bottle {
+    position: relative;
+    height: var(--flv-bottle, min(60svh, 112%));
+
+
+    rotate: -6deg;
+    transition: rotate 0.9s var(--ease-out), translate 0.9s var(--ease-out);
+
+    @include maxMedia(xl) {
+      height: 390px;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(10);
+    min-height: rem(250);
+    padding-top: rem(18);
+
+    // the text stays above a disc that runs down on low screens; no reserved
+    // height — every pixel goes to the stage, so the disc barely reaches the name
+    @include minMedia(xl) {
+      position: relative;
+      z-index: 1;
+      min-height: var(--flv-body, 0px); // the tallest card's text (app-flavors.js)
+    }
+
+    @include maxMedia(xl) {
+      min-height: 220px;
+    }
+  }
+
+  &__formats {
+    font-size: max(11px, #{rem(12)});
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(22, 17, 14, 0.55);
+  }
+
+  // the name a step smaller than .h3 (manager)
+  &__name {
+    @include minMedia(xl) {
+      font-size: max(28px, #{rem(48)});
+    }
+  }
+
+  &__notes {
+
+    // very low screens: no description — the name, formats and the link stay
+    @media (min-width: 1200px) and (max-height: 720px) {
+      display: none;
+    }
+
+    max-width: 24em;
+    color: var(--clr-ink);
+  }
+
+  &__link {
+    margin-top: rem(4);
+  }
+
+  &.is-active &__ring {
+    scale: 1;
+  }
+
+  &.is-active &__bottle {
+    rotate: -2deg;
+  }
+
+  @include hover {
+    .flavor__bottle {
+      rotate: 4deg;
+      translate: 0 -12px;
+    }
+  }
+}

@@ -1,0 +1,190 @@
+@use "../mixins" as *;
+
+// Dark footer. ≥1200 sticky under <main> — the page slides up off it.
+.footer {
+  position: relative;
+  background: var(--bg-dark);
+  color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+
+  // reveal from under the page only when the whole footer fits the screen
+  // (html.footer-fits, app-animations.js) — on short laptops it scrolls normally
+  @include minMedia(xl) {
+    html.footer-fits & {
+      position: sticky;
+      bottom: 0;
+    }
+  }
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(3, 1fr);
+    gap: var(--sp-sm);
+    padding-top: var(--sp-lg);
+
+    @include maxMedia(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include maxMedia(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+
+    @include maxMedia(lg) {
+      grid-column: 1 / -1;
+    }
+
+    .logo {
+      color: #fff;
+    }
+
+    .logo__mark {
+      background: #fff;
+      color: var(--clr-ink);
+    }
+  }
+
+  &__lead {
+    max-width: rem(400);
+  }
+
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    gap: rem(6);
+
+    a {
+      font-family: var(--font-display);
+      font-size: max(18px, #{rem(24)});
+      line-height: 1.1;
+      color: #fff;
+      transition: color 0.3s;
+
+      @include hover {
+        color: var(--c-yellow);
+      }
+    }
+  }
+
+  &__dev {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(10);
+
+    img {
+      width: max(83px, #{rem(83)});
+      height: auto;
+      transition: opacity 0.3s;
+    }
+
+    @include hover {
+      img {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__socials {
+    display: flex;
+    gap: rem(8);
+  }
+
+  &__title {
+    margin-bottom: rem(22);
+    font-size: max(11px, #{rem(13)});
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+
+    a {
+      position: relative;
+      display: inline-block;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s, transform 0.4s var(--ease-out);
+
+      @include hover {
+        color: var(--c-yellow);
+        transform: translateX(6px);
+      }
+    }
+  }
+
+  // huge wordmark — letters rise one by one when the footer shows
+  &__word {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--sp-md);
+    padding-top: 0.06em;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: 19.5vw;
+    line-height: 0.78;
+    color: #fff;
+    user-select: none;
+
+    span {
+      display: inline-block;
+      // hover uses translate / rotate — transform belongs to the GSAP entrance
+      transition: color 0.4s, translate 0.6s var(--ease-back), rotate 0.6s var(--ease-back);
+
+      &:nth-child(1) { --c: var(--c-green); }
+      &:nth-child(2) { --c: var(--c-pink); }
+      &:nth-child(3) { --c: var(--c-yellow); }
+      &:nth-child(4) { --c: var(--c-blue); }
+      &:nth-child(5) { --c: var(--c-purple); }
+      &:nth-child(6) { --c: var(--c-green); }
+      &:nth-child(7) { --c: var(--c-pink); }
+
+      @include hover {
+        color: var(--c);
+        translate: 0 -6%;
+        rotate: -4deg;
+      }
+    }
+
+    // the word also follows the screen height, so the footer fits short laptops
+    @include minMedia(xl) {
+      font-size: min(#{rem(372)}, 30svh);
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(12) rem(24);
+    padding-block: rem(26);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: max(12px, #{rem(14)});
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem(8) rem(24);
+    }
+
+    a {
+      transition: color 0.3s;
+
+      @include hover {
+        color: #fff;
+      }
+    }
+  }
+}

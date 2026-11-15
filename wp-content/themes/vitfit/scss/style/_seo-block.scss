@@ -1,0 +1,29 @@
+@use "../mixins" as *;
+
+// ── SEO text block (optional on any page) — as reatiss ──
+// Soft box, title → .more-text (visible + hidden editor text, "Читати більше ↓").
+.seo-block {
+  &__box {
+    padding: var(--sp-md);
+    border-radius: var(--rd-lg);
+    background: var(--bg-2);
+
+    @include maxMedia(md) {
+      padding: 28px 20px;
+    }
+  }
+
+  &__title {
+    max-width: rem(1100);
+  }
+
+  .more-text {
+    max-width: rem(1100);
+    margin-top: var(--sp-xs);
+  }
+
+  // the box is already --bg-2: the table head, even rows and the quote go white
+  .rich-text :where(th, tr:nth-child(even) td, blockquote) {
+    background: var(--clr-white);
+  }
+}

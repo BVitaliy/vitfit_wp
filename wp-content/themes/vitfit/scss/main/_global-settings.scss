@@ -1,0 +1,121 @@
+@use "../mixins" as *;
+
+// VIT-FIT — all colours / sizes / spacings live here.
+// Brand palette (manager): five flavour colours, each vivid + light.
+:root {
+  // ── Fonts ──
+  --font-display: "Ermilov", "Arial Black", system-ui, sans-serif;
+  --font-main: "Noto Sans Display", system-ui, sans-serif;
+
+  // ── Brand palette ──
+  --c-green: #63b648;
+  --c-green-l: #e0f499;
+  --c-pink: #f15f86;
+  --c-pink-l: #ffb8cb;
+  --c-purple: #c41ba3;
+  --c-purple-l: #dca7da;
+  --c-blue: #64c8ec;
+  --c-blue-l: #abdeff;
+  --c-yellow: #ffc421;
+  --c-yellow-l: #fdf499;
+
+  // ── Neutrals ──
+  --clr-ink: #16110e; // headings, dark blocks, buttons
+  --clr-text: #4d4641; // body copy
+  --clr-muted: #8b827b;
+  --clr-white: #fff;
+  --clr-line: rgba(22, 17, 14, 0.12);
+  --clr-error: #e23b4e;
+  --bg: #fbf6ee; // page (cream)
+  --bg-2: #f3eadc; // soft boxes
+  --bg-dark: #16110e;
+
+  // current flavour of a block (cards, slides, scenes override it)
+  --fl: var(--c-pink);
+  --fl-l: var(--c-pink-l);
+
+  // ── Spacing (1920 → tablet → mobile) ──
+  --sp-xl: #{rem(160)};
+  --sp-lg: #{rem(110)};
+  --sp-md: #{rem(70)};
+  --sp-sm: #{rem(44)};
+  --sp-xs: #{rem(28)};
+  --sp-2xs: #{rem(14)};
+  --sp-head: #{rem(100)}; // section title → content (manager: +30)
+
+  // ── Layout ──
+  --gutter: #{rem(40)};
+  --container: #{rem(1760)};
+  --topbar-h: #{rem(44)};
+  --header-h: #{rem(100)};
+
+  // ── Radius ──
+  // block radii (halved after the manager's review)
+  --rd-sm: #{rem(7)};
+  --rd-md: #{rem(14)};
+  --rd-lg: #{rem(22)};
+  --rd-pill: 999px;
+
+  // ── Motion ──
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t: 0.45s var(--ease-out);
+
+  @include maxMedia(xl) {
+    --sp-xl: 110px;
+    --sp-lg: 80px;
+    --sp-md: 50px;
+    --sp-sm: 36px;
+    --sp-xs: 24px;
+    --sp-2xs: 12px;
+    --sp-head: 66px;
+    --gutter: 24px;
+    --topbar-h: 40px;
+    --header-h: 84px;
+    --rd-sm: 6px;
+    --rd-md: 11px;
+    --rd-lg: 16px;
+  }
+
+  @include maxMedia(md) {
+    --sp-xl: 84px;
+    --sp-lg: 60px;
+    --sp-md: 36px;
+    --sp-sm: 28px;
+    --sp-xs: 20px;
+    --sp-head: 46px;
+    --gutter: 16px;
+    --header-h: 70px;
+    --rd-md: 10px;
+    --rd-lg: 13px;
+  }
+}
+
+// ── Root scale ─────────────────────────────────────────────────────
+// Authored in rem at 1920 / 16px. 1440–1920: root follows the viewport,
+// 1200–1440 holds at 12px; below 1200 the layout reflows at 16px.
+html {
+  font-size: 16px;
+
+  @media (min-width: 1200px) and (max-width: 1919.98px) {
+    font-size: max(12px, calc(100vw / 120));
+  }
+
+  @media (min-width: 2100px) {
+    font-size: calc(100vw / 120);
+  }
+}
+
+// Page colour shift (app-page-color.js): sections with data-page-bg tint the
+// whole page while they hold the middle of the screen.
+@property --page-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fbf6ee;
+}
+
+main {
+  --page-bg: var(--bg);
+  transition: --page-bg 0.9s ease;
+}

@@ -1,0 +1,114 @@
+@use "../mixins" as *;
+
+// WordPress-only additions (CF7 states, packshot photos, editor output…).
+// The markup partials stay as delivered — put WP fixes here.
+
+// ── Contact Form 7 ─────────────────────────────────────────────────
+// CF7 wraps every control in span.wpcf7-form-control-wrap.
+.wpcf7-form-control-wrap {
+  display: block;
+
+  // a textarea is inline-block: in the wrap it would sit on the text baseline
+  textarea.field__input {
+    display: block;
+  }
+}
+
+// the radio pills / consent keep their own layout inside the wrap
+.wpcf7-form-control-wrap:has(> .form__topics),
+.wpcf7-form-control-wrap:has(> .check) {
+  width: 100%;
+}
+
+// CF7's own tooltip and spinner — the design shows field states and a busy button
+.wpcf7-not-valid-tip,
+.wpcf7-spinner,
+.vtf-form .hidden-fields-container {
+  display: none !important;
+}
+
+.vtf-form {
+  .wpcf7-response-output {
+    width: 100%;
+    margin: 0;
+    font-size: max(12px, #{rem(14)});
+    font-weight: 500;
+    color: #d8344a;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  // sent / validation messages are shown by the design (thanks popup, field errors)
+  &.sent .wpcf7-response-output,
+  &.invalid .wpcf7-response-output {
+    display: none;
+  }
+}
+
+// Busy button while CF7 sends (app-cf7.js): the arrow in the tile turns into a spinner.
+.btn.is-loading {
+  pointer-events: none;
+
+  .btn__tile {
+    position: relative;
+  }
+
+  .btn__tile svg {
+    opacity: 0;
+  }
+
+  .btn__tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 45%;
+    height: 45%;
+    margin: auto;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: vtf-spin 0.7s linear infinite;
+  }
+}
+
+@keyframes vtf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Packshots ──────────────────────────────────────────────────────
+// The client's packshot photo replaces the SVG placeholder in the same box.
+.bottle--img {
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 0.06em 0.1em rgba(22, 17, 14, 0.12));
+  }
+}
+
+// ── Uploaded logo ──────────────────────────────────────────────────
+.logo > img,
+.logo > svg {
+  display: block;
+  width: auto;
+  height: rem(64);
+
+  @include maxMedia(xl) {
+    height: 48px;
+  }
+}
+
+// ── Live search ────────────────────────────────────────────────────
+.search__result-media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// ── Admin bar ──────────────────────────────────────────────────────
+// The front-end admin bar is a narrow left column (functions/class-admin-bar.php).

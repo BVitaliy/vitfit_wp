@@ -1,0 +1,42 @@
+{
+    "key": "group_vtf_text_page",
+    "title": "Text page",
+    "fields": [
+        {
+            "key": "field_27aa8c0b35db4070",
+            "label": "Line under the title",
+            "name": "lead",
+            "type": "text",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — «Updated {date}»."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "default"
+            },
+            {
+                "param": "page_type",
+                "operator": "!=",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794501067
+}

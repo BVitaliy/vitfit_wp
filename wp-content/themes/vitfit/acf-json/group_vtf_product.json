@@ -1,0 +1,250 @@
+{
+    "key": "group_vtf_product",
+    "title": "Product",
+    "fields": [
+        {
+            "key": "field_08f633b0f003244d",
+            "label": "Flavour",
+            "name": "flavor",
+            "type": "taxonomy",
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "required": 1,
+            "taxonomy": "vtf_flavor",
+            "field_type": "select",
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0
+        },
+        {
+            "key": "field_d2ef52a29b36dbea",
+            "label": "Pack",
+            "name": "pack",
+            "type": "select",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "required": 1,
+            "choices": {
+                "pet": "PET bottle",
+                "can": "Can",
+                "glass": "Glass bottle"
+            },
+            "default_value": "pet",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_1a0e2539e560172e",
+            "label": "Badge",
+            "name": "badge",
+            "type": "select",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "": "None",
+                "hit": "Hit",
+                "new": "New"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_6005568a093b63b8",
+            "label": "Volume",
+            "name": "volume",
+            "type": "text",
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "E.g. «0,5 л»",
+            "required": 1
+        },
+        {
+            "key": "field_6279d237ffc76763",
+            "label": "Pack size",
+            "name": "pack_size",
+            "type": "text",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "E.g. «6 шт». Empty — not shown."
+        },
+        {
+            "key": "field_4273e16ef3a4189a",
+            "label": "Popularity",
+            "name": "rank",
+            "type": "number",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Higher = earlier in «Popular» sorting.",
+            "default_value": ""
+        },
+        {
+            "key": "field_0ee47ae3ba8b8aaa",
+            "label": "Short description (cards)",
+            "name": "short_description",
+            "type": "textarea",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_65e5a7d52ee6be84",
+            "label": "Packshot",
+            "name": "packshot",
+            "type": "image",
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "PNG/WebP without background, ~800×1880 px. Empty — the drawn bottle in the flavour colours.",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": ""
+        },
+        {
+            "key": "field_377a94476acef6ca",
+            "label": "Card hover",
+            "name": "hover_type",
+            "type": "select",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "": "Nothing",
+                "image": "Photo",
+                "video": "Video"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_dc658f1a4305f6b5",
+            "label": "Hover photo",
+            "name": "hover_image",
+            "type": "image",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "1080×1350 px",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_377a94476acef6ca",
+                        "operator": "==",
+                        "value": "image"
+                    }
+                ]
+            ],
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": ""
+        },
+        {
+            "key": "field_6cba847b1fa08818",
+            "label": "Hover video",
+            "name": "hover_video",
+            "type": "file",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "MP4 540×620, no sound",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_377a94476acef6ca",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "return_format": "url",
+            "library": "all",
+            "mime_types": "mp4"
+        },
+        {
+            "key": "field_58f6405a44208611",
+            "label": "Hover video poster",
+            "name": "hover_poster",
+            "type": "image",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "540×620 px",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_377a94476acef6ca",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "vtf_product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794501067
+}

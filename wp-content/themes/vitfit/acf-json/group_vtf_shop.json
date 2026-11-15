@@ -1,0 +1,76 @@
+{
+    "key": "group_vtf_shop",
+    "title": "Shop",
+    "fields": [
+        {
+            "key": "field_ff9f6aa2e2dda6df",
+            "label": "Logo",
+            "name": "logo",
+            "type": "image",
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "SVG / PNG, ~240×80 px. Empty — the name as text.",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": ""
+        },
+        {
+            "key": "field_31f799c396da864c",
+            "label": "Vit-Fit page in the shop",
+            "name": "link",
+            "type": "url",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Opens in a new tab. Empty — the tile is not a link."
+        },
+        {
+            "key": "field_a2955a964bfeb492",
+            "label": "Tile colour",
+            "name": "color",
+            "type": "select",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "yellow": "Yellow",
+                "pink": "Pink",
+                "green": "Green",
+                "blue": "Blue",
+                "purple": "Purple"
+            },
+            "default_value": "green",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "vtf_shop"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794501067
+}

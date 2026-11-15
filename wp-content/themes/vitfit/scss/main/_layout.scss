@@ -1,0 +1,138 @@
+@use "../mixins" as *;
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.spacer-xl {
+  height: var(--sp-xl);
+}
+
+.spacer-lg {
+  height: var(--sp-lg);
+}
+
+.spacer-md {
+  height: var(--sp-md);
+}
+
+.spacer-sm {
+  height: var(--sp-sm);
+}
+
+// Section head: chip + title on the left, link on the right
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-xs) var(--sp-sm);
+  margin-bottom: var(--sp-head);
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+  }
+
+  &__title {
+    max-width: var(--title-w, 12em);
+  }
+
+  &__text {
+    max-width: rem(560);
+  }
+
+  &--center {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .section-head__main {
+      align-items: center;
+    }
+  }
+
+  @include maxMedia(md) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+// small pill label above titles
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: max(27px, #{rem(34)});
+  padding: 0.35em 1.1em;
+  border-radius: var(--rd-pill);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: max(12px, #{rem(13)});
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-ink);
+  white-space: nowrap;
+
+  &__dot {
+    width: rem(8);
+    height: rem(8);
+    border-radius: 50%;
+    background: var(--fl);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--fl) 25%, transparent);
+    animation: chip-pulse 2.4s ease-in-out infinite;
+  }
+
+  &--dark {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &--solid {
+    background: var(--clr-ink);
+    color: #fff;
+  }
+}
+
+@keyframes chip-pulse {
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--fl) 0%, transparent);
+  }
+}
+
+// product badge ("Хіт", "Новинка"): colour + icon, text centred on the pill
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(6);
+  height: max(26px, #{rem(32)});
+  padding: 0 rem(14) 0 rem(10);
+  border-radius: var(--rd-pill);
+  background: var(--clr-ink);
+  color: #fff;
+  font-size: max(11px, #{rem(12)});
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  svg {
+    flex: none;
+    width: rem(16);
+    height: rem(16);
+  }
+
+  &--hit {
+    background: var(--c-yellow);
+    color: var(--clr-ink);
+  }
+
+  &--new {
+    background: var(--c-green);
+    color: #fff;
+  }
+}

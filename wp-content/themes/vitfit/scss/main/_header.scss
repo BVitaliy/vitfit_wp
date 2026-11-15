@@ -1,0 +1,898 @@
+@use "../mixins" as *;
+
+// ── Top bar (announcement) ─────────────────────────────────────────
+// In the flow above the header: scrolls away with the page (not sticky).
+.topbar {
+  position: relative;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--topbar-h);
+  padding-inline: var(--gutter);
+  background: var(--clr-ink);
+  color: #fff;
+  font-size: max(13px, #{rem(14)});
+  font-weight: 500;
+  overflow: hidden;
+  transition: height 0.5s var(--ease-out);
+
+  &__text {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // the link: underlined, the line turns yellow and the text with it on hover
+    a {
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 255, 255, 0.5);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+
+      @include hover {
+        color: var(--c-yellow);
+        text-decoration-color: var(--c-yellow);
+      }
+    }
+  }
+
+  &__spark {
+    color: var(--c-yellow);
+  }
+
+  // phones: the short message, so "Де купити" always fits
+  &__more {
+    @include maxMedia(md) {
+      display: none;
+    }
+  }
+
+
+  @include maxMedia(md) {
+    padding-inline: 16px;
+  }
+}
+
+// ── Header ─────────────────────────────────────────────────────────
+// sticky at the top; transparent over the hero, a cream glass pill once the
+// page scrolls (.is-scrolled), slides away scrolling down (.is-hidden).
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  pointer-events: none;
+  transition: transform 0.6s var(--ease-out);
+
+  &.is-hidden:not(.is-menu-open) {
+    transform: translateY(-110%);
+  }
+
+  &__wrap {
+    height: 100%;
+    padding-top: rem(16);
+
+    @include maxMedia(xl) {
+      padding-top: 12px;
+    }
+  }
+
+  &__bar {
+    pointer-events: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: rem(30);
+    height: calc(var(--header-h) - #{rem(26)});
+    padding-inline: rem(14) rem(10);
+    border-radius: var(--rd-pill);
+    transition: background 0.5s, box-shadow 0.5s, backdrop-filter 0.5s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: rgba(251, 246, 238, 0.78);
+      box-shadow: 0 rem(12) rem(40) rgba(22, 17, 14, 0.06);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.5s, transform 0.6s var(--ease-out);
+    }
+
+    @include maxMedia(xl) {
+      height: calc(var(--header-h) - 20px);
+      padding-inline: 10px 8px;
+    }
+  }
+
+  &.is-scrolled &__bar::before,
+  &.is-menu-open &__bar::before {
+    opacity: 1;
+    transform: none;
+  }
+
+  &__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    @include maxMedia(xl) {
+      display: none;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: rem(6);
+  }
+
+  &__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: rem(6);
+    padding: rem(12) rem(18);
+    border-radius: var(--rd-pill);
+    font-size: max(14px, #{rem(16)});
+    font-weight: 600;
+    color: var(--clr-ink);
+    transition: background 0.35s;
+
+    svg {
+      width: rem(10);
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    @include hover {
+      background: rgba(22, 17, 14, 0.06);
+    }
+
+    &.is-active::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: rem(4);
+      width: rem(6);
+      height: rem(6);
+      border-radius: 50%;
+      background: var(--c-pink);
+      transform: translateX(-50%);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: rem(8);
+    margin-left: auto;
+  }
+
+  &__cta {
+    min-height: max(44px, #{rem(54)});
+    padding-inline: rem(26);
+    margin-right: rem(6);
+
+    @include maxMedia(lg) {
+      display: none;
+    }
+  }
+
+  &__social {
+    @include maxMedia(xl) {
+      display: none;
+    }
+  }
+
+  &__burger {
+    display: none;
+
+    @include maxMedia(xl) {
+      display: grid;
+    }
+  }
+
+  // phones: the round buttons sit inside the bar with the same inset as the logo
+  @include maxMedia(md) {
+    &__bar {
+      padding-inline: 7px;
+    }
+
+    &__actions {
+      gap: 6px;
+    }
+
+    .btn-icon {
+      width: 38px;
+    }
+  }
+}
+
+// ── Logo ──
+.logo {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: rem(14);
+  color: var(--clr-ink);
+
+  &__mark {
+    display: grid;
+    place-items: center;
+    width: max(46px, #{rem(60)});
+    aspect-ratio: 1;
+    border-radius: rem(10);
+    background: var(--clr-ink);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: max(12px, #{rem(15)});
+    line-height: 0.95;
+    text-align: center;
+    transition: transform 0.6s var(--ease-back), background 0.4s;
+
+    @include maxMedia(xl) {
+      width: 44px;
+      min-width: 0;
+      border-radius: 50%;
+      font-size: 11px;
+    }
+
+    @include maxMedia(md) {
+      width: 40px;
+      font-size: 10px;
+    }
+  }
+
+  &__tag {
+    font-size: max(11px, #{rem(12)});
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.3;
+    text-transform: uppercase;
+
+    @include maxMedia(sm) {
+      display: none;
+    }
+  }
+
+  @include hover {
+    .logo__mark {
+      transform: rotate(-8deg) scale(1.05);
+      background: var(--c-pink);
+    }
+  }
+}
+
+// ── Dropdown (Про бренд) ──
+.dropdown {
+  position: relative;
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + #{rem(14)});
+    left: 50%;
+    display: grid;
+    grid-template-columns: 1fr rem(260);
+    gap: rem(10);
+    width: rem(620);
+    padding: rem(10);
+    border-radius: var(--rd-md);
+    background: #fff;
+    box-shadow: 0 rem(30) rem(80) rgba(22, 17, 14, 0.16);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 10px) scale(0.98);
+    transform-origin: 50% 0;
+    transition: opacity 0.35s, transform 0.5s var(--ease-out), visibility 0.35s;
+
+    // hover bridge
+    &::before {
+      content: "";
+      position: absolute;
+      inset: rem(-16) 0 auto;
+      height: rem(16);
+    }
+  }
+
+  &:hover &__panel,
+  &:focus-within &__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  &:hover .header__link svg,
+  &:focus-within .header__link svg {
+    transform: rotate(180deg);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: rem(10);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(12);
+    padding: rem(14) rem(16);
+    border-radius: var(--rd-sm);
+    font-weight: 600;
+    color: var(--clr-ink);
+    transition: background 0.3s, padding 0.4s var(--ease-out);
+
+    span {
+      color: var(--clr-muted);
+      font-size: 0.85em;
+      font-weight: 400;
+    }
+
+    svg {
+      width: rem(14);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.4s var(--ease-out);
+    }
+
+    @include hover {
+      background: var(--bg);
+      padding-left: rem(22);
+
+      svg {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  &__promo {
+    --fl: var(--c-yellow);
+    --fl-l: var(--c-yellow-l);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: rem(300);
+    padding: rem(20);
+    border-radius: calc(var(--rd-md) - #{rem(8)});
+    background: radial-gradient(circle at 50% 35%, #fff 0, var(--fl-l) 55%, var(--fl) 140%);
+    overflow: hidden;
+
+    .bottle {
+      position: absolute;
+      left: 50%;
+      top: rem(18);
+      width: rem(96);
+      transform: translateX(-50%) rotate(8deg);
+      transition: transform 0.7s var(--ease-back);
+    }
+
+    @include hover {
+      .bottle {
+        transform: translateX(-50%) rotate(-4deg) translateY(-6px) scale(1.05);
+      }
+    }
+  }
+
+  &__promo-title {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: rem(20);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+  }
+}
+
+// ── Language switch ──
+.lang {
+  position: relative;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(6);
+    height: max(42px, #{rem(50)});
+    padding-inline: rem(14);
+    border-radius: var(--rd-pill);
+    font-size: max(13px, #{rem(14)});
+    font-weight: 700;
+    color: var(--clr-ink);
+    background: rgba(22, 17, 14, 0.06);
+    transition: background 0.3s;
+
+    svg {
+      width: rem(18);
+    }
+
+    @include hover {
+      background: rgba(22, 17, 14, 0.06);
+    }
+  }
+
+  &__list {
+    position: absolute;
+    top: calc(100% + #{rem(8)});
+    right: 0;
+    min-width: 100%;
+    padding: rem(6);
+    border-radius: var(--rd-sm);
+    background: #fff;
+    box-shadow: 0 20px 50px rgba(22, 17, 14, 0.14);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.4s var(--ease-out), visibility 0.3s;
+
+    a {
+      display: block;
+      padding: rem(8) rem(12);
+      border-radius: rem(8);
+      font-size: max(12px, #{rem(14)});
+      font-weight: 700;
+      text-align: center;
+
+      &.is-active {
+        background: var(--bg-2);
+      }
+
+      @include hover {
+        background: var(--bg);
+      }
+    }
+  }
+
+  &:hover &__list,
+  &:focus-within &__list {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  @include maxMedia(md) {
+    display: none;
+  }
+}
+
+// ── Burger ──
+.burger {
+  span {
+    position: relative;
+    display: block;
+    width: rem(18);
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: background 0.3s;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: currentColor;
+      transition: transform 0.45s var(--ease-out), top 0.3s 0.15s;
+    }
+
+    &::before {
+      top: rem(-6);
+    }
+
+    &::after {
+      top: rem(6);
+    }
+  }
+
+  &.is-open span {
+    background: transparent;
+
+    &::before,
+    &::after {
+      top: 0;
+      transition: top 0.3s, transform 0.45s 0.15s var(--ease-out);
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+// ── Mobile menu ──
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--header-h) + var(--topbar-h) + #{rem(12)}) var(--gutter) #{rem(24)};
+
+  background: var(--c-pink-l);
+  clip-path: circle(0 at calc(100% - 44px) 44px);
+  visibility: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  transition: clip-path 0.8s var(--ease-io), visibility 0.8s;
+
+  &.is-open {
+    clip-path: circle(150% at calc(100% - 44px) 44px);
+    visibility: visible;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: rem(12) 0;
+    border-bottom: 1px solid rgba(22, 17, 14, 0.14);
+    font-family: var(--font-display);
+    font-size: clamp(26px, 7.4vw, 40px);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+    text-align: left;
+
+    svg {
+      width: rem(16);
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    &.is-open svg {
+      transform: rotate(180deg);
+    }
+
+    @media (max-height: 700px) {
+      padding: rem(9) 0;
+      font-size: max(22px, #{rem(26)});
+    }
+  }
+
+  &__sub {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s var(--ease-out);
+
+    > div {
+      overflow: hidden;
+    }
+
+    a {
+      display: block;
+      padding: rem(8) 0;
+      font-size: max(15px, #{rem(17)});
+      font-weight: 600;
+      color: var(--clr-ink);
+    }
+
+    &.is-open {
+      grid-template-rows: 1fr;
+    }
+
+    &.is-open > div {
+      padding-block: rem(8);
+    }
+  }
+
+  // staggered entrance
+  &__list > li,
+  &__bottom {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.4s, transform 0.6s var(--ease-out);
+  }
+
+  &.is-open &__list > li,
+  &.is-open &__bottom {
+    opacity: 1;
+    transform: none;
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        transition-delay: #{0.2 + $i * 0.05}s;
+      }
+    }
+  }
+
+  &.is-open &__bottom {
+    transition-delay: 0.6s;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: rem(10);
+    margin-top: auto;
+    padding-top: rem(24);
+
+    > .btn {
+      flex: 1 1 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &__langs {
+    display: flex;
+    gap: rem(6);
+    margin-left: auto;
+
+    a {
+      padding: rem(10) rem(14);
+      border-radius: var(--rd-pill);
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.5);
+
+      &.is-active {
+        background: var(--clr-ink);
+        color: #fff;
+      }
+    }
+  }
+
+  @include minMedia(xl) {
+    display: none;
+  }
+}
+
+// ── Search overlay ──
+.search {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  visibility: hidden;
+  // closing: the panel slides all the way up first (0.7s), only then the layer goes —
+  // the visibility used to cut the slide at 0.6s and the header popped out (manager)
+  transition: visibility 0s linear 0.75s;
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 17, 14, 0.4);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  &__panel {
+    position: relative;
+    max-height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: rem(40) 0 rem(50);
+    border-radius: 0 0 var(--rd-lg) var(--rd-lg);
+    background: var(--bg);
+    transform: translateY(-100%);
+    transition: transform 0.7s var(--ease-io);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: rem(16);
+
+    @include maxMedia(md) {
+      gap: 8px;
+    }
+  }
+
+  &__field {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: rem(16);
+    height: max(56px, #{rem(84)});
+    padding-inline: rem(30);
+
+    @include maxMedia(md) {
+      padding-inline: 18px;
+      gap: 10px;
+    }
+    border-radius: var(--rd-pill);
+    background: #fff;
+
+    svg {
+      flex: none;
+      width: rem(22);
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      border: 0;
+      outline: 0;
+      background: none;
+      // the query is content: Noto, as every field and placeholder (manager)
+      font-family: var(--font-main);
+      font-size: max(18px, #{rem(22)});
+      color: var(--clr-ink);
+
+      @include maxMedia(md) {
+        font-size: 16px;
+      }
+
+      &::placeholder {
+        color: var(--clr-muted);
+      }
+
+      // the browser's own (blue) clear cross → our .search__clear
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-decoration {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+  }
+
+  // clear button: a soft round tile, shown only when there is text
+  &__clear {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: max(30px, #{rem(36)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--c-pink-l); // brand tint: reads as part of the field, not the overlay's close
+    color: var(--clr-ink);
+    opacity: 0;
+    scale: 0.6;
+    pointer-events: none;
+    transition: opacity 0.3s, scale 0.4s var(--ease-back), background 0.3s, rotate 0.4s var(--ease-out);
+
+    svg {
+      width: 40%;
+    }
+
+    @include hover {
+      background: var(--c-pink);
+      color: #fff;
+      rotate: 90deg;
+    }
+  }
+
+  &__field input:not(:placeholder-shown) ~ &__clear {
+    opacity: 1;
+    scale: 1;
+    pointer-events: auto;
+  }
+
+  // suggestions under the field
+  &__results {
+    display: grid;
+    gap: rem(6);
+    margin-top: rem(14);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__result {
+    display: flex;
+    align-items: center;
+    gap: rem(16);
+    padding: rem(8);
+    border-radius: var(--rd-md);
+    background: #fff;
+    color: var(--clr-ink);
+    transition: background-color 0.3s;
+
+    &[hidden] {
+      display: none;
+    }
+
+    @include hover {
+      background: var(--bg-2);
+    }
+
+    @include maxMedia(md) {
+      gap: 12px;
+      padding: 6px;
+    }
+  }
+
+  &__result-media {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: max(48px, #{rem(60)});
+    aspect-ratio: 1;
+    border-radius: var(--rd-sm);
+    overflow: hidden;
+    background: var(--fl-l);
+
+    .bottle {
+      height: 86%;
+    }
+
+    picture {
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      @include cover;
+    }
+  }
+
+  &__result-body {
+    display: flex;
+    flex-direction: column;
+    gap: rem(2);
+    min-width: 0;
+  }
+
+  &__result-name {
+    font-size: max(15px, #{rem(17)});
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  &__result-meta {
+    font-size: max(13px, #{rem(14)});
+    color: var(--clr-muted);
+  }
+
+  &__empty {
+    padding: rem(8) rem(4);
+    color: var(--clr-text);
+  }
+
+  &.is-open {
+    visibility: visible;
+    transition: visibility 0s;
+
+    .search__backdrop {
+      opacity: 1;
+    }
+
+    .search__panel {
+      transform: none;
+    }
+  }
+}
+
+// ── light header over a photo / video banner (about…): pages set $header_class =
+// 'header--light' before _header.php; once the page scrolls the glass pill takes over ──
+.header--light:not(.is-scrolled):not(.is-menu-open) {
+  .logo,
+  .header__link,
+  .lang__btn,
+  .btn-icon {
+    color: #fff;
+  }
+
+  .lang__btn,
+  .btn-icon {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .header__link:hover {
+    color: #fff;
+  }
+}

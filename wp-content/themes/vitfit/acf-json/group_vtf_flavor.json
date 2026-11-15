@@ -1,0 +1,245 @@
+{
+    "key": "group_vtf_flavor",
+    "title": "Flavour",
+    "fields": [
+        {
+            "key": "field_0f6071accf342f94",
+            "label": "Colours",
+            "name": "color",
+            "type": "select",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "A preset of the design or own colours.",
+            "required": 1,
+            "choices": {
+                "original": "Original",
+                "apple-pear": "Apple & Pear",
+                "sweet-cherry": "Sweet Cherry",
+                "berry": "Berry",
+                "elderberry": "Elderberry",
+                "strawberry-lime": "Strawberry & Lime",
+                "grape-apple": "Grape & Apple",
+                "mojito": "Mojito",
+                "gold-apricot": "Gold Apricot",
+                "custom": "Own colours"
+            },
+            "default_value": "original",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_cbd0debfb17f9bbb",
+            "label": "Order",
+            "name": "order",
+            "type": "number",
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0
+        },
+        {
+            "key": "field_3847b39a354ef44c",
+            "label": "Bottle shape (no packshot)",
+            "name": "pack",
+            "type": "select",
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "pet": "PET bottle",
+                "can": "Can",
+                "glass": "Glass bottle"
+            },
+            "default_value": "pet",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_d0be102fdd0ae6ec",
+            "label": "Main",
+            "name": "color_main",
+            "type": "color_picker",
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_0f6071accf342f94",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_4e8bf172c9c540a6",
+            "label": "Light background",
+            "name": "color_light",
+            "type": "color_picker",
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_0f6071accf342f94",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_a4d03140c7cba536",
+            "label": "Drink",
+            "name": "color_liquid",
+            "type": "color_picker",
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_0f6071accf342f94",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_8124eb289fcea5ee",
+            "label": "Label",
+            "name": "color_label",
+            "type": "color_picker",
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_0f6071accf342f94",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_650c548a93a1c5aa",
+            "label": "Leaf",
+            "name": "color_leaf",
+            "type": "color_picker",
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_0f6071accf342f94",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_9200d98447446145",
+            "label": "Packshot",
+            "name": "packshot",
+            "type": "image",
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "PNG/WebP without background, ~800×1880 px",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": ""
+        },
+        {
+            "key": "field_4fb4c7f9fa38c113",
+            "label": "Formats (text)",
+            "name": "formats",
+            "type": "text",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — from the flavour's products, e.g. «ПЕТ 0,5 · Банка 0,33»."
+        },
+        {
+            "key": "field_56ec6554c29e6497",
+            "label": "«Learn more» product",
+            "name": "product",
+            "type": "post_object",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — the first product of the flavour.",
+            "post_type": [
+                "vtf_product"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "vtf_flavor"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794501067
+}

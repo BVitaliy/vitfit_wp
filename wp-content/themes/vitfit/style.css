@@ -1,0 +1,16 @@
+/*!
+Theme Name: VIT-FIT
+Author: BVitaliy
+Description: VIT-FIT — live unpasteurized kombucha brand site (UA / EN).
+Version: 1.0.0
+Requires at least: 6.5
+Tested up to: 7.0
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+Text Domain: vitfit
+*/
+
+/*
+ * The real styles are css/main.css and css/style.css (compiled from scss/ by `gulp styles`).
+ * WordPress needs this file only for the theme header — do not add rules here.
+ */

@@ -1,0 +1,114 @@
+@use "../mixins" as *;
+
+// Bento: a photo card (2 rows) + four tiles. Static — no hover (manager).
+.benefits {
+  &__grid {
+    @include minMedia(xl) {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: rem(16);
+    }
+  }
+
+  &__slider .swiper-slide {
+    @include maxMedia(xl) {
+      width: 300px;
+      height: auto;
+    }
+  }
+}
+
+.benefit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: rem(14);
+  min-height: rem(340);
+  padding: rem(34);
+  border-radius: var(--rd-md);
+  background: var(--fl-l);
+  color: var(--clr-text);
+
+  // big soft icon: a light tint of the flavour, ink line icon
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: rem(104);
+    min-width: rem(72);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--fl) 30%, #fff);
+    color: var(--clr-ink);
+    margin-bottom: auto;
+
+    svg {
+      width: 46%;
+    }
+
+    @include maxMedia(xl) {
+      width: 60px;
+      min-width: 0;
+    }
+  }
+
+  .h5 {
+    max-width: 10em;
+  }
+
+  // ── photo card: text on the photo, no inner box ──
+  &--big {
+    grid-row: span 2;
+    min-height: rem(700);
+    padding: rem(40);
+    justify-content: flex-end;
+    overflow: hidden;
+    background: var(--clr-ink);
+    color: rgba(255, 255, 255, 0.85);
+
+    .benefit__icon {
+      margin-bottom: rem(8);
+    }
+
+    .h4 {
+      color: #fff;
+      max-width: 12em;
+    }
+  }
+
+  &__photo {
+    position: absolute;
+    inset: 0;
+
+    img {
+      @include cover;
+      object-position: 50% 30%;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(22, 17, 14, 0) 52%, rgba(22, 17, 14, 0.85) 92%);
+    }
+  }
+
+  &__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(14);
+    max-width: rem(560);
+  }
+
+  @include maxMedia(xl) {
+    min-height: 300px;
+    padding: 26px;
+
+    &--big {
+      min-height: 420px;
+      padding: 24px;
+    }
+  }
+}

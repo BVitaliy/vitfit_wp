@@ -1,0 +1,677 @@
+@use "../mixins" as *;
+
+// ── Catalog: category list ──────────────────────────────────────────
+.categories {
+  // Two equal columns, cards in threes: one big (2 rows high) + two stacked, every second
+  // three mirrored (big on the right). By position only — the backend just outputs the cards
+  // ($cat-big). Cards past the last full three: a pair stays 2 in a row, one alone takes the row.
+  &__grid {
+    display: grid;
+    grid-auto-flow: dense;
+    gap: rem(16);
+
+    @include minMedia(lg) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      .cat-card:nth-child(6n + 1):not(:nth-last-child(-n + 2)) {
+        grid-column: 1;
+        grid-row: span 2;
+      }
+
+      .cat-card:nth-child(6n + 4):not(:nth-last-child(-n + 2)) {
+        grid-column: 2;
+        grid-row: span 2;
+      }
+
+      .cat-card:nth-child(6n + 5):not(:last-child),
+      .cat-card:nth-child(6n + 6) {
+        grid-column: 1;
+      }
+
+      .cat-card:nth-child(3n + 1):last-child {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}
+
+// the catalog page: the hits below the categories without the "all products" link (manager)
+.catalog-page .hits .section-head > .link-arrow {
+  display: none;
+}
+
+.cat-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--sp-xs);
+  min-height: rem(330);
+  padding: rem(34);
+  border-radius: var(--rd-lg);
+  background: var(--fl-l);
+  overflow: hidden;
+  color: var(--clr-text);
+
+  &__media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    min-height: rem(260);
+
+    > * {
+      grid-area: 1 / 1;
+    }
+  }
+
+  &__disc {
+    width: min(78%, #{rem(400)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.7), transparent 45%),
+      var(--fl);
+    transition: scale 0.8s var(--ease-back);
+  }
+
+  // two packs on the disc; the big card fans out three ($cat-big below)
+  &__pack {
+    position: relative;
+    height: 84%;
+    max-height: rem(420);
+    transition: translate 0.8s var(--ease-out), rotate 0.8s var(--ease-out);
+
+    &--1 {
+      translate: -26% 0;
+      rotate: -10deg;
+      height: 78%;
+    }
+
+    &--2 {
+      z-index: 2;
+      translate: 22% 4%;
+      rotate: 6deg;
+      height: 70%;
+    }
+
+    &--3 {
+      display: none;
+    }
+  }
+
+  &__body {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(12);
+  }
+
+  &__title {
+    max-width: 10em;
+  }
+
+  &__text {
+    max-width: 28em;
+    color: var(--clr-ink);
+  }
+
+  &__link {
+    margin-top: rem(6);
+  }
+
+  @include hover {
+    .cat-card__disc {
+      scale: 1.06;
+    }
+
+    .cat-card__pack--1 {
+      rotate: -14deg;
+    }
+
+    .cat-card__pack--3 {
+      rotate: 13deg;
+    }
+
+    .link-arrow__text {
+      background-size: 100% 1.5px;
+    }
+
+    .link-arrow__icon {
+      transform: rotate(-45deg);
+    }
+  }
+
+  @include maxMedia(md) {
+    grid-template-columns: 1fr;
+    padding: 22px;
+    min-height: 0;
+
+    &__media {
+      min-height: 230px;
+    }
+  }
+}
+
+// the big card of each full three (see .categories__grid)
+$cat-big: ".cat-card:nth-child(6n + 1):not(:nth-last-child(-n + 2)), .cat-card:nth-child(6n + 4):not(:nth-last-child(-n + 2))";
+
+#{$cat-big} {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  min-height: rem(700);
+
+  .cat-card__media {
+    min-height: rem(380);
+  }
+
+  .cat-card__pack {
+    height: 88%;
+  }
+
+  .cat-card__pack--1 {
+    translate: -48% 4%;
+    height: 74%;
+  }
+
+  .cat-card__pack--2 {
+    translate: none;
+    rotate: none;
+    height: 88%;
+  }
+
+  .cat-card__pack--3 {
+    display: block;
+    translate: 52% 8%;
+    rotate: 9deg;
+    height: 66%;
+  }
+
+  @include maxMedia(md) {
+    min-height: 0;
+
+    .cat-card__media {
+      min-height: 300px;
+    }
+  }
+}
+
+// ── Catalog: product list with filters ─────────────────────────────
+.catalog {
+  &__layout {
+    display: grid;
+    grid-template-columns: rem(300) 1fr;
+    gap: var(--sp-sm);
+    align-items: start;
+
+    @include maxMedia(xl) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__main {
+    min-width: 0;
+  }
+
+  &__bar {
+    position: relative;
+    z-index: 6; // the sort dropdown opens over the cards below
+    display: flex;
+    align-items: center;
+    gap: rem(14) rem(24);
+    margin-bottom: var(--sp-xs);
+  }
+
+  &__count {
+    font-size: max(13px, #{rem(15)});
+    color: var(--clr-muted);
+
+    b {
+      color: var(--clr-ink);
+    }
+  }
+
+  &__sort {
+    display: flex;
+    align-items: center;
+    gap: rem(12);
+    margin-left: auto;
+    font-size: max(12px, #{rem(14)});
+    color: var(--clr-muted);
+
+    .field__select {
+      min-width: rem(200);
+    }
+
+    .field__input {
+      min-height: max(38px, #{rem(48)});
+      padding-block: rem(8);
+      background: #fff;
+      font-weight: 400;
+    }
+
+    @include maxMedia(md) {
+      > span:first-child {
+        display: none;
+      }
+
+      .field__select {
+        min-width: 0;
+      }
+    }
+  }
+
+  // phones / tablets: opens the filter sheet
+  &__filter-btn {
+    display: none;
+    align-items: center;
+    gap: rem(8);
+    height: max(38px, #{rem(48)});
+    padding: 0 rem(18);
+    border-radius: var(--rd-pill);
+    background: var(--clr-ink);
+    color: #fff;
+    font-weight: 700;
+    font-size: max(12px, #{rem(14)});
+
+    svg {
+      width: rem(18);
+    }
+
+    b[hidden] {
+      display: none;
+    }
+
+    b {
+      display: grid;
+      place-items: center;
+      min-width: rem(22);
+      height: rem(22);
+      padding: 0 rem(6);
+      border-radius: rem(11);
+      background: var(--c-yellow);
+      color: var(--clr-ink);
+      font-size: max(11px, #{rem(12)});
+    }
+
+    @include maxMedia(xl) {
+      display: inline-flex;
+    }
+  }
+
+  @include maxMedia(md) {
+    &__count {
+      display: none;
+    }
+  }
+
+  // chosen filters as removable chips
+  &__active {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+    margin-bottom: var(--sp-xs);
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: rem(8);
+      padding: rem(8) rem(12) rem(8) rem(16);
+      border-radius: var(--rd-pill);
+      background: var(--fl-l, #fff);
+      font-size: max(12px, #{rem(14)});
+      font-weight: 600;
+      color: var(--clr-ink);
+      transition: background 0.3s;
+
+      svg {
+        width: rem(12);
+      }
+
+      @include hover {
+        background: var(--fl);
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: rem(16);
+
+    // phones keep two in a row — the cards switch to their compact type
+    @include maxMedia(lg) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .product[hidden] {
+      display: none;
+    }
+
+    // a card shown after a filter change fades in
+    .product.is-in {
+      animation: cat-in 0.6s var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * 40ms);
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: rem(14);
+    padding: var(--sp-md) var(--sp-sm);
+    border-radius: var(--rd-lg);
+    background: var(--bg-2);
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__empty-bottle {
+    width: rem(70);
+    opacity: 0.5;
+    rotate: -12deg;
+  }
+
+  &__more {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--sp-sm);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}
+
+@keyframes cat-in {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+}
+
+// ── filters (aside ≥1200, bottom sheet below) ─────────────────────
+.filters {
+  position: sticky;
+  top: calc(var(--header-h) + #{rem(10)});
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100svh - var(--header-h) - 20px);
+  padding-bottom: rem(12); // room for the turning reset icon (it made a scrollbar flash)
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+
+  &__head {
+    display: none;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-xs);
+  }
+
+  &__group {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  &__title {
+    margin-bottom: rem(12);
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: max(16px, #{rem(19)});
+    text-transform: uppercase;
+    color: var(--clr-ink);
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(6);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__cats {
+    margin-bottom: var(--sp-xs);
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__reset {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(8);
+    align-self: flex-start;
+    font-size: max(12px, #{rem(14)});
+    font-weight: 700;
+    color: var(--clr-ink);
+
+    svg {
+      width: rem(18);
+      transition: rotate 0.5s var(--ease-out);
+    }
+
+    @include hover {
+      svg {
+        rotate: -180deg;
+      }
+    }
+  }
+
+  &__apply,
+  &__backdrop {
+    display: none;
+  }
+
+  // ── bottom sheet ──
+  @include maxMedia(xl) {
+    position: fixed;
+    z-index: 95;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    max-height: 86svh;
+    padding: 20px var(--gutter) 0;
+    border-radius: var(--rd-lg) var(--rd-lg) 0 0;
+    background: var(--bg);
+    translate: 0 105%;
+    transition: translate 0.55s var(--ease-out);
+
+    &.is-open {
+      translate: 0 0;
+    }
+
+    &__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    &__apply {
+      position: sticky;
+      bottom: 0;
+      display: block;
+      margin-top: 22px;
+      padding: 14px 0 calc(14px + env(safe-area-inset-bottom));
+      background: linear-gradient(transparent, var(--bg) 30%);
+
+      .btn {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    &__backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 94;
+      display: block;
+      background: rgba(22, 17, 14, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s;
+    }
+
+    &.is-open + &__backdrop {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// segmented pill (radio)
+.filter-pill {
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  span {
+    display: inline-block;
+    padding: rem(9) rem(16);
+    border-radius: var(--rd-pill);
+    background: #fff;
+    font-size: max(12px, #{rem(14)});
+    font-weight: 600;
+    color: var(--clr-ink);
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  input:checked + span {
+    background: var(--clr-ink);
+    color: #fff;
+  }
+
+  input:focus-visible + span {
+    outline: 2px solid var(--clr-ink);
+    outline-offset: 2px;
+  }
+
+  @include hover {
+    input:not(:checked) + span {
+      background: var(--bg-2);
+    }
+  }
+}
+
+// checkbox row (+ optional flavour dot)
+.filter-check {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: rem(10);
+  padding: rem(7) rem(8) rem(7) 0;
+  border-radius: rem(8);
+  font-size: max(13px, #{rem(15)});
+  color: var(--clr-ink);
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &__box {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: rem(22);
+    height: rem(22);
+    border-radius: rem(7);
+    background: #fff;
+    color: transparent;
+    transition: background 0.25s, color 0.25s;
+
+    svg {
+      width: 70%;
+    }
+  }
+
+  &__dot {
+    flex: none;
+    width: rem(12);
+    height: rem(12);
+    border-radius: 50%;
+    background: var(--dot);
+  }
+
+  input:checked + &__box {
+    background: var(--clr-ink);
+    color: #fff;
+  }
+
+  input:focus-visible + &__box {
+    outline: 2px solid var(--clr-ink);
+    outline-offset: 2px;
+  }
+
+  @include hover {
+    input:not(:checked) + .filter-check__box {
+      background: var(--bg-2);
+    }
+  }
+}
+
+// category links in the filters: the same row as a filter check, the current one marked
+.filter-link {
+  display: flex;
+  align-items: center;
+  gap: rem(10);
+  padding: rem(7) 0;
+  font-size: max(13px, #{rem(15)});
+  color: var(--clr-text);
+  transition: color 0.3s;
+
+  &::before {
+    content: "";
+    flex: none;
+    width: rem(8);
+    height: rem(8);
+    border-radius: 50%;
+    background: var(--bg-2);
+    transition: background-color 0.3s;
+  }
+
+  small {
+    font-size: max(11px, #{rem(12)});
+    color: var(--clr-muted);
+  }
+
+  &.is-active {
+    font-weight: 600;
+    color: var(--clr-ink);
+
+    &::before {
+      background: var(--clr-ink);
+    }
+  }
+
+  @include hover {
+    color: var(--clr-ink);
+  }
+}

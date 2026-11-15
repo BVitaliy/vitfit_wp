@@ -1,0 +1,187 @@
+@use "../mixins" as *;
+
+.about {
+  &__title {
+    margin: 0 auto var(--sp-head);
+    text-align: center;
+    font-size: max(40px, #{rem(124)});
+
+    @include maxMedia(xl) {
+      font-size: clamp(34px, 7.6vw, 76px);
+    }
+
+    // "ХАРАКТЕРОМ" + an insert must fit 360px
+    @include maxMedia(md) {
+      font-size: clamp(24px, 8.2vw, 40px);
+    }
+  }
+
+  // rows offset against each other (euduco)
+  &__row {
+    display: block;
+
+    &--1 {
+      margin-right: 1.2em;
+    }
+
+    &--2 {
+      margin-left: 1.8em;
+    }
+
+    &--3 {
+      margin-left: 0.4em;
+    }
+
+    @include maxMedia(md) {
+      margin-inline: 0 !important;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--sp-lg);
+
+    @include maxMedia(lg) {
+      grid-template-columns: 1fr;
+      gap: var(--sp-md);
+    }
+  }
+
+  &__media {
+    --parallax-room: 14%;
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--rd-lg);
+    overflow: visible;
+
+    picture {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      clip-path: inset(0 round var(--rd-lg));
+    }
+
+    img {
+      @include cover;
+      position: absolute;
+      inset: calc(var(--parallax-room) * -0.5) 0;
+      height: calc(100% + var(--parallax-room));
+    }
+  }
+
+  &__sticker {
+    position: absolute;
+    z-index: 2;
+    right: rem(-40);
+    top: rem(-40);
+    width: rem(170);
+    min-width: rem(120);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--c-yellow);
+
+    svg {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+    }
+
+    text {
+      font-family: var(--font-display);
+      font-size: max(13px, #{rem(15)});
+      letter-spacing: 1.6px;
+      fill: var(--clr-ink);
+    }
+
+    span {
+      font-family: var(--font-display);
+      font-size: rem(34);
+      color: var(--clr-ink);
+    }
+
+    // below 1200 the photo spans the container: keep the sticker inside the screen
+    @include maxMedia(xl) {
+      right: 12px;
+      top: -30px;
+    }
+
+    // phones: half the size, so it doesn't cover the photo (manager)
+    @include maxMedia(md) {
+      width: 70px;
+      min-width: 0;
+      top: -18px;
+
+      text {
+        font-size: 15px;
+      }
+
+      span {
+        font-size: 15px;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+  }
+
+  &__lead {
+    text-transform: none;
+    font-family: var(--font-main);
+    font-weight: 600;
+    max-width: 22em;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: rem(10);
+    width: 100%;
+    margin-block: var(--sp-2xs);
+
+    // no boxes (manager: no frames) — big numbers on the page
+    li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      padding: rem(6) 0;
+    }
+
+    b,
+    i {
+      font-family: var(--font-display);
+      font-size: max(44px, #{rem(96)});
+      font-style: normal;
+      line-height: 1;
+      color: var(--clr-ink);
+    }
+
+    i {
+      color: var(--c-pink);
+    }
+
+    span {
+      flex-basis: 100%;
+      margin-top: rem(10);
+      font-size: max(15px, #{rem(18)});
+      line-height: 1.35;
+    }
+
+    li:nth-child(2) i,
+    li:nth-child(2) b {
+      color: var(--clr-ink);
+    }
+
+    @include maxMedia(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

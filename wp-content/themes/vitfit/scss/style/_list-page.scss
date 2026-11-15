@@ -1,0 +1,172 @@
+@use "../mixins" as *;
+
+// ── List pages (blog, search): categories, card grid, pager — structure as reatiss ──
+
+// categories: pills that scroll sideways on phones (WP: category links, .is-active = current)
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(8);
+  margin-bottom: var(--sp-md);
+
+  @include maxMedia(md) {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__link {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: rem(8);
+    min-height: max(34px, #{rem(42)});
+    padding: 0 rem(18);
+    border-radius: var(--rd-pill);
+    background: #fff;
+    font-size: max(12px, #{rem(14)});
+    font-weight: 600;
+    color: var(--clr-ink);
+    transition: background-color 0.3s, color 0.3s;
+
+    &.is-active {
+      background: var(--clr-ink);
+      color: #fff;
+    }
+
+    @include hover {
+      background: var(--fl-l);
+    }
+
+    small {
+      font-size: max(11px, #{rem(12)});
+      opacity: 0.55;
+    }
+  }
+}
+
+// cards: 3 / 2 / 1 columns
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-sm) rem(16);
+
+  @include maxMedia(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include maxMedia(md) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  > li {
+    display: flex;
+  }
+
+  .post {
+    width: 100%;
+  }
+}
+
+// the latest post: photo + text side by side
+.post--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-md);
+  margin-bottom: var(--sp-lg);
+
+  @include maxMedia(lg) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .post__media {
+    aspect-ratio: 16 / 11;
+    border-radius: var(--rd-lg);
+  }
+
+  .post__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-xs);
+  }
+
+  .post__title {
+    max-width: 14em;
+  }
+
+}
+
+// pager: "show more" + pages
+.pager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rem(24);
+  margin-top: var(--sp-md);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: rem(8);
+
+  &__list {
+    display: flex;
+    gap: rem(6);
+  }
+
+  &__item,
+  &__arrow {
+    display: grid;
+    place-items: center;
+    min-width: max(35px, #{rem(44)});
+    height: max(35px, #{rem(44)});
+    padding: 0 rem(6);
+    border-radius: var(--rd-pill);
+    font-size: max(13px, #{rem(15)});
+    font-weight: 600;
+    color: var(--clr-ink);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  a.pagination__item,
+  &__arrow {
+    @include hover {
+      background: var(--fl-l);
+    }
+  }
+
+  &__item.is-active {
+    background: var(--clr-ink);
+    color: #fff;
+  }
+
+  &__dots {
+    min-width: max(19px, #{rem(24)});
+    color: var(--clr-muted);
+  }
+
+  &__arrow {
+    background: #fff;
+
+    svg {
+      width: rem(16);
+      height: rem(16);
+    }
+
+    &.is-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  }
+}

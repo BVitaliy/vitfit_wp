@@ -1,0 +1,107 @@
+@use "../mixins" as *;
+
+// Grid on desktop, Swiper below data-slider-below (app-swiper.js).
+.grid-slider {
+  min-width: 0;
+  overflow: visible;
+  // Swiper's auto side margins stop a grid item from stretching to its column
+  margin-inline: 0;
+
+  &__pagination {
+    display: none;
+  }
+
+  &.swiper-initialized {
+    .grid-slider__pagination {
+      position: static;
+      display: flex;
+      justify-content: center;
+      gap: rem(6);
+      margin-top: rem(24);
+    }
+
+    .swiper-pagination-bullet {
+      width: rem(8);
+      height: rem(8);
+      margin: 0 !important;
+      background: var(--clr-ink);
+      opacity: 0.18;
+      transition: width 0.4s var(--ease-out), opacity 0.3s;
+    }
+
+    .swiper-pagination-bullet-active {
+      width: max(22px, #{rem(28)});
+      border-radius: rem(4);
+      opacity: 1;
+    }
+  }
+}
+
+// arrows of a .js-slider, next to the head's link / button (≥1200; swipe + dots below)
+.section-head__side {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px rem(28);
+}
+
+.slider-nav {
+  display: flex;
+  gap: rem(8);
+
+  @include maxMedia(xl) {
+    display: none;
+  }
+
+  .btn-icon.swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .btn-icon.swiper-button-lock {
+    display: none;
+  }
+}
+
+// drag cursor over sliders (app-drag-cursor.js, ≥1200): the ink badge with ‹ ›
+.drag-cursor {
+  position: fixed;
+  z-index: 300;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: max(64px, #{rem(84)});
+  aspect-ratio: 1;
+  margin: calc(max(64px, #{rem(84)}) / -2) 0 0 calc(max(64px, #{rem(84)}) / -2);
+  border-radius: 50%;
+  background: var(--clr-ink);
+  color: #fff;
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.4;
+  transition: opacity 0.25s, scale 0.35s var(--ease-out);
+
+  svg {
+    width: 42%;
+  }
+
+  &.is-on {
+    opacity: 1;
+    scale: 1;
+  }
+
+  &.is-on.is-down {
+    scale: 0.82;
+  }
+
+  @include maxMedia(xl) {
+    display: none;
+  }
+}
+
+// the native arrow hides under the badge
+html.is-drag-cursor .swiper,
+html.is-drag-cursor .swiper * {
+  cursor: none !important;
+}

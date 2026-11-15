@@ -1,0 +1,356 @@
+@use "../mixins" as *;
+
+// elements.php — design-system showcase layout only (components keep their own styles)
+.elements {
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em;
+    padding: rem(2) rem(6);
+    border-radius: rem(5);
+    background: var(--bg-2);
+    color: var(--clr-ink);
+  }
+}
+
+.el-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  padding-block: var(--sp-md) var(--sp-sm);
+}
+
+.el-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(8);
+
+  a {
+    padding: rem(10) rem(16);
+    border-radius: var(--rd-pill);
+    background: #fff;
+    font-size: max(12px, #{rem(14)});
+    font-weight: 700;
+    color: var(--clr-ink);
+    transition: background 0.3s;
+
+    @include hover {
+      background: var(--fl);
+    }
+  }
+}
+
+.el-section {
+  padding-block: var(--sp-md);
+  scroll-margin-top: var(--header-h);
+
+  & + & {
+    border-top: 0;
+  }
+}
+
+.el-title {
+  margin-bottom: var(--sp-sm);
+}
+
+.el-label {
+  margin: var(--sp-xs) 0 #{rem(14)};
+  font-size: max(11px, #{rem(13)});
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-muted);
+}
+
+.el-note {
+  color: var(--clr-muted);
+}
+
+.el-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: rem(14);
+  margin-bottom: rem(14);
+
+  &--dark {
+    padding: var(--sp-xs);
+    border-radius: var(--rd-md);
+    background: var(--bg-dark);
+  }
+}
+
+// ── logo ──
+.el-logos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.el-logo-set {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr rem(220);
+  gap: rem(12);
+
+  @include maxMedia(lg) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include maxMedia(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.el-logo {
+  --logo-paper: #fff;
+  display: grid;
+  place-items: center;
+  height: rem(220);
+  min-height: rem(150);
+  padding: rem(30);
+  border-radius: var(--rd-md);
+  color: var(--clr-ink);
+
+  svg {
+    width: 100%;
+    max-width: rem(340);
+    max-height: 100%;
+    height: auto;
+  }
+
+  &--light {
+    background: #fff;
+  }
+
+  &--dark {
+    --logo-paper: var(--clr-ink);
+    background: var(--bg-dark);
+    color: #fff;
+  }
+
+  &--fl {
+    background: var(--fl-l);
+  }
+
+  // premium marks read better in cream on the dark tile
+  &--cream {
+    color: #f3eadc;
+  }
+
+  &--mark {
+    background: var(--bg-2);
+
+    svg {
+      width: rem(120);
+      min-width: rem(80);
+    }
+  }
+
+  // round / arch logos: taller tile so the fine lines read
+  &--round {
+    height: rem(320);
+    min-height: rem(220);
+    padding: rem(24);
+
+    svg {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+// ── colours ──
+.el-swatches {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: rem(12);
+
+  @include maxMedia(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.el-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: rem(6);
+  font-size: max(12px, #{rem(14)});
+  color: var(--clr-ink);
+
+  span {
+    height: rem(110);
+    min-height: rem(70);
+    border-radius: var(--rd-sm);
+    background: var(--c);
+  }
+
+  code {
+    align-self: flex-start;
+  }
+}
+
+.el-flavors {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: rem(10);
+
+  @include maxMedia(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: rem(6);
+  }
+
+  span {
+    height: rem(110);
+    min-height: rem(70);
+    border-radius: var(--rd-sm);
+    background: linear-gradient(135deg, var(--fl) 50%, var(--fl-l) 50%);
+  }
+
+  code {
+    align-self: flex-start;
+    font-size: max(11px, #{rem(12)});
+  }
+}
+
+// ── typography ──
+.el-type {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+
+  > div {
+    display: grid;
+    grid-template-columns: rem(220) 1fr;
+    align-items: baseline;
+    gap: rem(20);
+    padding-bottom: var(--sp-xs);
+    border-bottom: 1px solid var(--clr-line);
+
+    @include maxMedia(md) {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+}
+
+// ── forms ──
+.el-form {
+  max-width: rem(900);
+  padding: var(--sp-sm);
+  border-radius: var(--rd-lg);
+  background: #fff;
+}
+
+// ── bottles ──
+.el-bottles {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: rem(10);
+
+  @include maxMedia(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.el-bottles--packs {
+  grid-template-columns: repeat(3, minmax(0, #{rem(200)}));
+
+  @include maxMedia(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.el-bottle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rem(10);
+  padding: rem(24) 10px;
+  border-radius: var(--rd-md);
+  background: var(--fl-l);
+  font-size: max(11px, #{rem(13)});
+  font-weight: 700;
+  text-align: center;
+  color: var(--clr-ink);
+
+  .bottle {
+    width: 56%;
+  }
+
+  code {
+    font-size: max(11px, #{rem(11)});
+    font-weight: 400;
+  }
+}
+
+// ── cards ──
+.el-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: rem(16);
+  align-items: start;
+
+  @include maxMedia(lg) {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+}
+
+.el-flavor-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: var(--sp-sm);
+  align-items: center;
+  padding: var(--sp-sm);
+  border-radius: var(--rd-lg);
+  background: var(--c-blue-l);
+
+  .flavor {
+    height: rem(640);
+    min-height: 520px;
+  }
+
+  @include maxMedia(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.el-shops {
+  grid-template-columns: 1fr 1fr !important;
+}
+
+// page banners shown mid-page on the showcase: no pull-up under the header
+.elements .page-banner {
+  margin-top: 0;
+}
+
+// product page parts
+.el-product {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-md);
+
+  @include maxMedia(lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-sm);
+  }
+
+  .specs {
+    margin-top: 0;
+  }
+}
+
+.el-team {
+  max-width: rem(420);
+}

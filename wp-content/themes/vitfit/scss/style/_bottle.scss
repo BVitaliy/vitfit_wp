@@ -1,0 +1,65 @@
+@use "../mixins" as *;
+
+// <span class="bottle fl--slug"><svg viewBox="0 0 200 470"><use href="#bottle"/></svg>
+// <span class="bottle__name">Name</span></span> — the name sits on the label strip.
+.bottle {
+  position: relative;
+  display: block;
+  aspect-ratio: 200 / 470;
+  container-type: inline-size;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 0.06em 0.1em rgba(22, 17, 14, 0.12));
+  }
+
+  // the white strip of the label: position per pack (bottle / can / glass)
+  --name-l: 13%;
+  --name-w: 76%;
+  --name-fs: 6.4cqi;
+
+  &--can {
+    --name-l: 19%;
+    --name-w: 64%;
+    --name-fs: 6cqi;
+  }
+
+  &--glass {
+    --name-l: 29.5%;
+    --name-w: 42%;
+    --name-fs: 4.6cqi;
+  }
+
+  &__name {
+    position: absolute;
+    left: var(--name-l);
+    top: 57%;
+    width: var(--name-w);
+    height: 4.68%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: var(--name-fs);
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--clr-ink);
+    pointer-events: none;
+  }
+}
+
+// soft floor shadow under a standing bottle
+.bottle-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -2%;
+  width: 70%;
+  height: 6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(22, 17, 14, 0.28), transparent);
+  transform: translateX(-50%);
+  filter: blur(4px);
+}

@@ -1,0 +1,86 @@
+@use "../mixins" as *;
+
+// Partner logos — no frames. Hover: the tile tints, the logo grows, ↗ shows.
+.where {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: rem(12);
+
+    @include maxMedia(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include maxMedia(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+  }
+}
+
+.shop {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: max(96px, #{rem(140)});
+  padding: rem(20) rem(28);
+
+  @include maxMedia(md) {
+    padding: 14px;
+  }
+  border-radius: var(--rd-md);
+  background: #fff;
+  color: var(--clr-ink);
+  transition: background 0.5s;
+
+  // every logo fills the same box (trimmed files, object-fit) — equal visual size
+  &__logo {
+    width: 72%;
+    height: max(32px, #{rem(48)});
+    object-fit: contain;
+    transition: scale 0.6s var(--ease-back);
+
+    @include maxMedia(md) {
+      width: 80%;
+      height: 30px;
+    }
+  }
+
+  // until the logo file arrives
+  &__word {
+    font-family: var(--font-display);
+    font-size: max(18px, #{rem(26)});
+    line-height: 1;
+    text-transform: uppercase;
+    transition: scale 0.6s var(--ease-back);
+
+    @include maxMedia(md) {
+      font-size: clamp(14px, 4.6vw, 18px);
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    top: rem(12);
+    right: rem(12);
+    width: rem(16);
+    opacity: 0;
+    rotate: -45deg;
+    translate: -6px 6px;
+    transition: opacity 0.4s, translate 0.5s var(--ease-out);
+  }
+
+  @include hover {
+    background: var(--shop);
+
+    .shop__logo,
+    .shop__word {
+      scale: 1.08;
+    }
+
+    .shop__arrow {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+}

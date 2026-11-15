@@ -1,0 +1,527 @@
+@use "../mixins" as *;
+
+// ── Article — structure as reatiss (Ajour logic) ──────────────────
+// Head (breadcrumbs, category / date / time, title, lead) centred → cover → body.
+// .article-page--nav: content + sticky "У цій статті" (app-article.js, from the <h2>s);
+// without it the content is one centred column. Body = editor output (.rich-text) +
+// editor blocks: slider, YouTube facade, table, CTA, share. No frames (manager).
+.article-page {
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-xs);
+    padding-top: var(--sp-sm);
+    text-align: center;
+
+    .breadcrumbs ol {
+      justify-content: center;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: rem(8) rem(18);
+    margin-top: var(--sp-xs);
+    font-size: max(12px, #{rem(14)});
+    font-weight: 600;
+    color: var(--clr-muted);
+
+    > span + span::before {
+      content: "";
+      display: inline-block;
+      width: rem(5);
+      height: rem(5);
+      margin-right: rem(18);
+      border-radius: 50%;
+      background: var(--fl);
+      vertical-align: middle;
+    }
+  }
+
+  &__title {
+    max-width: 16em;
+
+    @include maxMedia(md) {
+      font-size: clamp(28px, 8.4vw, 40px);
+    }
+  }
+
+  &__lead {
+    max-width: rem(760);
+  }
+
+  // the cover drifts in its frame (app-parallax.js)
+  &__cover {
+    --parallax-room: #{rem(140)};
+    position: relative;
+    max-width: rem(1240);
+    margin: var(--sp-md) auto 0;
+    border-radius: var(--rd-lg);
+    overflow: hidden;
+    aspect-ratio: 16 / 8;
+
+    @include maxMedia(xl) {
+      --parallax-room: 90px;
+    }
+
+    @include maxMedia(md) {
+      aspect-ratio: 4 / 3;
+    }
+
+    picture {
+      position: absolute;
+      inset: calc(var(--parallax-room) * -0.5) 0;
+    }
+
+    img {
+      @include cover;
+    }
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--sp-md);
+    max-width: calc(#{rem(900)} + var(--gutter) * 2);
+    margin-top: var(--sp-md);
+  }
+
+  // the picture is never narrower than the text under it
+  &--nav &__cover {
+    max-width: rem(1340);
+  }
+
+  &--nav &__layout {
+    grid-template-columns: minmax(0, 900fr) minmax(0, 380fr);
+    max-width: calc(#{rem(1340)} + var(--gutter) * 2);
+
+    @include maxMedia(xl) {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: calc(#{rem(900)} + var(--gutter) * 2);
+      gap: rem(24);
+    }
+  }
+
+  // no-nav variant: the nav markup stays in the template, hidden
+  &:not(.article-page--nav) .article-toc {
+    display: none;
+  }
+}
+
+// ── body: .rich-text; here only what belongs to the article ──
+.article-content {
+  min-width: 0;
+
+  > h2 {
+    // land under the header (+ the phone nav bar) when jumped to
+    scroll-margin-top: calc(var(--header-h) + 24px);
+
+    @include maxMedia(xl) {
+      scroll-margin-top: calc(var(--header-h) + 84px);
+    }
+  }
+}
+
+// wide tables scroll sideways inside the column
+.article-table {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-radius: var(--rd-md);
+
+  table {
+    min-width: 560px;
+  }
+}
+
+// photos: autoHeight — the slider takes the height of the current image, so slides of different
+// proportions have different heights; a photo keeps its own size, centred, never stretched
+.article-slider {
+  position: relative;
+  border-radius: var(--rd-lg);
+  overflow: hidden;
+  background: var(--bg-2);
+
+  .swiper-wrapper {
+    align-items: flex-start;
+    transition-property: transform, height;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    height: auto;
+  }
+
+  picture {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+
+  &__pagination.swiper-pagination {
+    position: absolute;
+    left: 50%;
+    bottom: rem(16);
+    display: flex;
+    gap: rem(8);
+    width: auto;
+    padding: rem(10) rem(14);
+    border-radius: var(--rd-pill);
+    background: rgba(22, 17, 14, 0.5);
+    transform: translateX(-50%);
+
+    .swiper-pagination-bullet {
+      width: max(6px, #{rem(8)});
+      height: max(6px, #{rem(8)});
+      margin: 0 !important;
+      background: #fff;
+      opacity: 0.45;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+  }
+}
+
+// YouTube facade: the poster button → the same box with the iframe (no jump)
+.article-video {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--rd-lg);
+  overflow: hidden;
+  cursor: pointer;
+
+  picture {
+    height: 100%;
+  }
+
+  img {
+    @include cover;
+    transition: scale 1s var(--ease-out);
+  }
+
+  &__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: max(64px, #{rem(96)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fl);
+    color: var(--clr-ink);
+    translate: -50% -50%;
+    transition: background-color 0.3s, color 0.3s;
+
+    svg {
+      width: 34%;
+      translate: 6% 0;
+    }
+  }
+
+  @include hover {
+    img {
+      scale: 1.03;
+    }
+
+    .article-video__play {
+      background: var(--clr-ink);
+      color: #fff;
+    }
+  }
+
+  &--embed {
+    background: #000;
+    cursor: auto;
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+}
+
+// CTA → catalog (client brief: the article ends with a way to the products)
+.article-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-xs);
+  padding: var(--sp-sm);
+  border-radius: var(--rd-lg);
+  background: var(--fl-l);
+
+  @include maxMedia(md) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+  }
+
+  &__title {
+    margin: 0;
+    max-width: 16em;
+    color: var(--clr-ink);
+  }
+
+  .btn {
+    flex: none;
+  }
+}
+
+// share + tags
+.article-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: rem(16) rem(24);
+  padding: rem(16) rem(20);
+  border-radius: var(--rd-lg);
+  background: var(--bg-2);
+
+  &__group {
+    display: flex;
+    align-items: center;
+    gap: rem(16);
+  }
+
+  &__label {
+    font-size: max(11px, #{rem(13)});
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+  }
+
+  &__list,
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+  }
+
+  .btn-icon {
+    --bi-bg: #fff;
+  }
+
+  .js-share.is-copied {
+    --bi-bg: var(--fl);
+  }
+
+  .chip {
+    background: #fff;
+    transition: background-color 0.3s;
+
+    @include hover {
+      background: var(--fl-l);
+    }
+  }
+}
+
+// ── "У цій статті" ──
+// ≥1200: a sticky soft box, links muted → ink, the active one marked with the flavour.
+// Below: the sticky box is a bar above the content; the list drops down over it.
+.article-toc {
+  position: sticky;
+  top: calc(var(--header-h) + #{rem(20)});
+  z-index: 5;
+  padding: var(--sp-sm);
+  border-radius: var(--rd-lg);
+  background: var(--bg-2);
+  transition: top 0.6s var(--ease-out); // in step with the header sliding away
+
+  // the header hid while scrolling down: take its place
+  html.is-header-hidden & {
+    top: rem(20);
+  }
+
+  &__toggle {
+    display: none;
+  }
+
+  &__title {
+    margin-bottom: rem(18);
+    font-size: max(11px, #{rem(13)});
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-ink);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: rem(6);
+  }
+
+  &__link {
+    position: relative;
+    display: block;
+    padding: rem(8) 0 rem(8) rem(18);
+    font-size: max(13px, #{rem(15)});
+    line-height: 1.4;
+    color: var(--clr-muted);
+    transition: color 0.3s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: rem(6);
+      height: rem(6);
+      margin-top: -3px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.4;
+      transition: background-color 0.3s, opacity 0.3s, scale 0.3s;
+    }
+
+    &.is-active {
+      color: var(--clr-ink);
+      font-weight: 600;
+
+      &::before {
+        background: var(--fl);
+        opacity: 1;
+        scale: 1.5;
+      }
+    }
+
+    @include hover {
+      color: var(--clr-ink);
+    }
+  }
+
+  @include maxMedia(xl) {
+    order: -1;
+    top: calc(var(--header-h) + 8px);
+    padding: 0;
+    background: #fff;
+    transition: top 0.6s var(--ease-out), border-radius 0.3s;
+
+    html.is-header-hidden & {
+      top: 8px;
+    }
+
+    &.is-open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &__toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      min-height: 54px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--clr-ink);
+      text-align: left;
+
+      svg {
+        width: 12px;
+        height: 8px;
+        flex: none;
+        transition: rotate 0.3s;
+      }
+    }
+
+    &__current {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    // the list drops down OVER the content — opening never moves the page
+    &__panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-rows: 0fr;
+      border-radius: 0 0 var(--rd-lg) var(--rd-lg);
+      background: #fff;
+      visibility: hidden;
+      transition: grid-template-rows 0.4s var(--ease-out), visibility 0s 0.4s;
+    }
+
+    &__inner {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    &__title {
+      display: none;
+    }
+
+    &__list {
+      padding: 0 18px 16px;
+    }
+
+    &.is-open &__panel {
+      grid-template-rows: 1fr;
+      visibility: visible;
+      transition-delay: 0s;
+    }
+
+    &.is-instant &__panel {
+      transition: none;
+    }
+
+    &.is-open &__inner {
+      max-height: 60svh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    &.is-open &__toggle svg {
+      rotate: 180deg;
+    }
+  }
+}
+
+// "Читайте також": 3 cards ≥1200 (clipped), 300px below
+.related-posts__slider {
+  @include minMedia(xl) {
+    overflow: hidden;
+  }
+
+  .swiper-slide {
+    width: calc((100% - 2rem) / 3);
+
+    @include maxMedia(xl) {
+      width: 300px;
+    }
+  }
+
+  .grid-slider__pagination {
+    @include minMedia(xl) {
+      display: none !important;
+    }
+  }
+}

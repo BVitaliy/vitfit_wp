@@ -1,0 +1,67 @@
+@use "../mixins" as *;
+
+// ── Expandable text ("Читати більше" / "Згорнути") — as reatiss ────
+// Visible and hidden parts both come from the CMS editor (two WYSIWYG
+// fields) — plain tags, styled by .rich-text. Used by the SEO block.
+//   <div class="more-text js-more-text">
+//     <div class="more-text__visible rich-text text-md">…</div>
+//     <div class="more-text__hidden" id="…"><div class="more-text__hidden-inner rich-text text-md">…</div></div>
+//     <button class="more-text__toggle link-arrow js-more-text-toggle" aria-controls="…">…</button>
+//   </div>
+// .more-text--clamp: below 1200 the first visible paragraph is cut to 5 lines
+// until opened. No hidden field filled in WP → leave out __hidden + __toggle.
+.more-text {
+  // height animates via grid rows; hidden text can't take focus while closed
+  &__hidden {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.6s var(--ease-out), visibility 0s linear 0.6s;
+  }
+
+  &__hidden-inner {
+    min-height: 0;
+    overflow: hidden;
+
+    // gap above the hidden part as the first child's margin — it clips away
+    // with the content, so nothing shows while collapsed
+    > :first-child {
+      margin-top: 1em;
+    }
+  }
+
+  &.is-open &__hidden {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  &__toggle {
+    margin-top: var(--sp-xs);
+
+    // "↓" — the arrow points down, up when open
+    .link-arrow__icon svg {
+      transform: rotate(90deg);
+      transition: transform 0.5s var(--ease-out);
+    }
+  }
+
+  &.is-open &__toggle .link-arrow__icon svg {
+    transform: rotate(-90deg);
+  }
+
+  &.is-open &__more,
+  &:not(.is-open) &__less {
+    display: none;
+  }
+
+  &--clamp:not(.is-open) &__visible > :first-child {
+    @include maxMedia(xl) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      line-clamp: 5;
+      overflow: hidden;
+    }
+  }
+}

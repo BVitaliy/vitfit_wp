@@ -1,0 +1,136 @@
+@use "../mixins" as *;
+
+// Fullscreen video: one screen high at most, no scroll animation, not pinned (manager).
+.reel {
+  position: relative;
+
+  &__pin {
+    position: relative;
+    display: grid;
+    height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+
+    @include maxMedia(xl) {
+      height: 84svh;
+      min-height: 520px;
+    }
+
+    > * {
+      grid-area: 1 / 1;
+    }
+  }
+
+  &__media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__video {
+    @include cover;
+    position: absolute;
+    inset: 0;
+  }
+
+  &__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(22, 17, 14, 0.55), rgba(22, 17, 14, 0.05) 60%);
+
+    @include maxMedia(xl) {
+      background: linear-gradient(180deg, rgba(22, 17, 14, 0.15), rgba(22, 17, 14, 0.55));
+    }
+  }
+
+  // ≥1200 the text sits left (the sharp vertical clip is on the right of the frame)
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--sp-xs);
+    color: #fff;
+
+    @include maxMedia(xl) {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-size: min(#{rem(190)}, 17svh);
+    line-height: 0.9;
+    text-transform: uppercase;
+
+    @include maxMedia(xl) {
+      font-size: clamp(56px, 15vw, 130px);
+    }
+  }
+
+  &__line--out {
+    color: transparent;
+    -webkit-text-stroke: 2px #fff;
+  }
+
+  &__text {
+    max-width: rem(520);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__play {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(14);
+    margin-top: var(--sp-2xs);
+    font-size: max(13px, #{rem(15)});
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  &__play-icon {
+    display: grid;
+    place-items: center;
+    width: max(58px, #{rem(76)});
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--c-yellow);
+    color: var(--clr-ink);
+    transition: scale 0.5s var(--ease-back);
+
+    svg {
+      width: 36%;
+      translate: 8% 0;
+    }
+  }
+
+  @include hover {
+    .reel__play:hover .reel__play-icon {
+      scale: 1.12;
+    }
+  }
+}
+
+// popup player
+.modal__panel--video {
+  max-width: min(rem(1500), 92vw);
+  background: #000;
+  overflow: hidden;
+
+  .modal__close {
+    z-index: 4;
+  }
+}
+
+.modal__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
