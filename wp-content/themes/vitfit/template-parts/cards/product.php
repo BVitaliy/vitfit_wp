@@ -6,7 +6,10 @@
  *
  * @package vitfit
  *
- * @var array $args { product: vtf_product_data(), class: extra classes }
+ * @var array $args {
+ *     product: vtf_product_data(), class: extra classes,
+ *     catalog: data for the catalog filters (pack, volume, flavor, rank, new, name) — the list page only
+ * }
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,10 +23,19 @@ if ( empty( $vtf_product['id'] ) ) {
 }
 
 $vtf_class = trim( ( $args['class'] ?? '' ) . ' product js-product' );
+$vtf_data  = '';
+
+if ( ! empty( $args['catalog'] ) ) {
+	$vtf_class .= ' js-cat-item';
+
+	foreach ( (array) $args['catalog'] as $vtf_key => $vtf_value ) {
+		$vtf_data .= sprintf( ' data-%s="%s"', esc_attr( $vtf_key ), esc_attr( (string) $vtf_value ) );
+	}
+}
 $vtf_pack  = vtf_product_format( $vtf_product );
 $vtf_size  = trim( (string) $vtf_product['pack_size'] );
 ?>
-<a<?php echo vtf_flavor_attrs( $vtf_class, $vtf_product['flavor'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside. ?> href="<?php echo esc_url( $vtf_product['url'] ); ?>">
+<a<?php echo vtf_flavor_attrs( $vtf_class, $vtf_product['flavor'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside. ?> href="<?php echo esc_url( $vtf_product['url'] ); ?>"<?php echo $vtf_data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>>
 	<span class="product__media">
 		<span class="product__bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
 		<?php if ( 'video' === $vtf_product['hover_type'] && '' !== $vtf_product['hover_video'] ) { ?>

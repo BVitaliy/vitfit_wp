@@ -221,6 +221,50 @@
             "allow_null": 1,
             "multiple": 0,
             "ui": 1
+        },
+        {
+            "key": "field_25f48d3c7e3a0da6",
+            "label": "Taste profile (0–5)",
+            "name": "taste",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Shown on the product pages of this flavour.",
+            "layout": "table",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_65b353f4dc7a6b5e",
+                    "label": "Name",
+                    "name": "label",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_6450bbe6a5a962c8",
+                    "label": "Value",
+                    "name": "value",
+                    "type": "number",
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": 0,
+                    "max": 5,
+                    "step": 1
+                }
+            ]
         }
     ],
     "location": [
@@ -241,5 +285,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794501067
+    "modified": 1794707796
 }

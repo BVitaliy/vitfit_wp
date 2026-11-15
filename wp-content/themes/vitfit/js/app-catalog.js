@@ -20,12 +20,19 @@
   var PAGE = 12;
   var limit = PAGE;
 
-  // 1 товар · 2–4 товари · 5+ товарів (11–14 → товарів)
+  // 1 товар · 2–4 товари · 5+ товарів (11–14 → товарів).
+  // WP: the three forms come from the page (data-words) — the site has UA and EN.
+  var WORDS = ["товар", "товари", "товарів"];
+  try {
+    if (root.dataset.words) WORDS = JSON.parse(root.dataset.words);
+  } catch (e) {}
+  var REMOVE = root.dataset.removeLabel || "Прибрати фільтр:";
+
   function word(n) {
     var a = n % 10, b = n % 100;
-    if (a === 1 && b !== 11) return "товар";
-    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return "товари";
-    return "товарів";
+    if (a === 1 && b !== 11) return WORDS[0];
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return WORDS[1];
+    return WORDS[2];
   }
 
   function state() {
@@ -63,7 +70,7 @@
       b.type = "button";
       b.className = "fl--" + (input.name === "flavor" ? input.value : "original");
       b.innerHTML = labelOf(input) + '<svg viewBox="0 0 24 24"><use href="#i-close" /></svg>';
-      b.setAttribute("aria-label", "Прибрати фільтр: " + labelOf(input));
+      b.setAttribute("aria-label", REMOVE + " " + labelOf(input));
       b.addEventListener("click", function () {
         if (input.type === "radio") form.querySelector('input[name="' + input.name + '"][value=""]').checked = true;
         else input.checked = false;

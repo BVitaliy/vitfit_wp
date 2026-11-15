@@ -23,7 +23,7 @@ class VTF_Security {
 	 * registers needs its own filter — closing `post` alone would leave the
 	 * custom types open.
 	 */
-	private const CLOSED_POST_TYPES = [ 'post', 'page', 'vtf_product', 'vtf_shop', 'vtf_faq' ];
+	private const CLOSED_POST_TYPES = [ 'post', 'page', 'vtf_product', 'vtf_shop', 'vtf_faq', 'vtf_review' ];
 
 	public function __construct() {
 		add_filter( 'rest_pre_insert_user', [ $this, 'block_user_insert' ], 10, 2 );

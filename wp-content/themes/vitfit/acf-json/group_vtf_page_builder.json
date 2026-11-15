@@ -3654,6 +3654,503 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_1e57f11bf617aa30": {
+                    "key": "layout_1e57f11bf617aa30",
+                    "name": "categories",
+                    "label": "Catalog categories",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_87a153667895efc9",
+                            "label": "Hide block",
+                            "name": "categories_hide",
+                            "type": "true_false",
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "ui": 1,
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_df72d00b5f8f383c",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "instructions": "Empty — the page title.",
+                            "rows": 2,
+                            "new_lines": "br"
+                        },
+                        {
+                            "key": "field_90f861a287bf6c17",
+                            "label": "Lead",
+                            "name": "lead",
+                            "type": "textarea",
+                            "wrapper": {
+                                "width": "60",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 2,
+                            "new_lines": "br"
+                        },
+                        {
+                            "key": "field_b170853fe1f60261",
+                            "label": "Categories",
+                            "name": "categories",
+                            "type": "taxonomy",
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "instructions": "Empty — all top-level categories by «Order».",
+                            "taxonomy": "vtf_product_cat",
+                            "field_type": "multi_select",
+                            "add_term": 0,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "return_format": "id",
+                            "allow_null": 1,
+                            "multiple": 1
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6b853c94692cb618": {
+                    "key": "layout_6b853c94692cb618",
+                    "name": "product_reviews",
+                    "label": "Product: reviews",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_41a3d0acd4b0c865",
+                            "label": "Hide block",
+                            "name": "product_reviews_hide",
+                            "type": "true_false",
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "ui": 1,
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_397eae44ce5506ed",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_73804092490c48fc",
+                            "label": "Button label",
+                            "name": "button_label",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            }
+                        },
+                        {
+                            "key": "field_38c2b4d1c73fbef3",
+                            "label": "Text when there are no reviews",
+                            "name": "empty_text",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            }
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_b596f1af89dd59ca": {
+                    "key": "layout_b596f1af89dd59ca",
+                    "name": "product_ask",
+                    "label": "Product: question form",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_14d764da3bc86aa3",
+                            "label": "Hide block",
+                            "name": "product_ask_hide",
+                            "type": "true_false",
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "ui": 1,
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_7e36d0ae557a459d",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "wrapper": {
+                                "width": "60",
+                                "class": "",
+                                "id": ""
+                            },
+                            "instructions": "Line break = new line. *Word* = colour marker.",
+                            "rows": 2,
+                            "new_lines": "br"
+                        },
+                        {
+                            "key": "field_0aad065026da1de2",
+                            "label": "Title tag",
+                            "name": "title_tag",
+                            "type": "select",
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "h1": "H1",
+                                "h2": "H2",
+                                "h3": "H3",
+                                "h4": "H4",
+                                "h5": "H5",
+                                "h6": "H6",
+                                "p": "Paragraph (no heading)"
+                            },
+                            "default_value": "h2",
+                            "return_format": "value",
+                            "ui": 0,
+                            "allow_null": 0,
+                            "multiple": 0
+                        },
+                        {
+                            "key": "field_cab4d317175b8c9c",
+                            "label": "Marker colour",
+                            "name": "title_mark",
+                            "type": "select",
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "": "— block default —",
+                                "original": "Original",
+                                "apple-pear": "Apple & Pear",
+                                "sweet-cherry": "Sweet Cherry",
+                                "berry": "Berry",
+                                "elderberry": "Elderberry",
+                                "strawberry-lime": "Strawberry & Lime",
+                                "grape-apple": "Grape & Apple",
+                                "mojito": "Mojito",
+                                "gold-apricot": "Gold Apricot"
+                            },
+                            "default_value": "",
+                            "return_format": "value",
+                            "ui": 0,
+                            "allow_null": 0,
+                            "multiple": 0
+                        },
+                        {
+                            "key": "field_ed08e57fc344676e",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "textarea",
+                            "wrapper": {
+                                "width": "60",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 3,
+                            "new_lines": "br"
+                        },
+                        {
+                            "key": "field_6583bec7eef95d14",
+                            "label": "CF7 form",
+                            "name": "form",
+                            "type": "post_object",
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "instructions": "[vtf_product product] adds the product name to the mail.",
+                            "post_type": [
+                                "wpcf7_contact_form"
+                            ],
+                            "return_format": "id",
+                            "allow_null": 1,
+                            "multiple": 0,
+                            "ui": 1
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_20a5801caf8a130d": {
+                    "key": "layout_20a5801caf8a130d",
+                    "name": "product_related",
+                    "label": "Product: «Try also»",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_963668034c5bbff3",
+                            "label": "Hide block",
+                            "name": "product_related_hide",
+                            "type": "true_false",
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "ui": 1,
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_14bd128e48547ac5",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "wrapper": {
+                                "width": "60",
+                                "class": "",
+                                "id": ""
+                            },
+                            "instructions": "Line break = new line. *Word* = colour marker.",
+                            "rows": 2,
+                            "new_lines": "br"
+                        },
+                        {
+                            "key": "field_cbc1eb99155ad9be",
+                            "label": "Title tag",
+                            "name": "title_tag",
+                            "type": "select",
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "h1": "H1",
+                                "h2": "H2",
+                                "h3": "H3",
+                                "h4": "H4",
+                                "h5": "H5",
+                                "h6": "H6",
+                                "p": "Paragraph (no heading)"
+                            },
+                            "default_value": "h2",
+                            "return_format": "value",
+                            "ui": 0,
+                            "allow_null": 0,
+                            "multiple": 0
+                        },
+                        {
+                            "key": "field_e6f1ff3b8e9854e6",
+                            "label": "Marker colour",
+                            "name": "title_mark",
+                            "type": "select",
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "": "— block default —",
+                                "original": "Original",
+                                "apple-pear": "Apple & Pear",
+                                "sweet-cherry": "Sweet Cherry",
+                                "berry": "Berry",
+                                "elderberry": "Elderberry",
+                                "strawberry-lime": "Strawberry & Lime",
+                                "grape-apple": "Grape & Apple",
+                                "mojito": "Mojito",
+                                "gold-apricot": "Gold Apricot"
+                            },
+                            "default_value": "",
+                            "return_format": "value",
+                            "ui": 0,
+                            "allow_null": 0,
+                            "multiple": 0
+                        },
+                        {
+                            "key": "field_f27a7a2a3c48d4c4",
+                            "label": "Link on the right",
+                            "name": "link",
+                            "type": "group",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_8871d12c2f001f58",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "100",
+                                        "class": "",
+                                        "id": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_32aea45d389386f2",
+                                    "label": "Link type",
+                                    "name": "type",
+                                    "type": "select",
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": {
+                                        "none": "None",
+                                        "page": "Page of the site",
+                                        "custom": "Custom link / #anchor",
+                                        "modal": "Popup"
+                                    },
+                                    "default_value": "none",
+                                    "return_format": "value",
+                                    "ui": 0,
+                                    "allow_null": 0,
+                                    "multiple": 0
+                                },
+                                {
+                                    "key": "field_3650705ff0f57efa",
+                                    "label": "Page",
+                                    "name": "page",
+                                    "type": "page_link",
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_32aea45d389386f2",
+                                                "operator": "==",
+                                                "value": "page"
+                                            }
+                                        ]
+                                    ],
+                                    "post_type": [
+                                        "page",
+                                        "post",
+                                        "vtf_product"
+                                    ],
+                                    "allow_null": 1,
+                                    "allow_archives": 0,
+                                    "multiple": 0
+                                },
+                                {
+                                    "key": "field_ec7934639e6b6f49",
+                                    "label": "Address",
+                                    "name": "url",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "35",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "instructions": "https://… or #where",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_32aea45d389386f2",
+                                                "operator": "==",
+                                                "value": "custom"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "key": "field_43e9319942044be7",
+                                    "label": "New tab",
+                                    "name": "new_tab",
+                                    "type": "true_false",
+                                    "wrapper": {
+                                        "width": "15",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_32aea45d389386f2",
+                                                "operator": "==",
+                                                "value": "custom"
+                                            }
+                                        ]
+                                    ],
+                                    "ui": 1,
+                                    "default_value": 0
+                                },
+                                {
+                                    "key": "field_b7f891094522f1de",
+                                    "label": "Popup",
+                                    "name": "modal",
+                                    "type": "select",
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_32aea45d389386f2",
+                                                "operator": "==",
+                                                "value": "modal"
+                                            }
+                                        ]
+                                    ],
+                                    "choices": {
+                                        "contact": "Write to us",
+                                        "partner": "Become a partner"
+                                    },
+                                    "default_value": "contact",
+                                    "return_format": "value",
+                                    "ui": 0,
+                                    "allow_null": 0,
+                                    "multiple": 0
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_9681e17c2a761392",
+                            "label": "Max products",
+                            "name": "limit",
+                            "type": "number",
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": 8
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "button_label": "Add block",
@@ -3692,5 +4189,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794501067
+    "modified": 1794707796
 }

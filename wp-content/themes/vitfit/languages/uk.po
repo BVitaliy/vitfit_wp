@@ -970,3 +970,294 @@ msgstr "— як у блоці —"
 
 msgid "— none —"
 msgstr "— без іконки —"
+
+#, php-format
+msgid "%d out of 5"
+msgstr "%d з 5"
+
+msgid "A builder page whose blocks follow the product top on every product page (reviews, where to buy, FAQ, question form, «Try also»…)."
+msgstr "Сторінка-конструктор, чиї блоки йдуть після верху кожної сторінки товару (відгуки, де купити, FAQ, форма питання, «Спробуйте також»…)."
+
+msgid "About the product"
+msgstr "Про продукт"
+
+msgid "About the product (accordion)"
+msgstr "Про продукт (акордеон)"
+
+msgid "Add bottle"
+msgstr "Додати пляшку"
+
+msgid "Add item"
+msgstr "Додати пункт"
+
+msgid "Add review"
+msgstr "Додати відгук"
+
+msgid "Add row"
+msgstr "Додати рядок"
+
+msgid "All"
+msgstr "Всі"
+
+msgid "Anonymous"
+msgstr "Анонім"
+
+msgid "Author name"
+msgstr "Ім’я автора"
+
+msgid "Bottles on the card"
+msgstr "Пляшки на картці"
+
+msgid "By name"
+msgstr "За назвою"
+
+msgid "CF7 form"
+msgstr "Форма CF7"
+
+msgid "Card"
+msgstr "Картка"
+
+msgid "Card in the catalog"
+msgstr "Картка в каталозі"
+
+msgid "Catalog"
+msgstr "Каталог"
+
+msgid "Catalog page"
+msgstr "Сторінка каталогу"
+
+msgid "Categories"
+msgstr "Категорії"
+
+msgid "Category"
+msgstr "Категорія"
+
+msgid "Characteristics"
+msgstr "Характеристики"
+
+msgid "Close filters"
+msgstr "Закрити фільтри"
+
+msgid "Default characteristics"
+msgstr "Типові характеристики"
+
+msgid "Default perks"
+msgstr "Типові переваги"
+
+msgid "Default «About the product»"
+msgstr "Типовий «Про продукт»"
+
+msgid "E.g. «ПЕТ · 0,5 л». Empty — the product format."
+msgstr "Напр. «ПЕТ · 0,5 л». Порожньо — формат товару."
+
+msgid "Empty — all top-level categories by «Order»."
+msgstr "Порожньо — усі категорії верхнього рівня за «Порядком»."
+
+msgid "Empty — other products of the catalog."
+msgstr "Порожньо — інші товари каталогу."
+
+msgid "Empty — the category name. Line break = new line. *Word* = colour marker."
+msgstr "Порожньо — назва категорії. Перенос рядка = новий рядок. *Слово* — кольоровий маркер."
+
+msgid "Empty — the defaults from Site Settings → Catalog."
+msgstr "Порожньо — типові з «Налаштування сайту → Каталог»."
+
+msgid "Empty — the page title."
+msgstr "Порожньо — назва сторінки."
+
+msgid "Empty — the short description."
+msgstr "Порожньо — короткий опис."
+
+msgid "Filters"
+msgstr "Фільтри"
+
+msgid "Gallery: packshots"
+msgstr "Галерея: пекшоти"
+
+msgid "Gallery: photos"
+msgstr "Галерея: фото"
+
+msgid "Gallery: video"
+msgstr "Галерея: відео"
+
+#, php-format
+msgid "How do you like %s?"
+msgstr "Як вам %s?"
+
+msgid "Lead under the title"
+msgstr "Лід під заголовком"
+
+msgid "Leave a review"
+msgstr "Залишити відгук"
+
+msgid "Lifestyle photos, 1080×1350 px (4:5). Shown first."
+msgstr "Лайфстайл-фото, 1080×1350 px (4:5). Показуються першими."
+
+msgid "Line under the review"
+msgstr "Рядок під відгуком"
+
+msgid "MP4 4–8 s, plays with the button"
+msgstr "MP4 4–8 с, вмикається кнопкою"
+
+msgid "Max products"
+msgstr "Максимум товарів"
+
+msgid "Must contain [vtf_rating* rating] and [vtf_product product]. Reviews are saved for moderation."
+msgstr "Має містити [vtf_rating* rating] і [vtf_product product]. Відгуки зберігаються на модерацію."
+
+msgid "Next photo"
+msgstr "Наступне фото"
+
+msgid "Next products"
+msgstr "Наступні товари"
+
+msgid "Next reviews"
+msgstr "Наступні відгуки"
+
+msgid "No reviews yet — be the first to share your impression."
+msgstr "Відгуків ще немає — поділіться враженням першими."
+
+msgid "No such kombucha yet"
+msgstr "Такої комбучі поки немає"
+
+msgid "Not shown on the site."
+msgstr "На сайті не показується."
+
+msgid "PNG/WebP without background (front / turned / label), ~800×1880 px. Empty — the packshot or the drawn bottle."
+msgstr "PNG/WebP без фону (фронт / поворот / етикетка), ~800×1880 px. Порожньо — пекшот або намальована пляшка."
+
+msgid "Page title"
+msgstr "Заголовок сторінки"
+
+msgid "Play the video"
+msgstr "Відтворити відео"
+
+msgid "Popular"
+msgstr "Популярні"
+
+msgid "Previous photo"
+msgstr "Попереднє фото"
+
+msgid "Previous products"
+msgstr "Попередні товари"
+
+msgid "Previous reviews"
+msgstr "Попередні відгуки"
+
+msgid "Product list page"
+msgstr "Сторінка списку товарів"
+
+msgid "Product page"
+msgstr "Сторінка товару"
+
+msgid "Product page blocks"
+msgstr "Блоки сторінки товару"
+
+msgid "Product: question form"
+msgstr "Товар: форма питання"
+
+msgid "Product: reviews"
+msgstr "Товар: відгуки"
+
+msgid "Product: «Try also»"
+msgstr "Товар: «Спробуйте також»"
+
+msgid "Rating"
+msgstr "Оцінка"
+
+#, php-format
+msgid "Rating %s out of 5"
+msgstr "Рейтинг %s з 5"
+
+msgid "Remove filter:"
+msgstr "Прибрати фільтр:"
+
+msgid "Reset all filters"
+msgstr "Скинути всі фільтри"
+
+msgid "Reset filters"
+msgstr "Скинути фільтри"
+
+msgid "Review"
+msgstr "Відгук"
+
+msgid "Review popup: CF7 form"
+msgstr "Попап відгуку: форма CF7"
+
+msgid "Review popup: text"
+msgstr "Попап відгуку: текст"
+
+msgid "Reviews"
+msgstr "Відгуки"
+
+msgid "SEO text: title"
+msgstr "SEO-текст: заголовок"
+
+msgid "SEO text: under «Read more»"
+msgstr "SEO-текст: під «Читати більше»"
+
+msgid "SEO text: visible"
+msgstr "SEO-текст: видимий"
+
+msgid "Same ratio as the video"
+msgstr "Пропорції як у відео"
+
+msgid "Show"
+msgstr "Показати"
+
+msgid "Show more"
+msgstr "Показати ще"
+
+msgid "Shown on the product pages of this flavour."
+msgstr "Показується на сторінках товарів цього смаку."
+
+msgid "Sort:"
+msgstr "Сортувати:"
+
+msgid "Taste profile"
+msgstr "Смаковий профіль"
+
+msgid "Taste profile (0–5)"
+msgstr "Смаковий профіль (0–5)"
+
+msgid "Text when there are no reviews"
+msgstr "Текст, коли відгуків немає"
+
+msgid "The page with the «Catalog categories» block — breadcrumbs of categories and products lead to it."
+msgstr "Сторінка з блоком «Категорії каталогу» — на неї ведуть хлібні крихти категорій і товарів."
+
+msgid "Try another flavour or pack."
+msgstr "Спробуйте інший смак або упаковку."
+
+msgid "Up to three. The card text = the category description."
+msgstr "До трьох. Текст картки — опис категорії."
+
+msgid "Value"
+msgstr "Значення"
+
+msgid "Video poster"
+msgstr "Постер відео"
+
+msgid "Wholesale for business"
+msgstr "Оптом для бізнесу"
+
+msgid "[vtf_product product] adds the product name to the mail."
+msgstr "[vtf_product product] додає назву товару в лист."
+
+msgid "{flavor} in a text = the flavour name."
+msgstr "{flavor} у тексті — назва смаку."
+
+msgid "«Try also» products"
+msgstr "Товари «Спробуйте також»"
+
+msgid "product"
+msgid_plural "products"
+msgstr[0] "товар"
+msgstr[1] "товари"
+msgstr[2] "товарів"
+
+msgid "review"
+msgid_plural "reviews"
+msgstr[0] "відгук"
+msgstr[1] "відгуки"
+msgstr[2] "відгуків"

@@ -52,6 +52,8 @@ class VTF_Theme {
 		'vtf-flavors'      => [ 'js/app-flavors.js', 'flavors' ],
 		'vtf-reel'         => [ 'js/app-reel.js', 'all' ], // the video popup player lives here
 		'vtf-product'      => [ 'js/app-product.js', 'products' ],
+		'vtf-catalog'      => [ 'js/app-catalog.js', 'catalog' ],
+		'vtf-pdp'          => [ 'js/app-pdp.js', 'pdp' ],
 		'vtf-parallax'     => [ 'js/app-parallax.js', 'parallax' ],
 		'vtf-titles'       => [ 'js/app-titles.js', 'all' ],
 		'vtf-animations'   => [ 'js/app-animations.js', 'all' ],
@@ -174,16 +176,21 @@ class VTF_Theme {
 			return (bool) array_intersect( $layouts, $blocks );
 		};
 
+		$product  = is_singular( 'vtf_product' );
+		$category = is_tax( 'vtf_product_cat' );
+
 		return [
-			'swiper'    => $has( [ 'hero', 'benefits', 'hits', 'flavors', 'blog' ] ),
-			'fancybox'  => false,
-			'faq'       => $has( [ 'faq' ] ),
-			'more_text' => $has( [ 'seo' ] ),
+			'swiper'    => $product || $has( [ 'hero', 'benefits', 'hits', 'flavors', 'blog', 'product_reviews', 'product_related' ] ),
+			'fancybox'  => $product,
+			'faq'       => $product || $has( [ 'faq' ] ),
+			'more_text' => $category || $has( [ 'seo' ] ),
 			'hero'      => $has( [ 'hero' ] ),
 			'story'     => $has( [ 'story' ] ),
 			'flavors'   => $has( [ 'flavors' ] ),
-			'products'  => $has( [ 'hits' ] ),
+			'products'  => $category || $has( [ 'hits', 'product_related' ] ),
 			'parallax'  => $has( [ 'about', 'b2b' ] ),
+			'catalog'   => $category,
+			'pdp'       => $product,
 		];
 	}
 

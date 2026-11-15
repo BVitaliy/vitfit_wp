@@ -54,6 +54,13 @@
     (btn || input).focus();
   }
 
+  // Required radio groups (the review stars, [vtf_rating*]): the error sits on the fieldset.
+  function groupError(fieldset) {
+    var bad = !fieldset.querySelector("input:checked");
+    fieldset.classList.toggle("is-error", bad);
+    return bad;
+  }
+
   // Capture phase: runs before CF7's own submit listener, so an invalid form
   // never reaches the server.
   document.addEventListener("submit", function (event) {
@@ -61,6 +68,9 @@
     if (!form) return;
 
     var first = null;
+    form.querySelectorAll("fieldset[data-vtf-required]").forEach(function (fieldset) {
+      if (groupError(fieldset) && !first) first = fieldset.querySelector("input");
+    });
     controls(form).forEach(function (input) {
       var bad = fieldError(input);
       mark(input, bad);
@@ -84,6 +94,12 @@
     document.addEventListener(type, function (event) {
       var input = event.target;
       var form = input.closest && input.closest(FORM);
+      var group = form && input.closest("fieldset[data-vtf-required].is-error");
+      if (group) {
+        groupError(group);
+        if (!form.querySelector(".is-error")) note(form, false);
+        return;
+      }
       if (!form || !input.classList.contains("is-error")) return;
       if (!fieldError(input)) mark(input, false);
       if (!form.querySelector(".is-error")) note(form, false);
@@ -107,7 +123,9 @@
       var wrap = form.querySelector('[data-name="' + item.field + '"]');
       var input = wrap && wrap.querySelector(".field__input:not(.cselect__btn), input");
       if (!input) return;
-      mark(input, true);
+      var fieldset = input.closest("fieldset[data-vtf-required]");
+      if (fieldset) fieldset.classList.add("is-error");
+      else mark(input, true);
       if (!first) first = input;
     });
 
@@ -118,6 +136,9 @@
   document.addEventListener("wpcf7mailsent", function (event) {
     controls(event.target).forEach(function (input) {
       mark(input, false);
+    });
+    event.target.querySelectorAll("fieldset.is-error").forEach(function (fieldset) {
+      fieldset.classList.remove("is-error");
     });
     note(event.target, false);
     if (window.VitModal) window.VitModal.open("thanks");

@@ -5,7 +5,7 @@
  *
  * Content: Site Settings → Popups. A form popup without its CF7 form is left
  * out, so a button pointing at it does nothing rather than open an empty box.
- * The product review and team popups come with their pages (later stages).
+ * The review popup is printed on product pages only (Site Settings → Catalog).
  *
  * @package vitfit
  */
@@ -62,6 +62,34 @@ $vtf_close        = __( 'Close', 'vitfit' );
 				</div>
 				<div class="modal__form">
 					<?php vtf_form( $vtf_contact_form ); ?>
+				</div>
+			</div>
+		<?php } ?>
+
+		<?php $vtf_review_form = (int) vtf_option( 'review_form' ); ?>
+		<?php if ( vtf_current_product() && vtf_has_form( $vtf_review_form ) ) { ?>
+			<?php $vtf_reviewed = vtf_product_data( vtf_current_product() ); ?>
+			<div class="modal__panel modal__panel--form" data-modal="review" role="dialog" aria-modal="true" aria-labelledby="m-review">
+				<button class="btn-icon modal__close js-modal-close" type="button" aria-label="<?php echo esc_attr( $vtf_close ); ?>"><?php vtf_sprite( 'i-close' ); ?></button>
+				<div class="modal__aside">
+					<p class="h3" id="m-review"><?php echo esc_html( sprintf( /* translators: %s: product name */ __( 'How do you like %s?', 'vitfit' ), $vtf_reviewed['name'] ) ); ?></p>
+					<?php if ( '' !== trim( (string) vtf_option( 'review_text' ) ) ) { ?>
+						<p class="text-md"><?php vtf_br( vtf_option( 'review_text' ) ); ?></p>
+					<?php } ?>
+					<?php
+					vtf_bottle(
+						[
+							'flavor' => $vtf_reviewed['flavor'],
+							'pack'   => $vtf_reviewed['pack'],
+							'name'   => $vtf_reviewed['name'],
+							'image'  => $vtf_reviewed['packshot'],
+							'class'  => 'modal__bottle',
+						]
+					);
+					?>
+				</div>
+				<div class="modal__form">
+					<?php vtf_form( $vtf_review_form ); ?>
 				</div>
 			</div>
 		<?php } ?>

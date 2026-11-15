@@ -3,6 +3,19 @@
     "title": "Product",
     "fields": [
         {
+            "key": "field_ca72f6e6194a0c76",
+            "label": "Card",
+            "name": "tab_card",
+            "type": "tab",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
             "key": "field_08f633b0f003244d",
             "label": "Flavour",
             "name": "flavor",
@@ -226,6 +239,260 @@
             "preview_size": "medium",
             "library": "all",
             "mime_types": ""
+        },
+        {
+            "key": "field_aa60689d2e14d536",
+            "label": "Product page",
+            "name": "tab_page",
+            "type": "tab",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_467282869fa5bc72",
+            "label": "Lead under the title",
+            "name": "lead",
+            "type": "textarea",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — the short description.",
+            "rows": 3,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_14d65173fffda7e2",
+            "label": "Gallery: photos",
+            "name": "gallery_photos",
+            "type": "gallery",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Lifestyle photos, 1080×1350 px (4:5). Shown first.",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "insert": "append"
+        },
+        {
+            "key": "field_1b8e13c3fa8596af",
+            "label": "Gallery: packshots",
+            "name": "gallery_packs",
+            "type": "gallery",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "PNG/WebP without background (front / turned / label), ~800×1880 px. Empty — the packshot or the drawn bottle.",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "insert": "append"
+        },
+        {
+            "key": "field_eb418f209d137fc4",
+            "label": "Gallery: video",
+            "name": "video",
+            "type": "file",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "MP4 4–8 s, plays with the button",
+            "return_format": "url",
+            "library": "all",
+            "mime_types": "mp4"
+        },
+        {
+            "key": "field_1c6459a48603d4bc",
+            "label": "Video poster",
+            "name": "video_poster",
+            "type": "image",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Same ratio as the video",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_c95a567c8c84913f",
+            "label": "Characteristics",
+            "name": "specs",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — the defaults from Site Settings → Catalog.",
+            "layout": "table",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_11b7574084c33942",
+                    "label": "Name",
+                    "name": "label",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_994cbdc73f7c99bb",
+                    "label": "Value",
+                    "name": "value",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_030221428073f55b",
+            "label": "Perks",
+            "name": "perks",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — the defaults from Site Settings → Catalog.",
+            "layout": "table",
+            "button_label": "Add perk",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_7079af28509d2c18",
+                    "label": "Icon",
+                    "name": "icon",
+                    "type": "select",
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "": "— none —",
+                        "tea": "Tea",
+                        "drop": "Drop",
+                        "leaf": "Leaf",
+                        "heart": "Heart",
+                        "clock": "Clock",
+                        "bubbles": "Bubbles",
+                        "pack": "Pack",
+                        "snow": "Snowflake",
+                        "trend": "Growth",
+                        "truck": "Truck",
+                        "megaphone": "Megaphone"
+                    },
+                    "default_value": "",
+                    "return_format": "value",
+                    "ui": 0,
+                    "allow_null": 0,
+                    "multiple": 0
+                },
+                {
+                    "key": "field_3c018942ff90921f",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_a981cac3bb04434e",
+            "label": "About the product (accordion)",
+            "name": "details",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — the defaults from Site Settings → Catalog.",
+            "layout": "block",
+            "button_label": "Add item",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_459605e51517a58f",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_5df7a5650bfc149d",
+                    "label": "Text",
+                    "name": "content",
+                    "type": "wysiwyg",
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 1
+                }
+            ]
+        },
+        {
+            "key": "field_dff896cd37d6a058",
+            "label": "«Try also» products",
+            "name": "related",
+            "type": "relationship",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — other products of the catalog.",
+            "post_type": [
+                "vtf_product"
+            ],
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 0,
+            "elements": ""
         }
     ],
     "location": [
@@ -246,5 +513,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794501067
+    "modified": 1794707796
 }

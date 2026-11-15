@@ -469,7 +469,7 @@ function vtf_feature_icon( $name ): void {
 
 /**
  * Breadcrumbs (markup: `.breadcrumbs` in the page tops): Home → parents → current.
- * Later stages extend the trail for products, posts and categories.
+ * Catalog categories and products go through the catalog page (Site Settings → Catalog).
  *
  * @param string $class Extra class, e.g. 'breadcrumbs--light'.
  */
@@ -480,6 +480,33 @@ function vtf_breadcrumbs( string $class = '' ): void {
 			'url'   => vtf_home_url(),
 		],
 	];
+
+	$catalog = vtf_catalog_page_id();
+
+	if ( is_tax( 'vtf_product_cat' ) || is_singular( 'vtf_product' ) ) {
+		if ( $catalog ) {
+			$trail[] = [
+				'title' => get_the_title( $catalog ),
+				'url'   => (string) get_permalink( $catalog ),
+			];
+		}
+
+		$term = is_tax() ? get_queried_object() : vtf_product_category( get_queried_object_id() );
+
+		if ( $term instanceof WP_Term ) {
+			foreach ( array_reverse( get_ancestors( $term->term_id, $term->taxonomy, 'taxonomy' ) ) as $parent ) {
+				$trail[] = [
+					'title' => get_term( $parent )->name,
+					'url'   => (string) get_term_link( $parent ),
+				];
+			}
+
+			$trail[] = [
+				'title' => $term->name,
+				'url'   => is_tax() ? '' : (string) get_term_link( $term ),
+			];
+		}
+	}
 
 	if ( is_singular() ) {
 		foreach ( array_reverse( get_post_ancestors( get_queried_object_id() ) ) as $ancestor ) {

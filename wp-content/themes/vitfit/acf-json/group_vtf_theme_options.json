@@ -1383,6 +1383,230 @@
             ]
         },
         {
+            "key": "field_25f66da58c5a8d6f",
+            "label": "Catalog",
+            "name": "tab_catalog",
+            "type": "tab",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_fb32ad282a30b3ef",
+            "label": "Catalog page",
+            "name": "catalog_page",
+            "type": "post_object",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "The page with the «Catalog categories» block — breadcrumbs of categories and products lead to it.",
+            "post_type": [
+                "page"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_2d5bebd8583b6636",
+            "label": "Product page blocks",
+            "name": "product_template",
+            "type": "post_object",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "A builder page whose blocks follow the product top on every product page (reviews, where to buy, FAQ, question form, «Try also»…).",
+            "post_type": [
+                "page"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_ecdd413cb5842073",
+            "label": "Review popup: CF7 form",
+            "name": "review_form",
+            "type": "post_object",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Must contain [vtf_rating* rating] and [vtf_product product]. Reviews are saved for moderation.",
+            "post_type": [
+                "wpcf7_contact_form"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_21b4db773b65aa1f",
+            "label": "Review popup: text",
+            "name": "review_text",
+            "type": "textarea",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_d38839aec0857f2e",
+            "label": "Default characteristics",
+            "name": "product_specs",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_5aca11224a7c0c5e",
+                    "label": "Name",
+                    "name": "label",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_206afc0c2323f29c",
+                    "label": "Value",
+                    "name": "value",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_fa862370ac98f3c5",
+            "label": "Default perks",
+            "name": "product_perks",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Add perk",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_d83201ebe8993971",
+                    "label": "Icon",
+                    "name": "icon",
+                    "type": "select",
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "": "— none —",
+                        "tea": "Tea",
+                        "drop": "Drop",
+                        "leaf": "Leaf",
+                        "heart": "Heart",
+                        "clock": "Clock",
+                        "bubbles": "Bubbles",
+                        "pack": "Pack",
+                        "snow": "Snowflake",
+                        "trend": "Growth",
+                        "truck": "Truck",
+                        "megaphone": "Megaphone"
+                    },
+                    "default_value": "",
+                    "return_format": "value",
+                    "ui": 0,
+                    "allow_null": 0,
+                    "multiple": 0
+                },
+                {
+                    "key": "field_68979c1d728c831d",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_95175e19762165e8",
+            "label": "Default «About the product»",
+            "name": "product_details",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "{flavor} in a text = the flavour name.",
+            "layout": "block",
+            "button_label": "Add item",
+            "min": 0,
+            "max": 0,
+            "sub_fields": [
+                {
+                    "key": "field_4cf433b051cf2152",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_310a665c49da3490",
+                    "label": "Text",
+                    "name": "content",
+                    "type": "wysiwyg",
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 1
+                }
+            ]
+        },
+        {
             "key": "field_2c9b17d79afdd1bb",
             "label": "404",
             "name": "tab_404",
@@ -1556,5 +1780,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794501067
+    "modified": 1794707796
 }

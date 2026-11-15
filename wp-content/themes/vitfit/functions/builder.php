@@ -37,15 +37,27 @@ const VTF_PAIR_SPACERS = [
 ];
 
 /**
+ * Page whose builder renders on the current view: the queried page, or — on a
+ * product page — the shared «Product page blocks» page (Site Settings → Catalog).
+ */
+function vtf_builder_source_id(): int {
+	if ( is_singular( 'vtf_product' ) ) {
+		return vtf_product_template_id();
+	}
+
+	return is_singular() ? (int) get_queried_object_id() : 0;
+}
+
+/**
  * Visible builder rows of a post.
  *
- * @param int $post_id Post ID; defaults to the queried object.
+ * @param int $post_id Post ID; defaults to the current view's source (vtf_builder_source_id()).
  * @return array[] Rows with `acf_fc_layout`.
  */
 function vtf_builder_rows( int $post_id = 0 ): array {
 	static $cache = [];
 
-	$post_id = $post_id ? $post_id : (int) get_queried_object_id();
+	$post_id = $post_id ? $post_id : vtf_builder_source_id();
 
 	if ( ! $post_id ) {
 		return [];
@@ -121,10 +133,6 @@ function vtf_render_builder( int $post_id = 0 ): void {
  * @param string[] $layouts Layout names.
  */
 function vtf_has_layout( array $layouts ): bool {
-	if ( ! is_singular() ) {
-		return false;
-	}
-
 	$used = array_column( vtf_builder_rows(), 'acf_fc_layout' );
 
 	return (bool) array_intersect( $layouts, $used );

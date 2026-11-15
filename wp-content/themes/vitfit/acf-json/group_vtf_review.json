@@ -1,0 +1,92 @@
+{
+    "key": "group_vtf_review",
+    "title": "Review",
+    "fields": [
+        {
+            "key": "field_2f74b7f1beeed3c9",
+            "label": "Product",
+            "name": "product",
+            "type": "post_object",
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "required": 1,
+            "post_type": [
+                "vtf_product"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_3417b9eb51332b94",
+            "label": "Rating",
+            "name": "rating",
+            "type": "select",
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "required": 1,
+            "choices": {
+                "5": "5",
+                "4": "4",
+                "3": "3",
+                "2": "2",
+                "1": "1"
+            },
+            "default_value": "5",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_a2bce8d9d8a1f92a",
+            "label": "E-mail",
+            "name": "email",
+            "type": "text",
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Not shown on the site."
+        },
+        {
+            "key": "field_0f6ee8591d7eaa23",
+            "label": "Line under the review",
+            "name": "meta",
+            "type": "text",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "E.g. «ПЕТ · 0,5 л». Empty — the product format."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "vtf_review"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794707796
+}

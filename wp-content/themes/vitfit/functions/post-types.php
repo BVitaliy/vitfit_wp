@@ -8,6 +8,8 @@
  * - vtf_shop         Where to buy: partner chains / online shops (logo + link).
  * - vtf_shop_type    Shop groups for the "Where to buy" page tabs.
  * - vtf_faq          FAQ questions (title = question, editor = answer).
+ * - vtf_review       Product reviews (title = author, editor = text): sent from the review
+ *                    popup as «Pending», published by an editor (moderation).
  *
  * Order in lists = “Order” (menu_order) in the item's Page Attributes.
  * Labels are English sources, translated by languages/uk.po.
@@ -129,6 +131,19 @@ class VTF_Post_Types {
 		);
 
 		register_post_type(
+			'vtf_review',
+			[
+				'labels'              => $this->type_labels( __( 'Reviews', 'vitfit' ), __( 'Review', 'vitfit' ), __( 'Add review', 'vitfit' ) ),
+				'public'              => false,
+				'show_ui'             => true,
+				'show_in_menu'        => 'edit.php?post_type=vtf_product',
+				'exclude_from_search' => true,
+				'supports'            => [ 'title', 'editor' ],
+				'show_in_rest'        => false,
+			]
+		);
+
+		register_post_type(
 			'vtf_faq',
 			[
 				'labels'              => $this->type_labels( __( 'FAQ', 'vitfit' ), __( 'Question', 'vitfit' ), __( 'Add question', 'vitfit' ) ),
@@ -152,6 +167,7 @@ class VTF_Post_Types {
 			'vtf_product' => __( 'Product name, e.g. Apple & Pear', 'vitfit' ),
 			'vtf_shop'    => __( 'Shop name', 'vitfit' ),
 			'vtf_faq'     => __( 'Question', 'vitfit' ),
+			'vtf_review'  => __( 'Author name', 'vitfit' ),
 		];
 
 		return $map[ $post->post_type ] ?? (string) $placeholder;

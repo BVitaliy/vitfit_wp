@@ -1,0 +1,231 @@
+{
+    "key": "group_vtf_product_cat",
+    "title": "Catalog category",
+    "fields": [
+        {
+            "key": "field_1b33751583c19b15",
+            "label": "Card in the catalog",
+            "name": "tab_card",
+            "type": "tab",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_918b7e05e3190856",
+            "label": "Card colour",
+            "name": "color",
+            "type": "select",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "original": "Original",
+                "apple-pear": "Apple & Pear",
+                "sweet-cherry": "Sweet Cherry",
+                "berry": "Berry",
+                "elderberry": "Elderberry",
+                "strawberry-lime": "Strawberry & Lime",
+                "grape-apple": "Grape & Apple",
+                "mojito": "Mojito",
+                "gold-apricot": "Gold Apricot"
+            },
+            "default_value": "sweet-cherry",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_7247cc66c11eabfd",
+            "label": "Order",
+            "name": "order",
+            "type": "number",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0
+        },
+        {
+            "key": "field_fb85de1b2bae19e7",
+            "label": "Bottles on the card",
+            "name": "packs",
+            "type": "repeater",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Up to three. The card text = the category description.",
+            "layout": "table",
+            "button_label": "Add bottle",
+            "min": 0,
+            "max": 3,
+            "sub_fields": [
+                {
+                    "key": "field_f42db5240a03522f",
+                    "label": "Flavour",
+                    "name": "flavor",
+                    "type": "taxonomy",
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "taxonomy": "vtf_flavor",
+                    "field_type": "select",
+                    "add_term": 0,
+                    "save_terms": 0,
+                    "load_terms": 0,
+                    "return_format": "id",
+                    "allow_null": 1,
+                    "multiple": 0
+                },
+                {
+                    "key": "field_2fe19a53b8c04460",
+                    "label": "Pack",
+                    "name": "pack",
+                    "type": "select",
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "pet": "PET bottle",
+                        "can": "Can",
+                        "glass": "Glass bottle"
+                    },
+                    "default_value": "pet",
+                    "return_format": "value",
+                    "ui": 0,
+                    "allow_null": 0,
+                    "multiple": 0
+                }
+            ]
+        },
+        {
+            "key": "field_26eea674cbb76435",
+            "label": "Product list page",
+            "name": "tab_list",
+            "type": "tab",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_d6f996a3e5964cef",
+            "label": "Page title",
+            "name": "title",
+            "type": "textarea",
+            "wrapper": {
+                "width": "60",
+                "class": "",
+                "id": ""
+            },
+            "instructions": "Empty — the category name. Line break = new line. *Word* = colour marker.",
+            "rows": 2,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_44eeaf37d6e39b0e",
+            "label": "Marker colour",
+            "name": "title_mark",
+            "type": "select",
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "": "— block default —",
+                "original": "Original",
+                "apple-pear": "Apple & Pear",
+                "sweet-cherry": "Sweet Cherry",
+                "berry": "Berry",
+                "elderberry": "Elderberry",
+                "strawberry-lime": "Strawberry & Lime",
+                "grape-apple": "Grape & Apple",
+                "mojito": "Mojito",
+                "gold-apricot": "Gold Apricot"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_9dc32775b81426dc",
+            "label": "SEO text: title",
+            "name": "seo_title",
+            "type": "text",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_633e6fe01381879b",
+            "label": "SEO text: visible",
+            "name": "seo_visible",
+            "type": "wysiwyg",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        },
+        {
+            "key": "field_8a3db1321dea318b",
+            "label": "SEO text: under «Read more»",
+            "name": "seo_hidden",
+            "type": "wysiwyg",
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "vtf_product_cat"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794707796
+}

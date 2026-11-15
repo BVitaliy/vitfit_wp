@@ -35,6 +35,7 @@ require_once VTF_DIR . '/functions/menus.php';
 require_once VTF_DIR . '/functions/builder.php';
 require_once VTF_DIR . '/functions/post-types.php';
 require_once VTF_DIR . '/functions/products.php';
+require_once VTF_DIR . '/functions/catalog.php';
 require_once VTF_DIR . '/functions/cards.php';
 require_once VTF_DIR . '/functions/faq.php';
 require_once VTF_DIR . '/functions/search.php';
@@ -47,6 +48,7 @@ require_once VTF_DIR . '/functions/admin-editor.php';
 if ( is_admin() ) {
 	require_once VTF_DIR . '/functions/admin-duplicate.php';
 	require_once VTF_DIR . '/functions/admin-block-previews.php';
+	require_once VTF_DIR . '/functions/admin-reviews.php';
 }
 
 require_once VTF_DIR . '/functions/class-admin-bar.php';
